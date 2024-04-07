@@ -1,0 +1,112 @@
+html{
+	background-color: rgb(248, 236, 241);
+}
+
+body{
+	display: flex;
+    justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+
+
+.tittleM {
+	color: rgb(219, 6, 104); 
+	font-size: 60px;
+	font-family: "Lilita One", sans-serif;
+	margin-bottom: 2px;
+}
+
+
+.cuadroInfo{
+	display: flex;
+	height: 1000px;
+	width: 800px;
+	border: 10px solid rgb(219, 6, 104);
+	border-radius: 20px;
+	background-color: white;
+
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+.cuadroDats{
+	display: flex;
+	height: 900px;
+	width: 700px;
+	flex-direction: column;
+}
+
+.solDatos{
+	color: rgb(183, 19, 113); 
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+}
+
+.infoIO{
+	/*border: 1px solid blue;*/
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+	justify-content: space-between;
+}
+
+
+.iDat{
+	height: 40px;
+	width: 365px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(219, 6, 104);
+}
+
+.iDatF{
+	height: 40px;
+	width: 365px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 17px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(219, 6, 104);
+}
+
+.iDatFN{
+	height: 40px;
+	width: 365px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(219, 6, 104);
+}
+
+
+.fotoPer{
+	height: 300px;
+	width: 300px;
+}
+
+.avatar{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 50px;
+}
+
+.solDatosA{
+	color: rgb(233, 156, 179); 
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	margin-bottom: 0px;
+}
