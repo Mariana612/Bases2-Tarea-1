@@ -7,9 +7,10 @@ body{
     justify-content: center;
 	align-items: center;
 	align-content: center;
+	flex-direction: column;
 }
 
-
+/*PARTE DE REGISTRARSE*/
 .tittleM {
 	color: rgb(219, 6, 104); 
 	font-size: 60px;
@@ -17,10 +18,9 @@ body{
 	margin-bottom: 2px;
 }
 
-
-.cuadroInfo{
-	display: flex;
-	height: 1000px;
+.cuadroInfoR{
+	display: none;
+	height: 1050px;
 	width: 800px;
 	border: 10px solid rgb(219, 6, 104);
 	border-radius: 20px;
@@ -46,13 +46,11 @@ body{
 }
 
 .infoIO{
-	/*border: 1px solid blue;*/
 	display: flex;
 	flex-direction: row;
 	margin: 10px;
 	justify-content: space-between;
 }
-
 
 .iDat{
 	height: 40px;
@@ -90,7 +88,6 @@ body{
 	border-bottom: 3px solid rgb(219, 6, 104);
 }
 
-
 .fotoPer{
 	height: 300px;
 	width: 300px;
@@ -109,4 +106,175 @@ body{
 	font-size: 22px;
 	font-family: "Poppins", sans-serif;
 	margin-bottom: 0px;
+}
+
+.botonR{
+	height: 50px;
+	width: 200px;
+	margin-right: 50px;
+	margin-bottom: 15px;
+
+	background-color: rgb(183, 19, 113);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 20px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
+.apBtnR{
+	display: flex;
+	width: 800px;
+	margin: 15px;
+	margin-top: 5px;
+	justify-content: end;
+
+}
+
+
+
+
+/*BARRA SUPERIOR */
+.botonesR{
+	height: 50px;
+	width: 200px;
+	margin: 10px;
+
+	background-color: rgb(219, 6, 104);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 20px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
+.botonesI{
+	height: 50px;
+	width: 200px;
+	margin: 10px;
+
+	background-color: rgb(118, 23, 128);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 20px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
+
+.barraSup{
+	height: 100px;
+	width: 800px;
+
+	border: 0px solid black;
+	display: flex;
+	flex-direction: colurowmn;
+	justify-content: flex-end;
+	align-items: center;
+	margin-bottom: 50px;
+}
+
+
+
+
+/*PARTE DE INICIAR SESIÓN*/
+.cuadroInfoI{
+	display: none;
+	height: 650px;
+	width: 800px;
+	border: 10px solid rgb(118, 23, 128);
+	border-radius: 20px;
+	background-color: white;
+
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	
+}
+
+.tittleM2 {
+	color: rgb(118, 23, 128); 
+	font-size: 80px;
+	font-family: "Lilita One", sans-serif;
+	margin-bottom: 2px;
+}
+
+
+.fa-solid{
+    font-size: 50px;
+    color: rgb(166, 70, 176);
+    margin-right: 10px;
+}
+
+.fa-regular{
+    font-size: 50px;
+    color: rgb(166, 70, 176);
+    margin-right: 10px;
+
+}
+
+.iDatI{
+	height: 40px;
+	width: 500px;
+	margin-left: 20px;
+
+	font-size: 30px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(166, 70, 176);
+}
+
+.apUser{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin-top: 50px;
+}
+
+.apCon{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin-top: 50px;
+}
+
+.apOlviC{
+	margin-top: 30px;
+}
+
+.botonesOC{
+	height: 50px;
+	width: 300px;
+
+	background-color: white;
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	font-style: italic;
+	color: rgb(184, 118, 192);
+}
+
+.botonesIS{
+	height: 80px;
+	width: 450px;
+	margin-top: 10px;
+
+	background-color: rgb(118, 23, 128);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 50px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
 }
