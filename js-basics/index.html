@@ -10,38 +10,74 @@
      crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div class="dataset">
+    
+        <div id="container" class="container"> 
+            <div class="dataset">
 
-        <div class="cuadroDats"> 
+                <div class="cuadroDats"> 
+                    <form action="">
+                        <h2 class="tittleM">Data Set</h2>
+                        <label>
+                            <i class="fa-solid fa-file-image"></i>
+                        </label>
 
-            <div class="infoIO">
-                <h2 class="tittleM">Data Set</h2>
-                <label>
-                    <i class="fa-solid fa-file-image"></i>
-                </label>
-            </div>
 
-            <div class="infoIO">
-                <h3 class="solDatos">Username: </h3>  
-                <output id="username" class="iDat">NombreUsuario</output>
-            </div>
-            
-            <div class="infoIO">
-                <h3 class="solDatos">Descripcion:</h3>
-                <output id="Descripcion" class="iDat">texto</output>
-            </div>
+                    <div class="infoIO">
+                        <h3 class="solDatos">Username: </h3>  
+                        <output id="username" class="iDat">NombreUsuario</output>
+                    </div>
+                    
+                    <div class="infoIO">
+                        <h3 class="solDatos">Descripcion:</h3>
+                        <output id="Descripcion" class="iDat">texto</output>
+                    </div>
 
-            <div class="infoIO">
-                <h3 class="solDatos">Fecha de inclusion:</h3>
-                <output id="fecha" class="iDat">dd/mm/yyyy</output>
+                    <div class="infoIO">
+                        <h3 class="solDatos">Fecha de inclusion:</h3>
+                        <output id="fecha" class="iDat">dd/mm/yyyy</output>
 
-            </div>
-            <div class="infoIO">
-                <h3 class="solDatos">documento subido:</h3>
-                <output id="fecha" class="iDat">Documento</output>
+                    </div>
+                    <div class="infoIO">
+                        <h3 class="solDatos">documento subido:</h3>
+                        <output id="fecha" class="iDat">documento</output>
 
-            </div>
-            
+                    </div>
+                    
+                </div>
+            </div>   
         </div>
+        <div id="comentarios" class="comentarios"> 
+            <div class="dataset">
+
+                <div class="cuadroDats"> 
+                    <form action="">
+                        <h4 class="tittleM">Commentarios</h4>
+
+                    <div class="infoIO">
+                        <h4 class="solDatos">Username: </h4>  
+                        <output id="username" class="iDat">Comentario x</output>
+                    </div>
+                    
+                </div>
+            </div>   
+        </div>
+    
+    <script src="main.js"></script> 
 </body>
 </html>
+
+
+    <!-- <form action="">
+    <h1 class="tittle">Log In</h1>
+    <label>
+        <i class="fa-regular fa-user"></i>
+        <input type="text" id = "username">
+    </label>
+    <label>
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id = "password">
+    </label>
+    <a href="#" class = "link">Olvidaste tu contraseña</a>
+    <button id = "buttonPass">Login</button>
+    </form>
+    <script src="main.js"></script> -->

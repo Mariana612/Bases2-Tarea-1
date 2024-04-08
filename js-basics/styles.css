@@ -1,10 +1,75 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
 }
 
+
+.dataset {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    height: 25%; 
+    width: 800px;
+    border: 10px solid rgb(219, 6, 104);
+    border-radius: 20px;
+    background-color: white;
+    margin-bottom: 20px; 
+}
+
+.tittleM {
+    color: rgb(219, 6, 104);
+    font-size: 60px;
+    margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+form label .fa-solid {
+    font-size: 100px;
+    color: rgb(183, 19, 113);
+}
+
+.cuadroDats {
+    display: flex;
+    flex-direction: column;
+    width: 80%; /* Adjust width as needed */
+    max-height: 90%; /* Adjust max-height as needed */
+    overflow: auto; /* Add overflow to enable scrolling if content exceeds height */
+    padding: 20px; /* Add padding to the content */
+}
+
+.solDatos {
+    color: rgb(183, 19, 113);
+    font-size: 22px;
+    font-family: "Poppins", sans-serif;
+}
+
+.infoIO {
+    display: flex;
+    flex-direction: row;
+    margin: 5%; /* Adjust margin as needed */
+}
+
+.iDat {
+    height: 40px;
+    width: 365px;
+    margin-top: 16px;
+    margin-left: 20px;
+    font-size: 22px;
+    font-family: "Poppins", sans-serif;
+    border: 0px;
+    border-bottom: 3px solid rgb(219, 6, 104);
+}
+
+.infoIO output#username {
+    margin-top: 0px; /* Increase top margin to 20 pixels */
+}
+.infoIO output#Descripcion {
+    margin-top: 0px; /* Increase top margin to 20 pixels */
+}
+
+/*
 body{
     display: flex;
     align-items: center;
@@ -45,4 +110,5 @@ form label .fa-regular{
     color: #1b0779;
     margin-right: 10px;
 
-}
+} */
+
