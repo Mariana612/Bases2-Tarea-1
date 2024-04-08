@@ -9,13 +9,14 @@
 .dataset {
     display: flex;
     flex-direction: column; 
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
     height: 25%; 
     width: 800px;
     border: 10px solid rgb(219, 6, 104);
     border-radius: 20px;
     background-color: white;
+    margin: 0 auto; /* Center horizontally */
     margin-bottom: 20px; 
 }
 
