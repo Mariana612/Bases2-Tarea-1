@@ -1,30 +1,17 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
+html{
+	background-color: rgb(248, 236, 241);
+}
+
+body{
+	display: flex;
+    justify-content: center;
+	align-items: center;
+	align-content: center;
+	flex-direction: column;
 }
 
 
-.dataset {
-    display: flex;
-    flex-direction: column; 
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
-    height: 25%; 
-    width: 800px;
-    border: 10px solid rgb(219, 6, 104);
-    border-radius: 20px;
-    background-color: white;
-    margin: 0 auto; /* Center horizontally */
-    margin-bottom: 20px; 
-}
 
-.tittleM {
-    color: rgb(219, 6, 104);
-    font-size: 60px;
-    margin-bottom: 20px; /* Adjust margin as needed */
-}
 
 form label .fa-solid {
     font-size: 100px;
@@ -40,29 +27,6 @@ form label .fa-solid {
     padding: 20px; /* Add padding to the content */
 }
 
-.solDatos {
-    color: rgb(183, 19, 113);
-    font-size: 22px;
-    font-family: "Poppins", sans-serif;
-}
-
-.infoIO {
-    display: flex;
-    flex-direction: row;
-    margin: 5%; /* Adjust margin as needed */
-}
-
-.iDat {
-    height: 40px;
-    width: 365px;
-    margin-top: 16px;
-    margin-left: 20px;
-    font-size: 22px;
-    font-family: "Poppins", sans-serif;
-    border: 0px;
-    border-bottom: 3px solid rgb(219, 6, 104);
-}
-
 .infoIO output#username {
     margin-top: 0px; /* Increase top margin to 20 pixels */
 }
@@ -70,46 +34,473 @@ form label .fa-solid {
     margin-top: 0px; /* Increase top margin to 20 pixels */
 }
 
-/*
-body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: linear-gradient(to right, #633ed5,#4a28ea);
-}
-form{
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    text-align: center;
-    padding: 20px 25px;
-    box-shadow: 0 5px 10px rgba(9, 2, 71, 0.7);
-}
 
-form .tittle{
-    color: #000000;
-    font-size: 35px;
-    font-weight: 800;
-    margin-bottom:  30px;
+
+
+/*REGISTRAR DATA SET*/
+.dataset {
+	display: none;
+    flex-direction: column; 
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    height: 25%; 
+    width: 800px;
+    border: 10px solid rgb(219, 6, 104);
+    border-radius: 20px;
+    background-color: white;
+    margin: 0 auto; /* Center horizontally */
+    margin-bottom: 20px; 
 }
 
-form label{
-    margin-bottom: 35px;
+.tittleMR {
+	color: rgb(219, 6, 104); 
+	font-size: 100px;
+	font-family: "Passion One", sans-serif;
+	margin-bottom: 2px;
+	margin-top: 20px;
+	align-self: center;
+}
+
+.cuadroInfoR{
+	display: none;
+	height: 1050px;
+	width: 800px;
+	border: 10px solid rgb(219, 6, 104);
+	border-radius: 20px;
+	background-color: white;
+
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+.cuadroDats{
+	display: flex;
+	height: auto;
+	width: 700px;
+	flex-direction: column;
+}
+
+.solDatos{
+	color: rgb(183, 19, 113); 
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	align-self: center;
+}
+
+.infoIO{
+	display: flex;
+	height: 50px;
+	flex-direction: row;
+	margin: 10px;
+	justify-content: space-between;
+    align-items: end;
+}
+
+.iDat{
+	height: 40px;
+	width: 365px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(219, 6, 104);
+}
+
+.iDatF{
+	height: 40px;
+	width: 365px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 17px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(219, 6, 104);
+}
+
+.iDatFN{
+	height: 40px;
+	width: 365px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(219, 6, 104);
+}
+
+.fotoPer{
+	height: 200px;
+	width: 200px;
+}
+
+.avatar{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.solDatosA{
+	color: rgb(233, 156, 179); 
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+.botonR{
+	height: 50px;
+	width: 200px;
+	margin-right: 60px;
+	margin-bottom: 15px;
+
+	background-color: rgb(183, 19, 113);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 20px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
+.apBtnR{
+	display: flex;
+	width: 800px;
+	margin: 15px;
+	margin-top: 5px;
+	justify-content: end;
+
+}
+
+.iDatI{
+	height: 40px;
+	width: 500px;
+	margin-left: 20px;
+
+	font-size: 30px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(166, 70, 176);
 }
 
 
-form label .fa-solid{
-    font-size: 20px;
-    color: #1b0779;
-    margin-right: 10px;
 
+
+/*BARRA SUPERIOR */
+.botonesR{
+	height: 50px;
+	width: 300px;
+	margin: 10px;
+
+	background-color: rgb(219, 6, 104);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 25px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
 }
 
-form label .fa-regular{
-    font-size: 20px;
-    color: #1b0779;
-    margin-right: 10px;
+.botonesI{
+	height: 50px;
+	width: 300px;
+	margin: 10px;
 
-} */
+	background-color: rgb(118, 23, 128);
+	border-radius: 8px;
+	border: 0px;
 
+	font-size: 25px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
+
+.barraSup{
+	height: 100px;
+	width: 1620px;
+
+	display: flex;
+	flex-direction: colurowmn;
+	justify-content: flex-end;
+	align-items: center;
+	margin-bottom: 30px;
+
+	border: 0px solid black;
+}
+
+
+
+
+
+
+
+/*VER UN DATA SET*/
+.tittleM {
+	color: rgb(118, 23, 128); 
+	font-size: 100px;
+	font-family: "Passion One", sans-serif;
+	margin-bottom: 2px;
+	margin-top: 20px;
+	align-self: center;
+}
+
+.tittleMV {
+	color: rgb(118, 23, 128); 
+	font-size: 100px;
+	font-family: "Passion One", sans-serif;
+	margin-bottom: 2px;
+	margin-top: 20px;
+	align-self: center;
+}
+
+.solDatosACom{
+	color: rgb(166, 70, 176); 
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+.solDatosCom{
+	color: rgb(166, 70, 176); 
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	align-self: center;
+}
+
+.datasetA{
+	display: flex;
+    flex-direction: column; 
+    justify-content: flex-start; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    height: 1120px; 
+    width: 800px;
+    border: 10px solid rgb(118, 23, 128);
+    border-radius: 20px;
+    background-color: white;
+    
+    margin-bottom: 20px; 
+}
+
+.iDatDS{
+	height: 40px;
+	width: 400px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(166, 70, 176);
+}
+
+.cuadroDatsDS{
+	display: flex;
+	height: 1100px;
+	width: 700px;
+	flex-direction: column;
+	border: 0px solid black;
+	margin-bottom: 30px;
+}
+
+.genDS{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.pr1{
+	border: 0cqb solid black;
+}
+
+.pr2{
+	border: 0px solid black;
+}
+
+.pfoto{
+	font-size: 300px;
+	color: rgb(233, 156, 179);
+}
+
+.tittleMDS {
+	color: rgb(219, 6, 104); 
+	font-size: 100px;
+	font-family: "Passion One", sans-serif;
+	margin-bottom: 2px;
+
+	margin-top: 20px;
+	align-self: flex-start;
+}
+
+.image-container{
+	border: 1px solid black;
+	width: 250px;
+	height: 230px;
+}
+
+
+
+
+/*SECCION DE COMENTARIOS*/
+.cuadroDatsC{
+	display: flex;
+	height: 750px;
+	width: 700px;
+	flex-direction: column;
+	overflow: auto;
+	margin-top: -40px;
+	border: 0px solid red;
+}
+
+.cuadroDatsC2{
+	display: flex;
+	height: 200px;
+	width: 700px;
+	flex-direction: column;
+	border: 0px solid blue;
+}
+
+
+.datasetC{
+	display: flex;
+	height: 1130px; 
+    width: 800px;
+    flex-direction: column; 
+
+	justify-content: space-between;
+    align-items: center; 
+    margin-bottom: 20px; 
+
+	border: 0px solid black;
+}
+
+
+.infoCom{
+	display: flex;
+	height: 100px;
+	flex-direction: column;
+	margin: 10px;
+	justify-content: center;
+}
+
+.verDataSet{
+	display: flex;
+	flex-direction: row;
+	border: 0px solid black;
+}
+
+.tittleMC {
+	color: rgb(118, 23, 128); 
+	font-size: 100px;
+	font-family: "Passion One", sans-serif;
+	margin-bottom: 2px;
+	margin-top: 20px;
+	align-self: flex-start;
+	margin-left: 50px;
+}
+
+
+.solDatosCmt{
+	color: rgb(166, 70, 176); 
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+.solDatosCmt2{
+	color: rgb(166, 70, 176); 
+	font-size: 30px;
+	font-family: "Poppins", sans-serif;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+.iDatCmt{
+	height: 40px;
+	width: 530px;
+	margin-top: 16px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(166, 70, 176);
+}
+
+.iDatCmt2{
+	height: 40px;
+	width: 697px;
+	margin-top: 16px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(166, 70, 176);
+	background-color: rgb(248, 236, 241);
+}
+
+.botonesC{
+	height: 50px;
+	width: 200px;
+	margin-top: 35px;
+
+	background-color: rgb(118, 23, 128);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 25px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
+
+
+/*BARRA DE BUSCAR DATA SET*/
+.barraBus{
+	display: flex;
+	height: 65px;
+	width: 1620px;
+	margin-bottom: 20px;
+
+	border-radius: 12px;
+	justify-content: space-between;
+	background-color: white;
+}
+
+.btnBB{
+	display: flex;
+	height: 65px;
+	width: 65px;
+	overflow: hidden;
+	justify-content: center;
+	border-radius: 12px;
+	border: 1px solid rgb(118, 23, 128);
+}
+
+.btnBBI{
+	height: 70px;
+	width: 68px;
+	margin: -5px;
+}
+
+.criterioBus{
+	width: 1545px;
+	border-radius: 12px;
+	border: 0px;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 30px;
+	margin: 10px;
+}
