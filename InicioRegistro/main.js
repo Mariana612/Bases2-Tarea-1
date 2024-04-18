@@ -7,6 +7,7 @@ document.getElementById('fechaInclu').textContent = formattedDate;
 function mostraOcultarI(){
     var container1 = document.getElementsByClassName("cuadroInfoI")[0];
     var container2 = document.getElementsByClassName("cuadroInfoR")[0];
+    var container3 = document.getElementsByClassName("cuadroInfoR")[0];
 
     if(container2.style.display != "none"){
         container2.style.display = "none";
