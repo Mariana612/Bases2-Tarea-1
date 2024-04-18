@@ -29,3 +29,11 @@ function mostraOcultarR(){
         container2.style.display = "none";
     }
 }
+
+function register(){
+    const nombreInput = document.getElementById('nombreInput').value;
+    const userInput = document.getElementById('userInput').value;
+    const passInput = document.getElementById('passInput').value;
+    const fechaInput = document.getElementById('fechaInput').value;
+    //document.getElementById("test").innerHTML = userInput;
+}
