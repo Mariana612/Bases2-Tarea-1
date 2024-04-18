@@ -1,0 +1,54 @@
+# se corre en la terminal
+
+docker exec -it my-postgres psql -U master -d postgresdb 
+
+--> Ahora en la terminal les deberia de salir algo como postgresdb=# ahi es donde se va a trabajar el resto
+
+# se crea la tabla 
+
+CREATE TABLE usuarios (
+    idUser serial PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password_hash VARCHAR(100) NOT NULL,
+    nombre_completo VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE
+);
+
+# se inicia el pichazo de inserts de prueba :)
+INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES ('alice123', 'pass123', 'Alice Johnson', '1995-08-10');
+
+INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES ('bob456', 'pass456', 'Bob Smith', '1990-05-15');
+
+INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES ('dave987', 'pass987', 'Dave Brown', '1985-09-20');
+
+INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES ('pame123', 'pass1233', 'Pamela Johnson', '1995-08-10');
+
+INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES ('mari456', 'pass4567', 'Mariana Smith', '1990-05-15');
+
+
+# se procede a hacer el procedure para obtener la info del usuario 
+
+CREATE OR REPLACE FUNCTION get_user_info_by_username(username_param VARCHAR)
+RETURNS TABLE (
+    id INT,
+    username VARCHAR,
+    password_hash VARCHAR,
+    nombre_completo VARCHAR,
+    fecha_nacimiento DATE
+) AS
+$$
+BEGIN
+    RETURN QUERY
+    SELECT usuarios.id, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento
+    FROM usuarios
+    WHERE usuarios.username = username_param;
+END;
+$$ LANGUAGE plpgsql;
+
+# si quiere probar la funcion haga lo siguiente 
+SELECT * FROM get_user_info_by_username('mari456');
