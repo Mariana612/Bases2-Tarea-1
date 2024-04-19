@@ -35,7 +35,7 @@ VALUES ('mari456', 'pass4567', 'Mariana Smith', '1990-05-15');
 
 CREATE OR REPLACE FUNCTION get_user_info_by_username(username_param VARCHAR)
 RETURNS TABLE (
-    id INT,
+    idUser INT,
     username VARCHAR,
     password_hash VARCHAR,
     nombre_completo VARCHAR,
@@ -44,7 +44,7 @@ RETURNS TABLE (
 $$
 BEGIN
     RETURN QUERY
-    SELECT usuarios.id, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento
+    SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento
     FROM usuarios
     WHERE usuarios.username = username_param;
 END;
