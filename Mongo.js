@@ -25,6 +25,39 @@ async function getDatasetInfo(photoId) {
 }
 
 
+
+
+
+async function insertDataset(nombre, photoId, descripcion, fotoAvatar, archivos) {
+    try {
+        await client.connect();
+        const database = client.db('dataSetDB');
+        const collection = database.collection('dataset');
+        const datasetDocument = {
+            "Nombre": nombre,
+            "PhotoId": photoId,
+            "Descripción": descripcion,
+            "Fecha de Inclusión": new Date(),
+            "Foto o avatar": fotoAvatar,
+            "Archivo(s)": archivos
+        };
+        const result = await collection.insertOne(datasetDocument);
+        return result;
+    } catch {
+        // Ensures that the client will close when you finish/error
+        await client.close();
+    }
+}
+
+// Example usage:
+
+// Insert a dataset
+insertDataset("Dataset 4", 4, "A sample dataset", "\Pagina3\imagenes\buscar.png", ["\Pagina3\imagenes\buscar.png"]).then(result => {
+    console.log('Insert Result:', result);
+}).catch(err => {
+    console.error('Insert Error:', err);
+});
+
 getDatasetInfo(1).then(result => {
     console.log('Dataset Information:', result);
 }).catch(err => {
@@ -38,5 +71,3 @@ getDatasetInfo(2).then(result => {
 }).catch(err => {
     console.error('An error occurred:', err);
 });
-
-    
