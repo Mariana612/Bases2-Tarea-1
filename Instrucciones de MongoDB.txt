@@ -1,0 +1,99 @@
+# se corre en la terminal (acuerdense de abrir mongo en coker)
+
+docker exec -it my-mongo mongosh -u root -p example --authenticationDatabase admin
+
+-> Ahora en la terminal les deberia de salir algo como test> ahi es donde se va a trabajar el resto
+
+#Crear el esquema con el que se va a trabajar 
+
+use dataSetDB
+
+#crear tabla
+
+db.createCollection("dataset", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: ["Nombre", "Descripción", "Fecha de Inclusión", "Foto o avatar", "Archivo(s)"],
+         properties: {
+            Nombre: {
+               bsonType: "string",
+               description: "Nombre of the dataset"
+            },
+            PhotoId: {
+               bsonType: "int",
+               description: "Numero de foto"
+            },
+            Descripción: {
+               bsonType: "string",
+               description: "Description of the dataset"
+            },
+            "Fecha de Inclusión": {
+               bsonType: "date",
+               description: "Date of inclusion of the dataset"
+            },
+            "Foto o avatar": {
+               bsonType: ["string", "null"],
+               description: "URL or path to the photo or avatar associated with the dataset"
+            },
+            "Archivo(s)": {
+               bsonType: ["string", "array"],
+               description: "URLs or paths to the file(s) containing the dataset data"
+            }
+         }
+      }
+   }
+});
+
+
+# para meterle varas
+
+db.dataset.insertOne({
+   Nombre: "Sample Dataset",
+   PhotoId: 1,
+   Descripción: "This is a sample dataset.",
+   "Fecha de Inclusión": new Date(),
+   "Foto o avatar": "\Pagina3\imagenes\buscar.png", // Insert the path here
+   "Archivo(s)": ["\Pagina3\imagenes\buscar.png"] // Insert the paths here
+})
+
+#para que lo prueben
+db.dataset.find()
+
+--> OH WAO SE INSERTO ALGO QUE LOCO WTF :))))
+
+#ok ahora hacemos una funcion para sacar datos modo serio
+
+function insertDataset(nombre, photoId, descripcion, fotoAvatar, archivos) {
+    // Create a new document to insert
+    var datasetDocument = {
+        "Nombre": nombre,
+        "PhotoId": photoId,
+        "Descripción": descripcion,
+        "Fecha de Inclusión": new Date(),
+        "Foto o avatar": fotoAvatar,
+        "Archivo(s)": archivos
+    };
+
+    // Insert the document into the "dataset" collection
+    db.dataset.insertOne(datasetDocument);
+}
+
+#ahora a probarlo uwu 
+
+insertDataset("Prueba bonita", 2, "ay pero que locura", "\Pagina3\imagenes\buscar.png", ["\Pagina3\imagenes\buscar.png"]);
+
+db.dataset.find()
+
+#OH WAO YA SIRVEN LOS INSERTS pero que bendicioooon, ahora trabajmos con la funcion para sacar la info
+
+function getDatasetInfo(photoId) {
+    var datasetDocument = db.dataset.findOne({ "PhotoId": photoId });
+    return datasetDocument;
+}
+
+#hora vamos a porbar esto
+
+var datasetInfo = getDatasetInfo(1);
+printjson(datasetInfo);
+

@@ -47,7 +47,7 @@ async function closeConnection() {                          //Cierra la conexion
 
 //-------------------- QUERIES --------------------
 
-startClient();
-getUserData('pame123');
-getUserData('mari456');
-closeConnection();
+// startClient();
+// getUserData('pame123');
+// getUserData('mari456');
+// closeConnection();
