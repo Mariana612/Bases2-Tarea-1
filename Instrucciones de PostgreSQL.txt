@@ -15,20 +15,20 @@ CREATE TABLE usuarios (
 );
 
 # se inicia el pichazo de inserts de prueba :)
-INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
-VALUES ('alice123', 'pass123', 'Alice Johnson', '1995-08-10');
+INSERT INTO usuarios (idUser, username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES (1, 'alice123', 'pass123', 'Alice Johnson', '1995-08-10');
 
-INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
-VALUES ('bob456', 'pass456', 'Bob Smith', '1990-05-15');
+INSERT INTO usuarios (idUser, username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES (2, 'bob456', 'pass456', 'Bob Smith', '1990-05-15');
 
-INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
-VALUES ('dave987', 'pass987', 'Dave Brown', '1985-09-20');
+INSERT INTO usuarios (idUser, username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES (3, 'dave987', 'pass987', 'Dave Brown', '1985-09-20');
 
-INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
-VALUES ('pame123', 'pass1233', 'Pamela Johnson', '1995-08-10');
+INSERT INTO usuarios (idUser, username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES (4, 'pame123', 'pass1233', 'Pamela Johnson', '1995-08-10');
 
-INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
-VALUES ('mari456', 'pass4567', 'Mariana Smith', '1990-05-15');
+INSERT INTO usuarios (idUser, username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES (5, 'mari456', 'pass4567', 'Mariana Smith', '1990-05-15');
 
 
 # se procede a hacer el procedure para obtener la info del usuario 
