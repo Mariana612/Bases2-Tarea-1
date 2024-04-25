@@ -52,11 +52,11 @@ async function insertDataset(nombre, photoId, descripcion, fotoAvatar, archivos)
 // Example usage:
 
 // Insert a dataset
-insertDataset("Dataset 4", 4, "A sample dataset", "\Pagina3\imagenes\buscar.png", ["\Pagina3\imagenes\buscar.png"]).then(result => {
-    console.log('Insert Result:', result);
-}).catch(err => {
-    console.error('Insert Error:', err);
-});
+// insertDataset("Dataset 4", 4, "A sample dataset", "\Pagina3\imagenes\buscar.png", ["\Pagina3\imagenes\buscar.png"]).then(result => {
+//     console.log('Insert Result:', result);
+// }).catch(err => {
+//     console.error('Insert Error:', err);
+// });
 
 getDatasetInfo(1).then(result => {
     console.log('Dataset Information:', result);
