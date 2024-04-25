@@ -15,3 +15,4 @@ function fetchUserData() {
             document.getElementById('userInfoDisplay').innerHTML = `Error: ${error.message}`;
         });
 }
+
