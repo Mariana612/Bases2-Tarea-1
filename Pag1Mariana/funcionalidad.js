@@ -32,7 +32,9 @@ function mostraOcultarR(){
 
 function fetchUserData() {
     const username = document.getElementById('usernameInput').value;
-    fetch(`http://localhost:3001/users/${username}`)
+    const passwordHash = document.getElementById('passInput').value; // Assuming the password hash is retrieved from an input field
+
+    fetch(`http://localhost:3001/users/${username}?passwordHash=${passwordHash}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');

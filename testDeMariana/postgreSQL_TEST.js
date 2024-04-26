@@ -22,8 +22,12 @@ const pool = new Pool({
 
 app.get('/users/:username', async (req, res) => {
     const targetUsername = req.params.username;
+    const passwordHash = req.query.passwordHash; // Assuming the password hash is provided as a query parameter
     try {
-        const result = await pool.query('SELECT * FROM get_user_info_by_username($1)', [targetUsername]);
+        const result = await pool.query(
+            'SELECT * FROM get_user_info_by_username_and_password($1, $2)',
+            [targetUsername, passwordHash]
+        );
         const userInfo = result.rows[0];
         if (userInfo) {
             res.json(userInfo);
