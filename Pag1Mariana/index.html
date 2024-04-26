@@ -57,29 +57,29 @@
 
                 <div class="infoIO">
                     <h3 class="solDatos">Nombre Completo: </h3>  
-                    <input type="text" class="iDat">
+                    <input type="text" id="fullNameInput" class="iDat">
                 </div>
                 
                 <div class="infoIO">
                     <h3 class="solDatos">Fecha de Nacimiento:</h3>
-                    <input type="date" name="date" class="iDatFN" />
+                    <input type="date" id="birthdateInput" name="date" class="iDatFN" />
 
                 </div>
 
                 <div class="infoIO">
                     <h3 class="solDatos">Nombre de usuario:</h3>
-                    <input type="text" class="iDat">
+                    <input type="text" id="userInput" class="iDat">
                 </div>
 
                 <div class="infoIO">
                     <h3 class="solDatos">Contraseña:</h3>
-                    <input type="password" class="iDat">
+                    <input type="password" id="passwordInput" class="iDat">
                 </div>
                 
             </div>
 
             <div class="apBtnR">
-                <button id="btnR" class="botonR">REGISTRARME</button>
+                <button onclick="insertNewUser()" id="btnReg" class="botonR">REGISTRARME</button>
             </div>
         </div>
 

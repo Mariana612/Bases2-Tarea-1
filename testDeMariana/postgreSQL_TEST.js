@@ -36,6 +36,26 @@ app.get('/users/:username', async (req, res) => {
     }
 });
 
+app.post('/addUser', async (req, res) => {
+    const { username, password_hash, nombre_completo, fecha_nacimiento } = req.body;
+    try {
+        const result = await pool.query(
+            'SELECT add_usuario($1, $2, $3, $4)',
+            [username, password_hash, nombre_completo, fecha_nacimiento]
+        );
+        if (result.rowCount > 0) {
+            console.log({ message: 'User added successfully' });
+            res.status(201).json({ message: 'User added successfully' });
+
+        } else {
+            res.status(400).json({ error: 'No user was added' });
+        }
+    } catch (err) {
+        console.error('Error executing query:', err);
+        res.status(500).json({ error: 'Error adding user' });
+    }
+});
+
 const port = 3001;
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
