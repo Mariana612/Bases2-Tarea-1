@@ -22,3 +22,11 @@
 > y esta es quivalente add_usuarios()
 
 # en conclusion siepre va a haber un mismo codigo tres veces para hacer la conexion HTML, API Y BASE.
+
+
+POR CIERTO
+ocupan las librerias de node.js
+ocupan las librerias de express
+ocupan las librerias de mongodb
+ocupan las librerias de pg
+ocupan las librerias de cors
