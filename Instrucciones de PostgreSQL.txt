@@ -33,7 +33,10 @@ VALUES (5, 'mari456', 'pass4567', 'Mariana Smith', '1990-05-15');
 
 # se procede a hacer el procedure para obtener la info del usuario 
 
-CREATE OR REPLACE FUNCTION get_user_info_by_username(username_param VARCHAR)
+CREATE OR REPLACE FUNCTION get_user_info_by_username_and_password(
+    username_param VARCHAR,
+    password_hash_param VARCHAR
+)
 RETURNS TABLE (
     idUser INT,
     username VARCHAR,
@@ -46,9 +49,40 @@ BEGIN
     RETURN QUERY
     SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento
     FROM usuarios
-    WHERE usuarios.username = username_param;
+    WHERE usuarios.username = username_param AND usuarios.password_hash = password_hash_param;
 END;
 $$ LANGUAGE plpgsql;
 
 # si quiere probar la funcion haga lo siguiente 
-SELECT * FROM get_user_info_by_username('mari456');
+
+SELECT * FROM get_user_info_by_username_and_password('popito','popito');
+
+
+#funcion de insert 
+
+CREATE OR REPLACE FUNCTION add_usuario(
+    p_username VARCHAR,
+    p_password_hash VARCHAR,
+    p_nombre_completo VARCHAR,
+    p_fecha_nacimiento DATE
+)
+RETURNS INTEGER AS $$
+DECLARE
+    v_user_id INTEGER;
+BEGIN
+    INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
+    VALUES (p_username, p_password_hash, p_nombre_completo, p_fecha_nacimiento)
+    RETURNING idUser INTO v_user_id;
+
+    RETURN v_user_id;
+END;
+$$ LANGUAGE plpgsql;
+
+#hagan esto para arreglar inserts
+
+SELECT setval(pg_get_serial_sequence('usuarios', 'iduser'), (SELECT MAX(iduser) FROM usuarios) + 1);
+
+
+#agregar un usuario
+SELECT add_usuario('username', 'passwordHash', 'Full Name', '1990-01-01');
+
