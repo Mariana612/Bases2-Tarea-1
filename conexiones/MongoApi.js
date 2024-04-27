@@ -20,6 +20,7 @@ async function main() {
 
         const database = client.db('dataSetDB');
         const collection = database.collection('dataset');
+        const commentCollection = database.collection('dataSetComment');
 
         // API to get dataset information by photo ID
         app.get('/dataset/:dataId', async (req, res) => {
@@ -54,6 +55,33 @@ async function main() {
                 res.status(201).json(result);
             } catch (err) {
                 console.error('Failed to insert data:', err);
+                res.status(500).send('Internal Server Error');
+            }
+        });
+        app.post('/comments', async (req, res) => {
+            console.log(req.body); // Add this line to log the incoming request data
+            try {
+                const { idDataset, idUsuarioComment, comentario } = req.body;
+                const result = await commentCollection.insertOne({
+                    idDataset,
+                    idUsuarioComment,
+                    comentario
+                });
+                res.status(201).json(result);
+            } catch (err) {
+                console.error('Failed to insert comment:', err);
+                res.status(500).send('Internal Server Error');
+            }
+        });
+
+        // API to get comments by dataset ID
+        app.get('/comments/:idDataset', async (req, res) => {
+            try {
+                const idDataset = parseInt(req.params.idDataset);
+                const comments = await commentCollection.find({ idDataset }).toArray();
+                res.json(comments);
+            } catch (err) {
+                console.error('Failed to fetch comments:', err);
                 res.status(500).send('Internal Server Error');
             }
         });

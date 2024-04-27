@@ -160,17 +160,14 @@
 
         <div class="datasetC">
             <h4 class="tittleMC">COMENTARIOS</h4>
-            <div class="cuadroDatsC">
-                <div class="infoCom">
-                    <h4 class="solDatosCmt">Username: </h4>
-                    <output id="username" class="iDatCmt">Comentario x</output>
-                </div>
+            <div id="commentsContainer" class="cuadroDatsC">
+                <!-- Comments will be dynamically inserted here -->
             </div>
 
             <div class="cuadroDatsC2">
-                <h3 class="solDatosCmt2">Agregar comentario </h3>
-                <input type="text" class="iDatCmt2">
-                <button id="btnComen" class="botonesC" onclick="comentarDS()">COMENTAR</button>
+                <h3 class="solDatosCmt2">Agregar comentario</h3>
+                <input type="text" id="newCommentInput" class="iDatCmt2">
+                <button id="btnComen" class="botonesC" onclick="addComment()">COMENTAR</button>
             </div>
 
 
