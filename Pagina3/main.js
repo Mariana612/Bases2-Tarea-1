@@ -76,6 +76,13 @@ function displayDataset(dataset) {
         videoContainer.src = ''; // Handle case where there are no files
     }
 
+    const archivosElement = document.getElementById('archiId');
+    if (dataset['Archivo(s)'] && dataset['Archivo(s)'].length > 0) {
+        archivosElement.textContent = dataset['Archivo(s)'][0]; // Display the first URL
+    } else {
+        archivosElement.textContent = 'No file available'; // No file available
+    }
+
     // Refresh the video load to update the source
     document.querySelector('.video-container video').load();
 
