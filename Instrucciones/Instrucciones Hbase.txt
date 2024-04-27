@@ -1,0 +1,17 @@
+#primero nos conextamos al docker 
+npm install axios
+
+docker exec -it my-hbase hbase shell
+
+#creamos la tabla rara 
+create 'UserMessages', 'msgs'
+
+#insertamos algo
+put 'UserMessages', '001#002', 'msgs:1234567890123', 'Hello, how are you?'
+
+#chequeamos que todo sirva
+scan 'UserMessages', {ROWPREFIXFILTER => '001#002'}
+
+#success!
+
+

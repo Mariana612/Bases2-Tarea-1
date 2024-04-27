@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <div class="barraSup">
+        <button id="btnR" class="botonesR" onclick="mostraOcultarR()">CREAR DATA SET</button>
+        <button id="btnI" class="botonesI" onclick="mostraOcultarI()">VER DATA SET</button>
+    </div>
+
+
+
+
+    <div class="dataset">
+        <div class="cuadroDats">
+            <h2 class="tittleMR">DATA SET</h2>
+
+            <div class="avatar">
+                <img src="imagenes/perfil1.png" alt="Imagen de perfil" class="fotoPer">
+                <h3 class="solDatosA">Foto o avatar:</h3>
+                <input type="file" class="iDatF">
+            </div>
+
+            <div class="infoIO">
+                <h3 class="solDatos">Nombre: </h3>
+                <input type="text" class="iDat">
+            </div>
+
+            <div class="infoIO">
+                <h3 class="solDatos">Descripción:</h3>
+                <input type="text" class="iDat">
+            </div>
+
+            <div class="infoIO">
+                <h3 class="solDatos">Fecha de inclusión:</h3>
+                <output name="date" class="iDatFN" id="fechaInclu"></output>
+
+            </div>
+
+            <div class="infoIO">
+                <h3 class="solDatos">Archivo con los datos:</h3>
+                <input type="file" class="iDatF">
+            </div>
+
+            <div class="infoIO">
+                <h3 class="solDatos">Video tutorial:</h3>
+                <input type="file" class="iDatF">
+            </div>
+
+        </div>
+
+        <div class="apBtnR">
+            <button id="btnR" class="botonR">GUARDAR</button>
+        </div>
+
+    </div>
+
+
+    <div class="barraBus">
+        <input type="text" class="criterioBus"> 
+        <button type="submit" class="btnBB"> <img src="imagenes/buscar.png" class="btnBBI"> </button>
+    </div>
+    
+    <div class="verDataSet">
+        <div class="datasetA">
+            <div class="cuadroDatsDS">
+                <h2 class="tittleMV">DATA SET</h2>
+    
+                <div class="avatar">
+                    <img id= "fotoid" src="" alt="Imagen de perfil" class="fotoPer">
+                    <h3 class="solDatosACom">Foto o avatar</h3>
+                </div>
+    
+                <div class="infoIO">
+                    <h3 class="solDatosCom">Nombre: </h3>
+                    <output id="username" class="iDatDS"></output>
+                </div>
+    
+                <div class="infoIO">
+                    <h3 class="solDatosCom">Descripción:</h3>
+                    <output id="Descripcion" class="iDatDS"></output>
+                </div>
+    
+                <div class="infoIO">
+                    <h3 class="solDatosCom">Fecha de inclusión:</h3>
+                    <output id="fecha" class="iDatDS"></output>
+                </div>
+    
+                <div class="infoIO">
+                    <h3 class="solDatosCom">Archivo con los datos:</h3>
+                    <output id="archiId" class="iDatDS"></output>
+                </div>
+    
+                <div class="infoIO">
+                    <h3 class="solDatosCom">Video tutorial:</h3>
+                </div>
+                
+                <div class="video-container">
+                    <!-- Etiqueta de video -->
+                    <video controls width="100%">
+                        <!-- Fuentes del video -->
+                        <source src="" type="video/mp4">
+                        <!-- Mensaje para navegadores que no soportan el video -->
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                </div>            
+            </div>
+        </div>
+
+        
+
+
+        <div class="datasetC">
+            <h4 class="tittleMC">COMENTARIOS</h4>
+            <div class="cuadroDatsC">
+                <div class="infoCom">
+                    <h4 class="solDatosCmt">Username: </h4>
+                    <output id="username" class="iDatCmt">Comentario x</output>
+                </div>
+            </div>
+
+            <div class="cuadroDatsC2">
+                <h3 class="solDatosCmt2">Agregar comentario </h3>
+                <input type="text" class="iDatCmt2">
+                <button id="btnComen" class="botonesC" onclick="comentarDS()">COMENTAR</button>
+            </div>
+
+
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+    
+
+    
+</body>
+<script src="main.js"></script>
+</html>

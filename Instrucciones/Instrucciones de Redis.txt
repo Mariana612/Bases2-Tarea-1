@@ -1,0 +1,16 @@
+# hola hola bienvenides a mi tercer tutorial, hoy vamos a aprender a hacer la abse de datos de REDIS YAY!!
+# primero se procede correr en la terminal lo siguiente <3 <3 <3
+
+npm install redis
+
+
+#bueno eso es todo amiguex de hecho no hay nada mas que correrla todas las funciones se corren desde js
+
+---> bueno ahora, si quieren probar varas directo desde terminal igual pueden hacer la conexion de la siguiente manera:
+
+docker exec -it my-redis sh
+
+redis-cli
+
+#Listooo ya estamos conectados :D ahora todo se debe de correr en ese monton de numeros a mi me sale 127.0.0.1:6379>
+

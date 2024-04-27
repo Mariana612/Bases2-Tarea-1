@@ -1,0 +1,280 @@
+html{
+	background-color: rgb(248, 236, 241);
+}
+
+body{
+	display: flex;
+    justify-content: center;
+	align-items: center;
+	align-content: center;
+	flex-direction: column;
+}
+
+/*PARTE DE REGISTRARSE*/
+.tittleM {
+	color: rgb(219, 6, 104); 
+	font-size: 70px;
+	font-family: "Passion One", sans-serif;
+	margin-bottom: 2px;
+}
+
+.cuadroInfoR{
+	display: none;
+	height: 1050px;
+	width: 800px;
+	border: 10px solid rgb(219, 6, 104);
+	border-radius: 20px;
+	background-color: white;
+
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+.cuadroDats{
+	display: flex;
+	height: 900px;
+	width: 700px;
+	flex-direction: column;
+}
+
+.solDatos{
+	color: rgb(183, 19, 113); 
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+}
+
+.infoIO{
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+	justify-content: space-between;
+}
+
+.iDat{
+	height: 40px;
+	width: 365px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(219, 6, 104);
+}
+
+.iDatF{
+	height: 40px;
+	width: 365px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 17px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(219, 6, 104);
+}
+
+.iDatFN{
+	height: 40px;
+	width: 365px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(219, 6, 104);
+}
+
+.fotoPer{
+	height: 300px;
+	width: 300px;
+}
+
+.avatar{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 50px;
+}
+
+.solDatosA{
+	color: rgb(233, 156, 179); 
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	margin-bottom: 0px;
+}
+
+.botonR{
+	height: 50px;
+	width: 200px;
+	margin-right: 50px;
+	margin-bottom: 15px;
+
+	background-color: rgb(183, 19, 113);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 20px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
+.apBtnR{
+	display: flex;
+	width: 800px;
+	margin: 15px;
+	margin-top: 5px;
+	justify-content: end;
+
+}
+
+
+
+
+/*BARRA SUPERIOR */
+.botonesR{
+	height: 50px;
+	width: 200px;
+	margin: 10px;
+
+	background-color: rgb(219, 6, 104);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 20px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
+.botonesI{
+	height: 50px;
+	width: 200px;
+	margin: 10px;
+
+	background-color: rgb(118, 23, 128);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 20px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
+
+.barraSup{
+	height: 100px;
+	width: 800px;
+
+	border: 0px solid black;
+	display: flex;
+	flex-direction: colurowmn;
+	justify-content: flex-end;
+	align-items: center;
+	margin-bottom: 50px;
+}
+
+
+
+
+/*PARTE DE INICIAR SESIÓN*/
+.cuadroInfoI{
+	display: none;
+	height: 650px;
+	width: 800px;
+	border: 10px solid rgb(118, 23, 128);
+	border-radius: 20px;
+	background-color: white;
+
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	
+}
+
+.tittleM2 {
+	color: rgb(118, 23, 128); 
+	font-size: 95px;
+	font-family: "Passion One", sans-serif;
+	margin-bottom: 2px;
+}
+
+
+.fa-solid{
+    font-size: 50px;
+    color: rgb(166, 70, 176);
+    margin-right: 10px;
+}
+
+.fa-regular{
+    font-size: 50px;
+    color: rgb(166, 70, 176);
+    margin-right: 10px;
+
+}
+
+.iDatI{
+	height: 40px;
+	width: 500px;
+	margin-left: 20px;
+
+	font-size: 30px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(166, 70, 176);
+}
+
+.apUser{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin-top: 50px;
+}
+
+.apCon{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin-top: 50px;
+}
+
+.apOlviC{
+	margin-top: 30px;
+}
+
+.botonesOC{
+	height: 50px;
+	width: 300px;
+
+	background-color: white;
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	font-style: italic;
+	color: rgb(184, 118, 192);
+}
+
+.botonesIS{
+	height: 80px;
+	width: 450px;
+	margin-top: 10px;
+
+	background-color: rgb(118, 23, 128);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 50px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
