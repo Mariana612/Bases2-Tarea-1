@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { MongoClient } = require('mongodb');
 
 // MongoDB URI - replace with your actual URI if different
@@ -7,7 +8,9 @@ const client = new MongoClient(uri);
 
 // Create a new Express application
 const app = express();
+app.use(cors());  // This will enable CORS for all routes
 app.use(express.json()); // Middleware to parse JSON bodies
+
 
 async function main() {
     try {
