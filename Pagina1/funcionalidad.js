@@ -51,7 +51,7 @@ function fetchUserData() {
         .then(data => {
             if (data && data.iduser) {
                 sessionStorage.setItem('idUsuario', data.iduser);
-                console.log(data.iduser);
+                alert(data.iduser);
 
                 window.location.href = "Pagina3/index.html";
             } else {

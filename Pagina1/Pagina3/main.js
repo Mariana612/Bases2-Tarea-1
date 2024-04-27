@@ -175,9 +175,11 @@ function displayDataset(dataset) {
         const commentInput = document.getElementById('newCommentInput');
         const commentText = commentInput.value;
         const baseUrl = 'http://localhost:3002';
+        alert(sessionStorage.getItem('idUsuario'));
         const commentData = {
             idDataset: dataId,
-            idUsuarioComment: sessionStorage.getItem('idUsuario'), // Assuming the user ID is stored in sessionStorage
+            //idUsuarioComment: sessionStorage.getItem('idUsuario'), // Assuming the user ID is stored in sessionStorage
+            dUsuarioComment: 1,
             comentario: commentText
         };
     
