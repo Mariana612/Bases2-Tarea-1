@@ -1,3 +1,10 @@
+var boton = document.getElementById("btnOlvidaC");
+
+    boton.addEventListener("click", function() {
+        sessionStorage.setItem('idUsuario', '3');
+        window.location.href = "Pagina3/index.html";
+    });
+
 
 function mostraOcultarI(){
     var container1 = document.getElementsByClassName("cuadroInfoI")[0];
@@ -29,3 +36,5 @@ function mostraOcultarR(){
         container2.style.display = "none";
     }
 }
+
+

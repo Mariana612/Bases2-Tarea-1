@@ -3,14 +3,30 @@ var formattedDate = ('0' + fechaActual.getDate()).slice(-2) + '/' + ('0' + (fech
 document.getElementById('fechaInclu').textContent = formattedDate;
 
 
+window.onload = function() {
+    var dato = sessionStorage.getItem('idUsuario'); // Obtienes el dato desde sessionStorage
+    console.log(dato); // Usas el dato como necesites, por ejemplo, mostrarlo en consola
 
-function mostraOcultarI(){
-    var container1 = document.getElementsByClassName("cuadroInfoI")[0];
-    var container2 = document.getElementsByClassName("cuadroInfoR")[0];
-    var container3 = document.getElementsByClassName("cuadroInfoR")[0];
+    // Opcional: limpiar el sessionStorage si el dato ya no es necesario
+    sessionStorage.removeItem('idUsuario');
+};
 
-    if(container2.style.display != "none"){
+
+
+function mostraOcultarP(){
+    var container1 = document.getElementsByClassName("perfil")[0];
+
+    var container2 = document.getElementsByClassName("dataset")[0];
+
+    var container3 = document.getElementsByClassName("barraBus")[0];
+    var container4 = document.getElementsByClassName("verDataSet")[0];
+
+    
+
+    if(container4.style.display != "none" || container2.style.display != "none"){
         container2.style.display = "none";
+        container3.style.display = "none";
+        container4.style.display = "none";
     }
 
     if(container1.style.display == "none"){
@@ -21,18 +37,52 @@ function mostraOcultarI(){
 }
 
 
-function mostraOcultarR(){
-    var container1 = document.getElementsByClassName("cuadroInfoI")[0];
-    var container2 = document.getElementsByClassName("cuadroInfoR")[0];
 
-    if(container1.style.display != "none"){
+function mostraOcultarR(){
+    var container1 = document.getElementsByClassName("perfil")[0];
+
+    var container2 = document.getElementsByClassName("dataset")[0];
+
+    var container3 = document.getElementsByClassName("barraBus")[0];
+    var container4 = document.getElementsByClassName("verDataSet")[0];
+
+    
+
+    if(container4.style.display != "none" || container1.style.display != "none"){
         container1.style.display = "none";
+        container3.style.display = "none";
+        container4.style.display = "none";
     }
 
     if(container2.style.display == "none"){
         container2.style.display = "flex";
     }else{
         container2.style.display = "none";
+    }
+}
+
+
+function mostraOcultarI(){
+    var container1 = document.getElementsByClassName("perfil")[0];
+
+    var container2 = document.getElementsByClassName("dataset")[0];
+
+    var container3 = document.getElementsByClassName("barraBus")[0];
+    var container4 = document.getElementsByClassName("verDataSet")[0];
+
+    
+
+    if(container1.style.display != "none" || container2.style.display != "none"){
+        container1.style.display = "none";
+        container2.style.display = "none";
+    }
+
+    if(container4.style.display == "none"){
+        container4.style.display = "flex";
+        container3.style.display = "flex";
+    }else{
+        container4.style.display = "none";
+        container3.style.display = "none";
     }
 }
 
