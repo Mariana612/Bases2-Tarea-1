@@ -1,0 +1,32 @@
+# corra los codigos que estan en la carpeta de conexiones
+# para que funcione debe de ahber una conexion entre el HTML, API Y BASE
+
+# tomemos de ejemplo la base de postgress
+
+----> vayan a isntrucciones de postgreSQL (folder de instrucciones)
+
+> ahi van a ver la instruccion de la BASE
+> prestenle atencion a la fucion add_usuarios
+
+----> vayan a PostgreSQLApi (folder de conexiones)
+
+> ahi esta la parte del API
+> si pueden ver esta la funcion de addUser() que se comunica con la funcion anterior de la BASE
+> cada vez que se haga una funcion en la BASE se debe de tener una funcion en el API que la llame
+
+----> vayan a funcionalidad.js (folder de Pag1Mariana)
+
+> ahi esta la funcion se insertUser() esta es la parte del HTML
+> aqui el HTML se comunica con el API y el API conecta con la base
+> ahi pueden ver la funcion insertNewUser() que es lo equivalente a la funcion addUser()
+> y esta es quivalente add_usuarios()
+
+# en conclusion siepre va a haber un mismo codigo tres veces para hacer la conexion HTML, API Y BASE.
+
+
+POR CIERTO
+ocupan las librerias de node.js
+ocupan las librerias de express
+ocupan las librerias de mongodb
+ocupan las librerias de pg
+ocupan las librerias de cors

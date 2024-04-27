@@ -1,0 +1,88 @@
+# se corre en la terminal
+
+docker exec -it my-postgres psql -U master -d postgresdb 
+
+--> Ahora en la terminal les deberia de salir algo como postgresdb=# ahi es donde se va a trabajar el resto
+
+# se crea la tabla 
+
+CREATE TABLE usuarios (
+    idUser serial PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password_hash VARCHAR(100) NOT NULL,
+    nombre_completo VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE
+);
+
+# se inicia el pichazo de inserts de prueba :)
+INSERT INTO usuarios (idUser, username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES (1, 'alice123', 'pass123', 'Alice Johnson', '1995-08-10');
+
+INSERT INTO usuarios (idUser, username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES (2, 'bob456', 'pass456', 'Bob Smith', '1990-05-15');
+
+INSERT INTO usuarios (idUser, username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES (3, 'dave987', 'pass987', 'Dave Brown', '1985-09-20');
+
+INSERT INTO usuarios (idUser, username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES (4, 'pame123', 'pass1233', 'Pamela Johnson', '1995-08-10');
+
+INSERT INTO usuarios (idUser, username, password_hash, nombre_completo, fecha_nacimiento)
+VALUES (5, 'mari456', 'pass4567', 'Mariana Smith', '1990-05-15');
+
+
+# se procede a hacer el procedure para obtener la info del usuario 
+
+CREATE OR REPLACE FUNCTION get_user_info_by_username_and_password(
+    username_param VARCHAR,
+    password_hash_param VARCHAR
+)
+RETURNS TABLE (
+    idUser INT,
+    username VARCHAR,
+    password_hash VARCHAR,
+    nombre_completo VARCHAR,
+    fecha_nacimiento DATE
+) AS
+$$
+BEGIN
+    RETURN QUERY
+    SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento
+    FROM usuarios
+    WHERE usuarios.username = username_param AND usuarios.password_hash = password_hash_param;
+END;
+$$ LANGUAGE plpgsql;
+
+# si quiere probar la funcion haga lo siguiente 
+
+SELECT * FROM get_user_info_by_username_and_password('popito','popito');
+
+
+#funcion de insert 
+
+CREATE OR REPLACE FUNCTION add_usuario(
+    p_username VARCHAR,
+    p_password_hash VARCHAR,
+    p_nombre_completo VARCHAR,
+    p_fecha_nacimiento DATE
+)
+RETURNS INTEGER AS $$
+DECLARE
+    v_user_id INTEGER;
+BEGIN
+    INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
+    VALUES (p_username, p_password_hash, p_nombre_completo, p_fecha_nacimiento)
+    RETURNING idUser INTO v_user_id;
+
+    RETURN v_user_id;
+END;
+$$ LANGUAGE plpgsql;
+
+#hagan esto para arreglar inserts
+
+SELECT setval(pg_get_serial_sequence('usuarios', 'iduser'), (SELECT MAX(iduser) FROM usuarios) + 1);
+
+
+#agregar un usuario
+SELECT add_usuario('username', 'passwordHash', 'Full Name', '1990-01-01');
+
