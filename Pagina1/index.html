@@ -23,12 +23,12 @@
 
             <div class="apUser">
                 <i class="fa-regular fa-user"></i>
-                <input type="text" class="iDatI" placeholder="Nombre de Usuario">
+                <input type="text" id="usernameInput" class="iDatI" placeholder="Nombre de Usuario">
             </div>
 
             <div class="apCon">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" class="iDatI" placeholder="Contraseña">
+                <input type="password" id="passInput" class="iDatI" placeholder="Contraseña">
             </div>
             
             <div class="apOlviC">
@@ -36,7 +36,8 @@
             </div>
 
             
-            <button id="btnOlvidaC" class="botonesIS">INICIAR SESIÓN</button>
+            <button onclick="fetchUserData()" id="btnOlvidaC" class="botonesIS">INICIAR SESIÓN</button>
+            <div id="userInfoDisplay"></div>
 
 
         </div>
@@ -55,29 +56,29 @@
 
                 <div class="infoIO">
                     <h3 class="solDatos">Nombre Completo: </h3>  
-                    <input type="text" class="iDat">
+                    <input type="text" id="fullNameInput" class="iDat">
                 </div>
                 
                 <div class="infoIO">
                     <h3 class="solDatos">Fecha de Nacimiento:</h3>
-                    <input type="date" name="date" class="iDatFN" />
+                    <input type="date" id="birthdateInput" name="date" class="iDatFN" />
 
                 </div>
 
                 <div class="infoIO">
                     <h3 class="solDatos">Nombre de usuario:</h3>
-                    <input type="text" class="iDat">
+                    <input type="text" id="userInput" class="iDat">
                 </div>
 
                 <div class="infoIO">
                     <h3 class="solDatos">Contraseña:</h3>
-                    <input type="password" class="iDat">
+                    <input type="password" id="passwordInput" class="iDat">
                 </div>
                 
             </div>
 
             <div class="apBtnR">
-                <button id="btnR" class="botonR">REGISTRARME</button>
+                <button onclick="insertNewUser()" id="btnReg" class="botonR">REGISTRARME</button>
             </div>
         </div>
 
