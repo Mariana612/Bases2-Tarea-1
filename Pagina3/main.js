@@ -76,7 +76,8 @@ function displayDataset(dataset) {
         videoContainer.src = ''; // Handle case where there are no files
     }
 
-
+    // Refresh the video load to update the source
+    document.querySelector('.video-container video').load();
 }
 // document.addEventListener("DOMContentLoaded", function() {
 
