@@ -78,6 +78,13 @@ function displayDataset(dataset) {
 
     // Refresh the video load to update the source
     document.querySelector('.video-container video').load();
+
+    const avatarImageElement = document.getElementById('fotoid');
+    if (dataset['Foto o avatar']) {
+        avatarImageElement.src = dataset['Foto o avatar'];
+    } else {
+        avatarImageElement.src = 'default-avatar.png'; // Use a default placeholder if no image is available
+    }
 }
 // document.addEventListener("DOMContentLoaded", function() {
 
