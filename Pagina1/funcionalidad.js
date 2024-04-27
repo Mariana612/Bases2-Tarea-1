@@ -49,13 +49,26 @@ function fetchUserData() {
             return response.json();
         })
         .then(data => {
-            document.getElementById('userInfoDisplay').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            if (data && data.iduser) {
+                sessionStorage.setItem('idUsuario', data.iduser.toString());
+                window.location.href = "Pagina3/index.html";
+            } else {
+                console.error('User data is missing or the iduser is not available in the response');
+            }
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
             document.getElementById('userInfoDisplay').innerHTML = `Error: ${error.message}`;
         });
 }
+
+// var boton = document.getElementById("btnOlvidaC");
+
+//     boton.addEventListener("click", function() {
+//         sessionStorage.setItem('idUsuario', '3');
+//         window.location.href = "Pagina3/index.html";
+//     });
+
 
 function insertNewUser() {
     const fullName = document.getElementById('fullNameInput').value;
