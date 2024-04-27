@@ -17,12 +17,47 @@
 <body>
 
     <div class="barraSup">
+        <button id="btnP" class="botonesP" onclick="mostraOcultarP()">PERFIL</button>
         <button id="btnR" class="botonesR" onclick="mostraOcultarR()">CREAR DATA SET</button>
         <button id="btnI" class="botonesI" onclick="mostraOcultarI()">VER DATA SET</button>
     </div>
 
 
+    <div class="perfil">
+        <div class="chat">
+            <div class="cdrTituloChat">
+                <h1 class="tituloChat">MENSAJERÍA</h1>
+            </div>
 
+            <div class="cdrChats">
+                <div class="cdrMsg">
+                    <div class="cdrMensaje">
+                        <h5 class="mensaje">Hola, qué tal?</h5>
+                    </div>
+                </div>
+    
+                <div class="cdrMsg">
+                    <div class="cdrMensaje">
+                        <h5 class="mensaje">Hola, qué tal?</h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="cdrEnviarMsg">
+                <textarea class="msgEscrito" placeholder="Escribe un mensaje..."></textarea>
+                <button id="btnMsg" class="botonesMsg" onclick="enviarMensaje()">ENVIAR</button>
+            </div>
+
+            
+
+        </div>
+
+        <div class="dataSetPersonal">
+            <h1>Hello</h1>
+        </div>
+
+    </div>
 
     <div class="dataset">
         <div class="cuadroDats">

@@ -195,6 +195,21 @@ form label .fa-solid {
 
 
 /*BARRA SUPERIOR */
+.botonesP{
+	height: 50px;
+	width: 300px;
+	margin: 10px;
+
+	background-color: rgb(224, 82, 141);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 25px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
 .botonesR{
 	height: 50px;
 	width: 300px;
@@ -232,7 +247,7 @@ form label .fa-solid {
 
 	display: flex;
 	flex-direction: colurowmn;
-	justify-content: flex-end;
+	justify-content: center;
 	align-items: center;
 	margin-bottom: 30px;
 
@@ -371,7 +386,6 @@ form label .fa-solid {
 	border: 0px solid blue;
 }
 
-
 .datasetC{
 	display: flex;
 	height: 1130px; 
@@ -385,7 +399,6 @@ form label .fa-solid {
 	border: 0px solid black;
 }
 
-
 .infoCom{
 	display: flex;
 	height: 100px;
@@ -395,7 +408,7 @@ form label .fa-solid {
 }
 
 .verDataSet{
-	display: flex;
+	display: none;
 	flex-direction: row;
 	border: 0px solid black;
 }
@@ -409,7 +422,6 @@ form label .fa-solid {
 	align-self: flex-start;
 	margin-left: 50px;
 }
-
 
 .solDatosCmt{
 	color: rgb(166, 70, 176); 
@@ -469,7 +481,7 @@ form label .fa-solid {
 
 /*BARRA DE BUSCAR DATA SET*/
 .barraBus{
-	display: flex;
+	display: none;
 	height: 65px;
 	width: 1620px;
 	margin-bottom: 20px;
@@ -503,4 +515,129 @@ form label .fa-solid {
 	font-family: "Poppins", sans-serif;
 	font-size: 30px;
 	margin: 10px;
+}
+
+
+
+
+
+
+/*PARTE DEL PERFIL DEL USUARIO*/
+.perfil{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 1200px;
+	width: 1700px;
+	border: 1px solid black;
+}
+
+.dataSetPersonal{
+	display: flex;
+	margin-right: 50px;
+	height: 1100px;
+	width: 1070px;
+	border: 1px solid blue;
+}
+
+
+
+
+
+
+.chat{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-left: 50px;
+	height: 1130px;
+	width: 500px;
+	border: 0px solid red;
+	background-color: white;
+}
+
+
+.cdrTituloChat{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	height: 100px;
+	width: 500px;
+	border: 0px solid black;
+	background-color:rgb(224, 82, 141);
+
+	margin-bottom: 20px;
+}
+
+.tituloChat{
+	color: rgb(255, 189, 209); 
+	font-size: 70px;
+	font-family: "Passion One", sans-serif;
+}
+
+
+.cdrChats{
+	border: 0px solid purple;
+	height: 800px;
+	width: 500px;
+
+	overflow: auto;
+	margin-bottom: 20px;
+}
+
+
+.cdrMsg{
+	border: 1px solid black;
+	height: auto;
+	width: 450px;
+	margin-top: 20px;
+	margin-left: 10px;
+	
+}
+
+.mensaje{
+	font-size: 20px;
+	font-family: "Poppins", sans-serif;
+	margin-left: 15px;
+
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+
+.cdrEnviarMsg{
+	display: flex;
+	flex-direction: column;
+}
+
+.msgEscrito{
+	display: block;
+	height: 100px;
+	width: 470px;
+	margin-bottom: 10px;
+	overflow: auto;
+
+	border: 4px solid rgb(224, 82, 141);
+	border-radius: 10px;
+
+	font-size: 18px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: black;
+}
+
+.botonesMsg{
+	height: 40px;
+	width: 200px;
+	align-self: flex-end;
+
+	background-color: rgb(224, 82, 141);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 25px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
 }
