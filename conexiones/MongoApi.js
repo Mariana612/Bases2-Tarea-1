@@ -19,10 +19,10 @@ async function main() {
         const collection = database.collection('dataset');
 
         // API to get dataset information by photo ID
-        app.get('/dataset/:photoId', async (req, res) => {
+        app.get('/dataset/:dataId', async (req, res) => {
             try {
-                const photoId = parseInt(req.params.photoId);
-                const datasetDocument = await collection.findOne({ "PhotoId": photoId });
+                const dataId = parseInt(req.params.dataId);  // Correct variable name from req.params
+                const datasetDocument = await collection.findOne({ "DatasetId": dataId });
                 if (datasetDocument) {
                     res.json(datasetDocument);
                 } else {
@@ -37,10 +37,11 @@ async function main() {
         // API to insert dataset
         app.post('/dataset', async (req, res) => {
             try {
-                const { nombre, photoId, descripcion, fotoAvatar, archivos } = req.body;
+                const { nombre, photoId, dataId, descripcion, fotoAvatar, archivos } = req.body;
                 const datasetDocument = {
                     "Nombre": nombre,
                     "PhotoId": photoId,
+                    "DatasetId": dataId,
                     "Descripción": descripcion,
                     "Fecha de Inclusión": new Date(),
                     "Foto o avatar": fotoAvatar,

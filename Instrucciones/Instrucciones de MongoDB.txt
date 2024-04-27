@@ -24,6 +24,10 @@ db.createCollection("dataset", {
                bsonType: "int",
                description: "Numero de foto"
             },
+            DatasetId: {
+               bsonType: "int",
+               description: "Numero de dataset"
+            },
             Descripción: {
                bsonType: "string",
                description: "Description of the dataset"
@@ -46,29 +50,15 @@ db.createCollection("dataset", {
 });
 
 
-# para meterle varas
-
-db.dataset.insertOne({
-   Nombre: "Sample Dataset",
-   PhotoId: 1,
-   Descripción: "This is a sample dataset.",
-   "Fecha de Inclusión": new Date(),
-   "Foto o avatar": "\Pagina3\imagenes\buscar.png", // Insert the path here
-   "Archivo(s)": ["\Pagina3\imagenes\buscar.png"] // Insert the paths here
-})
-
-#para que lo prueben
-db.dataset.find()
-
---> OH WAO SE INSERTO ALGO QUE LOCO WTF :))))
 
 #ok ahora hacemos una funcion para sacar datos modo serio
 
-function insertDataset(nombre, photoId, descripcion, fotoAvatar, archivos) {
+function insertDataset(nombre, photoId, dataId, descripcion, fotoAvatar, archivos) {
     // Create a new document to insert
     var datasetDocument = {
         "Nombre": nombre,
         "PhotoId": photoId,
+        "DatasetId": dataId,
         "Descripción": descripcion,
         "Fecha de Inclusión": new Date(),
         "Foto o avatar": fotoAvatar,
@@ -81,14 +71,14 @@ function insertDataset(nombre, photoId, descripcion, fotoAvatar, archivos) {
 
 #ahora a probarlo uwu 
 
-insertDataset("Prueba bonita", 2, "ay pero que locura", "\Pagina3\imagenes\buscar.png", ["\Pagina3\imagenes\buscar.png"]);
+insertDataset("Prueba bonita", 1, 1, "ay pero que locura", "\Pagina3\imagenes\buscar.png", ["\Pagina3\imagenes\buscar.png"]);
 
 db.dataset.find()
 
 #OH WAO YA SIRVEN LOS INSERTS pero que bendicioooon, ahora trabajmos con la funcion para sacar la info
 
-function getDatasetInfo(photoId) {
-    var datasetDocument = db.dataset.findOne({ "PhotoId": photoId });
+function getDatasetInfo(dataId) {
+    var datasetDocument = db.dataset.findOne({ "DatasetId": dataId });
     return datasetDocument;
 }
 
