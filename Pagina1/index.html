@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ventana Datos</title>
+        <title>DATASET SHARING SITE</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="icon" href="imagenes/iconoPag.ico">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap" rel="stylesheet">
@@ -18,17 +19,19 @@
             <button id="btnI" class="botonesI" onclick="mostraOcultarI()">INICIAR SESIÓN</button>
         </div>
 
+
+        
         <div class="cuadroInfoI">
             <h2 class="tittleM2">INICIO DE SESIÓN</h2>
 
             <div class="apUser">
                 <i class="fa-regular fa-user"></i>
-                <input type="text" class="iDatI" placeholder="Nombre de Usuario">
+                <input type="text" id="usernameInput" class="iDatI" placeholder="Nombre de Usuario">
             </div>
 
             <div class="apCon">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" class="iDatI" placeholder="Contraseña">
+                <input type="password" id="passInput" class="iDatI" placeholder="Contraseña">
             </div>
             
             <div class="apOlviC">
@@ -36,10 +39,11 @@
             </div>
 
             
-            <button id="btnOlvidaC" class="botonesIS">INICIAR SESIÓN</button>
-
-
+            <button onclick="fetchUserData()" id="btnOlvidaC" class="botonesIS">INICIAR SESIÓN</button>
+            
         </div>
+
+
 
         <div class="cuadroInfoR">
             <h2 class="tittleM">INFORMACIÓN PERSONAL</h2>
@@ -55,30 +59,31 @@
 
                 <div class="infoIO">
                     <h3 class="solDatos">Nombre Completo: </h3>  
-                    <input type="text" class="iDat">
+                    <input type="text" id="fullNameInput" class="iDat">
                 </div>
                 
                 <div class="infoIO">
                     <h3 class="solDatos">Fecha de Nacimiento:</h3>
-                    <input type="date" name="date" class="iDatFN" />
+                    <input type="date" id="birthdateInput" name="date" class="iDatFN" />
 
                 </div>
 
                 <div class="infoIO">
                     <h3 class="solDatos">Nombre de usuario:</h3>
-                    <input type="text" class="iDat">
+                    <input type="text" id="userInput" class="iDat">
                 </div>
 
                 <div class="infoIO">
                     <h3 class="solDatos">Contraseña:</h3>
-                    <input type="password" class="iDat">
+                    <input type="password" id="passwordInput" class="iDat">
                 </div>
                 
             </div>
 
             <div class="apBtnR">
-                <button id="btnR" class="botonR">REGISTRARME</button>
+                <button onclick="insertNewUser()" id="btnReg" class="botonR">REGISTRARME</button>
             </div>
+
         </div>
 
 
