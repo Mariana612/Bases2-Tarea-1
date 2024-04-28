@@ -239,7 +239,7 @@ function insertNewUser(idUser_pam) {
     const fullName = document.getElementById('fullNameP').value;
     const birthdate = document.getElementById('fechaNacP').value;
     const username = document.getElementById('userNameP').value;  // Ensure this ID matches your HTML
-    const password = document.getElementById('passwordInput').value;
+    const password = document.getElementById('"passwordP"').value;
 
     const requestBody = {
         idUser: idUser_pam,
