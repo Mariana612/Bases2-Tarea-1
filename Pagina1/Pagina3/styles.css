@@ -299,7 +299,7 @@ form label .fa-solid {
     flex-direction: column; 
     justify-content: flex-start; /* Center vertically */
     align-items: center; /* Center horizontally */
-    height: 1120px; 
+    height: auto; 
     width: 800px;
     border: 10px solid rgb(118, 23, 128);
     border-radius: 20px;
@@ -529,22 +529,13 @@ form label .fa-solid {
 	align-items: center;
 	height: 1200px;
 	width: 1700px;
-	border: 1px solid black;
-}
-
-.dataSetPersonal{
-	display: flex;
-	margin-right: 50px;
-	height: 1100px;
-	width: 1070px;
-	border: 1px solid blue;
+	border: 0px solid black;
 }
 
 
 
 
-
-
+/*PARTE DEL CHAT*/
 .chat{
 	display: flex;
 	flex-direction: column;
@@ -577,9 +568,60 @@ form label .fa-solid {
 }
 
 
-.cdrChats{
+.cdrContacto{
+	display: none;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
 	border: 0px solid purple;
-	height: 800px;
+	height: 60px;
+	width: 455px;
+	margin-bottom: 20px;
+}
+
+
+.nomContacto{
+	display: flex;
+	border: 0px solid green;
+	height: 50px;
+	width: 400px;
+
+	overflow: hidden;
+	align-items: center;
+
+	font-size: 40px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: rgb(233, 156, 179);
+}
+
+.btnVC{
+	display: flex;
+	height: 60px;
+	width: 60px;
+
+	justify-content: center;	
+	align-items: center;
+
+	border: 1px solid rgb(233, 156, 179);
+	border-radius: 5px;
+	background-color: rgb(233, 156, 179);
+}
+
+.btnVCI{
+	height: 45px;
+	width: 45px;
+	margin: -5px;
+}
+
+
+.cdrChats{
+	display: none;
+	flex-direction: column;
+
+	border: 0px solid purple;
+	height: 720px;
 	width: 500px;
 
 	overflow: auto;
@@ -588,7 +630,7 @@ form label .fa-solid {
 
 
 .cdrMsg{
-	border: 1px solid black;
+	border: 0px solid black;
 	height: auto;
 	width: 450px;
 	margin-top: 20px;
@@ -607,7 +649,7 @@ form label .fa-solid {
 
 
 .cdrEnviarMsg{
-	display: flex;
+	display: none;
 	flex-direction: column;
 }
 
@@ -641,3 +683,512 @@ form label .fa-solid {
 	font-weight: bold;
 	color: white;
 }
+
+
+
+
+/*PARTE DE MOSTRAR LOS CONTACTOS QUE HAY*/
+.cdrContactos{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	border: 0px solid purple;
+	height: 50px;
+	width: 435px;
+	margin-bottom: 20px;
+}
+
+.nomContactos{
+	display: flex;
+	border: 0px solid green;
+	height: 50px;
+	width: 370px;
+
+	overflow: hidden;
+	align-items: center;
+
+	font-size: 30px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+
+}
+
+.btnEC{
+	display: flex;
+	height: 50px;
+	width: 50px;
+
+	justify-content: center;	
+	align-items: center;
+
+	border: 1px solid rgb(233, 156, 179);
+	border-radius: 5px;
+	background-color: rgb(233, 156, 179);
+}
+
+.btnECI{
+	height: 32px;
+	width: 35px;
+	margin: -5px;
+}
+
+.cdrChatsDispo{
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+	align-items: start;
+
+	border: 0px solid orange;
+	height: 985px;
+	width: 470px;
+}
+
+
+
+
+/*PARTE DE OPCIONES DEL PERFIL*/
+.dataPerfil{
+	display: flex;
+	flex-direction: column;
+
+	margin-right: 50px;
+	height: 1130px;
+	width: 1070px;
+	border: 0px solid blue;
+}
+
+
+.barraPerfil{
+	display: flex;
+	flex-direction: row;
+
+	height: 100px;
+	width: 1070px;
+	border: 0px solid black;
+}
+
+
+.botonesEP{
+	height: 100px;
+	width: 535px;
+
+	background-color: rgb(242, 136, 175);
+	border: 0px;
+
+	font-size: 40px;
+	font-family: "Passion One", sans-serif;
+	font-weight: lighter;
+	color: white;
+}
+
+.botonesSD{
+	height: 100px;
+	width: 535px;
+
+	background-color: rgb(242, 167, 195);
+	border: 0px;
+
+	font-size: 40px;
+	font-family: "Passion One", sans-serif;
+	font-weight: lighter;
+	color: white;
+}
+
+
+
+/*PARTE DE MODIFICAR EL PERFIL*/
+.cambiarDPerfil{
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 20px;
+
+	height: 1010px;
+	width: 1070px;
+	border: 0px solid red;
+
+	
+}
+
+.cdrInfoPerfil{
+	display: flex;
+	height: 980px;
+	width: 800px;
+	border: 10px solid rgb(242, 167, 195);
+	border-radius: 20px;
+	background-color: white;
+
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.titleEditP {
+	color: rgb(242, 167, 195); 
+	font-size: 70px;
+	font-family: "Passion One", sans-serif;
+	margin-bottom: 2px;
+}
+
+.avatarED{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 50px;
+}
+
+.fotoPerED{
+	height: 230px;
+	width: 230px;
+}
+
+.solDatosAED{
+	color: rgb(233, 156, 179); 
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	margin-bottom: 0px;
+}
+
+.iDatFED{
+	height: 40px;
+	width: 365px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 17px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(224, 82, 141);
+}
+
+.cuadroDatsED{
+	display: flex;
+	height: 900px;
+	width: 700px;
+	flex-direction: column;
+}
+
+.infoIOED{
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+	justify-content: space-between;
+}
+
+.solDatosED{
+	color: rgb(224, 82, 141); 
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+}
+
+.iDatED{
+	height: 40px;
+	width: 365px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(224, 82, 141);
+}
+
+.iDatFNED{
+	height: 40px;
+	width: 365px;
+	margin-top: 16px;
+	margin-left: 20px;
+
+	font-size: 22px;
+	font-family: "Poppins", sans-serif;
+	border: 0px;
+	border-bottom: 3px solid rgb(224, 82, 141);
+}
+
+.apBtnRED{
+	display: flex;
+	width: 800px;
+	margin: 15px;
+	margin-top: 5px;
+	justify-content: end;
+}
+
+.botonRED{
+	height: 50px;
+	width: 200px;
+	margin-right: 50px;
+	margin-bottom: 15px;
+
+	background-color: rgb(224, 82, 141);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 20px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
+
+/*PARTE DE MOSTRAR ESTADISTICAS DE LOS DATA SET*/
+.estadisticaData{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 20px;
+
+	height: 1010px;
+	width: 1070px;
+	border: 0px solid purple;
+}
+
+.cdrDataSDispo{
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+
+	border: 0px solid orange;
+	height: 1010px;
+	width: 470px;
+}
+
+.nomDataDis{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0px;
+
+	border: 0px solid green;
+	background-color: rgb(242, 213, 224);
+	height: 70px;
+	width: 469px;
+
+	font-size: 40px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+
+}
+
+.marcoDataS{
+	display: flex;
+	justify-content: center;
+
+	height: 940px;
+	width: 470px;
+	border: 0px solid blue;
+}
+
+.tittleInfoDataDis{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	border: 0px solid black;
+	height: 70px;
+	width: 470px;
+	margin-bottom: 20px;
+}
+
+.cdrDataS{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	border: 0px solid purple;
+	height: 50px;
+	width: 435px;
+	margin-bottom: 20px;
+}
+
+.nomDataS{
+	display: flex;
+	border: 0px solid green;
+	height: 50px;
+	width: 370px;
+
+	overflow: hidden;
+	align-items: center;
+
+	font-size: 30px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+
+}
+
+.btnVDS{
+	display: flex;
+	height: 50px;
+	width: 50px;
+
+	justify-content: center;	
+	align-items: center;
+
+	border: 1px solid rgb(233, 156, 179);
+	border-radius: 5px;
+	background-color: rgb(233, 156, 179);
+}
+
+.btnVDSI{
+	height: 32px;
+	width: 35px;
+	margin: -5px;
+}
+
+
+
+.infoDescargas{
+	display: flex;
+	flex-direction: column;
+
+	border: 0px solid black;
+	height: 1010px;
+	width: 580px;
+}
+
+
+.tittleInfoDescargas{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	border: 0px solid black;
+	height: 70px;
+	width: 580px;
+	margin-bottom: 20px;
+}
+
+.nomDescargas{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0px;
+
+	border: 0px solid green;
+	background-color: rgb(242, 213, 224);
+	height: 70px;
+	width: 580px;
+
+	font-size: 40px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+}
+
+
+
+.encabezadoTabla{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	border: 0px solid black;
+	width: 580px;
+	height: 50px;
+}
+
+
+.titulosEncabezadoTabla{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+
+	border: 0px solid green;
+	width: 580px;
+	height: 50px;
+}
+
+
+.columnaUser{
+	display: flex;
+	align-items: center;
+
+	border: 2px solid rgb(224, 82, 141);
+	background-color: rgb(242, 136, 175);
+
+	width: 280px;
+	height: 50px;
+}
+
+
+.columnaCantDes{
+	display: flex;
+	align-items: center;
+
+	border: 2px solid rgb(224, 82, 141);
+	background-color: rgb(242, 136, 175);
+
+	width: 260px;
+	height: 50px;
+}
+
+.titulosColumnas{
+	margin-left: 6px;
+
+	font-size: 20px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
+
+
+.contenidoTabla{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	border: 0px solid black;
+	width: 580px;
+	height: 870px;
+}
+
+
+.contenidoData{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+
+	border: 0px solid green;
+	width: 580px;
+	height: 50px;
+}
+
+.textoTabla{
+	margin-left: 6px;
+
+	font-size: 20px;
+	font-family: "Poppins", sans-serif;
+	color: black;
+}
+
+
+.columnaUserD{
+	display: flex;
+	align-items: center;
+
+	border: 2px solid rgb(224, 82, 141);
+	background-color: white;
+
+	width: 280px;
+	height: 50px;
+}
+
+
+.columnaCantDesD{
+	display: flex;
+	align-items: center;
+
+	border: 2px solid rgb(224, 82, 141);
+	background-color: white;
+
+	width: 260px;
+	height: 50px;
+}
+
+

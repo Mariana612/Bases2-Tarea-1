@@ -25,19 +25,10 @@ function mostraOcultarP(){
     var container3 = document.getElementsByClassName("barraBus")[0];
     var container4 = document.getElementsByClassName("verDataSet")[0];
 
-    
-
-    if(container4.style.display != "none" || container2.style.display != "none"){
-        container2.style.display = "none";
-        container3.style.display = "none";
-        container4.style.display = "none";
-    }
-
-    if(container1.style.display == "none"){
-        container1.style.display = "flex";
-    }else{
-        container1.style.display = "none";
-    }
+    container1.style.display = "flex";
+    container2.style.display = "none";
+    container3.style.display = "none";
+    container4.style.display = "none";
 }
 
 
@@ -50,19 +41,10 @@ function mostraOcultarR(){
     var container3 = document.getElementsByClassName("barraBus")[0];
     var container4 = document.getElementsByClassName("verDataSet")[0];
 
-    
-
-    if(container4.style.display != "none" || container1.style.display != "none"){
-        container1.style.display = "none";
-        container3.style.display = "none";
-        container4.style.display = "none";
-    }
-
-    if(container2.style.display == "none"){
-        container2.style.display = "flex";
-    }else{
-        container2.style.display = "none";
-    }
+    container1.style.display = "none";
+    container2.style.display = "flex";
+    container3.style.display = "none";
+    container4.style.display = "none";
 }
 
 
@@ -74,19 +56,23 @@ function mostraOcultarI(){
     var container3 = document.getElementsByClassName("barraBus")[0];
     var container4 = document.getElementsByClassName("verDataSet")[0];
 
-    
+    container1.style.display = "none";
+    container2.style.display = "none";
+    container3.style.display = "flex";
+    container4.style.display = "flex";
+}
 
-    if(container1.style.display != "none" || container2.style.display != "none"){
-        container1.style.display = "none";
+
+function mostraOcultarEditP(){
+    var container1 = document.getElementsByClassName("cambiarDPerfil")[0];
+    var container2 = document.getElementsByClassName("estadisticaData")[0];
+
+    if(container2.style.display != "none"){
         container2.style.display = "none";
     }
 
-    if(container4.style.display == "none"){
-        container4.style.display = "flex";
-        container3.style.display = "flex";
-    }else{
-        container4.style.display = "none";
-        container3.style.display = "none";
+    if(container1.style.display == "none"){
+        container1.style.display = "flex";
     }
 }
 
@@ -141,7 +127,27 @@ function displayDataset(dataset) {
         avatarImageElement.src = 'default-avatar.png'; // Use a default placeholder if no image is available
     }
 }
+function abrirChat(){
+    var container1 = document.getElementsByClassName("cdrContacto")[0];
+    var container2 = document.getElementsByClassName("cdrChats")[0];
+    var container3 = document.getElementsByClassName("cdrEnviarMsg")[0];
+    var container4 = document.getElementsByClassName("cdrChatsDispo")[0];
+
+    container1.style.display = "flex";
+    container2.style.display = "flex";
+    container3.style.display = "flex";
+    container4.style.display = "none";
+}
 
 
+function volverChats(){
+    var container1 = document.getElementsByClassName("cdrContacto")[0];
+    var container2 = document.getElementsByClassName("cdrChats")[0];
+    var container3 = document.getElementsByClassName("cdrEnviarMsg")[0];
+    var container4 = document.getElementsByClassName("cdrChatsDispo")[0];
 
-
+    container1.style.display = "none";
+    container2.style.display = "none";
+    container3.style.display = "none";
+    container4.style.display = "flex";
+}
