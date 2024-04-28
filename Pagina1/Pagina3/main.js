@@ -13,7 +13,7 @@ window.onload = function() {
     console.log(dato); // Usas el dato como necesites, por ejemplo, mostrarlo en consola
 
     // Opcional: limpiar el sessionStorage si el dato ya no es necesario
-    sessionStorage.removeItem('idUsuario');
+    //sessionStorage.removeItem('idUsuario');
 };
 
 
@@ -138,6 +138,7 @@ function displayDataset(dataset) {
     } else {
         avatarImageElement.src = 'default-avatar.png'; // Use a default placeholder if no image is available
     }
+    fetchComments(dataset.DatasetId);
 }
 function abrirChat(){
     var container1 = document.getElementsByClassName("cdrContacto")[0];
@@ -152,6 +153,68 @@ function abrirChat(){
 }
 
 
+    async function fetchComments(dataId) {
+        const baseUrl = 'http://localhost:3002';
+        try {
+            const response = await fetch(`${baseUrl}/comments/${dataId}`);
+            const comments = await response.json();
+            if (response.ok) {
+                displayComments(comments);
+            } else {
+                console.error('Comments not found', comments);
+            }
+        } catch (error) {
+            console.error('Failed to fetch comments:', error);
+        }
+    }
+    
+    function displayComments(comments) {
+        const commentsContainer = document.getElementById('commentsContainer');
+        commentsContainer.innerHTML = ''; // Clear previous comments
+        comments.forEach(comment => {
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'infoCom';
+            commentDiv.innerHTML = `<h4 class="solDatosCmt">Username: </h4><output class="iDatCmt">${comment.idUsuarioComment} - ${comment.comentario}</output>`;
+            commentsContainer.appendChild(commentDiv);
+        });
+    }
+
+
+    async function addComment() {
+        const dataId = someDataId; // Ensure this is set correctly to the current dataset ID
+        const commentInput = document.getElementById('newCommentInput');
+        const commentText = commentInput.value;
+        const baseUrl = 'http://localhost:3002';
+        alert(sessionStorage.getItem('idUsuario'));
+        idu = parseInt(sessionStorage.getItem('idUsuario'));
+        const commentData = {
+            idDataset: dataId,
+            idUsuarioComment: idu, // Assuming the user ID is stored in sessionStorage
+            
+            comentario: commentText
+        };
+    
+        try {
+            const response = await fetch(`${baseUrl}/comments`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(commentData)
+            });
+    
+            if (response.ok) {
+                // Clear input after successful submission
+                commentInput.value = '';
+                // Refresh comments to show the new one
+                fetchComments(dataId);
+            } else {
+                console.error('Failed to post comment');
+            }
+        } catch (error) {
+            console.error('Error posting comment:', error);
+        }
+    }
 function volverChats(){
     var container1 = document.getElementsByClassName("cdrContacto")[0];
     var container2 = document.getElementsByClassName("cdrChats")[0];
@@ -163,3 +226,4 @@ function volverChats(){
     container3.style.display = "none";
     container4.style.display = "flex";
 }
+

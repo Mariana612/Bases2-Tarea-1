@@ -29,7 +29,9 @@ function fetchUserData() {
         })
         .then(data => {
             if (data && data.iduser) {
-                sessionStorage.setItem('idUsuario', data.iduser.toString());
+                sessionStorage.setItem('idUsuario', data.iduser);
+                alert(data.iduser);
+
                 window.location.href = "Pagina3/index.html";
             } else {
                 console.error('User data is missing or the iduser is not available in the response');

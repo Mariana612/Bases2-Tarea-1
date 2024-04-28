@@ -88,3 +88,41 @@ function getDatasetInfo(dataId) {
 var datasetInfo = getDatasetInfo(1);
 printjson(datasetInfo);
 
+
+db.createCollection("dataSetComment", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["idDataset", "idUsuarioComment", "comentario"],
+            properties: {
+                idDataset: {
+                    bsonType: "int",
+                    description: "ID del dataset al que pertenece el comentario"
+                },
+                idUsuarioComment: {
+                    bsonType: "int",
+                    description: "ID del usuario que realiza el comentario"
+                },
+                comentario: {
+                    bsonType: "string",
+                    description: "Texto del comentario"
+                }
+            }
+        }
+    }
+})
+
+
+function insertDatasetComment(idDataset, idUsuarioComment, comentario) {
+    db.dataSetComment.insertOne({
+        "idDataset": idDataset,
+        "idUsuarioComment": idUsuarioComment,
+        "comentario": comentario
+    });
+}
+
+insertDatasetComment(1, 789, "Este es un comentario sobre el dataset 123.");
+
+function getDatasetComments(idDataset) {
+    return db.dataSetComment.find({"idDataset": idDataset}).toArray();
+}
