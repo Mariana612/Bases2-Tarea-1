@@ -13,7 +13,7 @@ window.onload = function() {
     console.log(dato); // Usas el dato como necesites, por ejemplo, mostrarlo en consola
 
     // Opcional: limpiar el sessionStorage si el dato ya no es necesario
-    sessionStorage.removeItem('idUsuario');
+    //sessionStorage.removeItem('idUsuario');
 };
 
 
