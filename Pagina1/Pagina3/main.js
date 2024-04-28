@@ -31,6 +31,18 @@ function mostraOcultarP(){
     container4.style.display = "none";
 }
 
+function mostraOcultarSeeD(){
+    var container1 = document.getElementsByClassName("cambiarDPerfil")[0];
+    var container2 = document.getElementsByClassName("estadisticaData")[0];
+
+    if(container1.style.display != "none"){
+        container1.style.display = "none";
+    }
+
+    if(container2.style.display == "none"){
+        container2.style.display = "flex";
+    }
+}
 
 
 function mostraOcultarR(){
