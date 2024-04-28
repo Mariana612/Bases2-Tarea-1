@@ -185,7 +185,7 @@ body{
 
 /*PARTE DE INICIAR SESIÓN*/
 .cuadroInfoI{
-	display: none;
+	display: flex;
 	height: 650px;
 	width: 800px;
 	border: 10px solid rgb(118, 23, 128);
