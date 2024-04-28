@@ -197,33 +197,82 @@ function volverChats(){
 }
 
 
-function editarInfoP(){
-    var nombreCompleto;
-    var fechaNacimiento; // Formato: '2024-04-28'
-    var username;
-    var password;
-    var passwordInput = document.getElementById('passwordP');
+async function editarInfoP(idUser){
+    try{
+        const response = await fetch(`http://localhost:3001/getIfo/${idUser}`);
+        const userData = await response.json();
 
-    //Esto hace que se pueda ver la contraseña cuando se posiciona en el espacio
-    passwordInput.addEventListener('focus', function() {
-        this.type = 'text';  
-    });
+        const { nombre_completo, fecha_nacimiento, username, password_hash } = userData;
 
-    passwordInput.addEventListener('blur', function() {
-        this.type = 'password';  
-    });
+        var nombreCompleto = nombre_completo;
+        console.log(nombreCompleto)
+        var fechaNacimiento = fecha_nacimiento; // Formato: '2024-04-28'
+        var usernameOut = username;
+        var password = password_hash;
+        var passwordInput = document.getElementById('passwordP');
 
+        //Esto hace que se pueda ver la contraseña cuando se posiciona en el espacio
+        passwordInput.addEventListener('focus', function() {
+            this.type = 'text';  
+        });
 
-    //Aquí le asigna la info a la variable 
+        passwordInput.addEventListener('blur', function() {
+            this.type = 'password';  
+        });        
+        //Se muestra la info en la interfaz
+        document.getElementById('fullNameP').value = nombreCompleto;
+        document.getElementById('fechaNacP').value = fechaNacimiento; 
+        document.getElementById('userNameP').value = usernameOut;
+        passwordInput.value = password;
     
-    //Se muestra la info en la interfaz
-    document.getElementById('fullNameP').value = nombreCompleto;
-    document.getElementById('fechaNacP').value = fechaNacimiento; 
-    document.getElementById('userNameP').value = username;
-    passwordInput.value = password;
+    } 
     
+    catch (error) {
+        console.error('Error al obtener los datos del usuario:', error);
+    }
 }
 
+editarInfoP(1);
 
 
+function insertNewUser(idUser_pam) {
+    const fullName = document.getElementById('fullNameP').value;
+    const birthdate = document.getElementById('fechaNacP').value;
+    const username = document.getElementById('userNameP').value;  // Ensure this ID matches your HTML
+    const password = document.getElementById('passwordInput').value;
 
+    const requestBody = {
+        idUser: idUser_pam,
+        username: username,
+        password_hash: password,
+        nombre_completo: fullName,
+        fecha_nacimiento: birthdate
+    };
+
+    fetch(`http://localhost:3001/getIfo/${idUser_pam}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.text();  // Change here to handle non-JSON text
+    })
+    .then(text => {
+        try {
+            const jsonData = JSON.parse(text);   // Try to parse the text as JSON
+            console.log('Success:', jsonData);
+            alert(jsonData.message);
+        } catch (e) {
+            throw new Error('Failed to parse JSON response: ' + text);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error registering user: ' + error.message);
+    });
+}
