@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Document</title>
+    <title>DATASET SHARING SITE</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="imagenes/iconoPag.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap" rel="stylesheet">
@@ -29,6 +30,12 @@
                 <h1 class="tituloChat">MENSAJERÍA</h1>
             </div>
 
+
+            <div class="cdrContacto">
+                <h1 class="nomContacto">Alisson Carillo</h1>
+                <button type="submit" class="btnVC" onclick="volverChats()"> <img src="imagenes/cerrar-ventana.png" class="btnVCI"> </button>
+            </div>
+
             <div class="cdrChats">
                 <div class="cdrMsg">
                     <div class="cdrMensaje">
@@ -49,12 +56,128 @@
                 <button id="btnMsg" class="botonesMsg" onclick="enviarMensaje()">ENVIAR</button>
             </div>
 
-            
+
+            <div class="cdrChatsDispo">
+                <div class="cdrContactos">
+                    <h1 class="nomContactos">Alisson Carillo</h1>
+                    <button type="submit" class="btnEC" onclick="abrirChat()"> <img src="imagenes/chat.png" class="btnECI"> </button>
+                </div>
+            </div>
 
         </div>
 
-        <div class="dataSetPersonal">
-            <h1>Hello</h1>
+        <div class="dataPerfil">
+
+            <div class="barraPerfil">
+                <button id="btnSeeD" class="botonesEP" onclick="mostraOcultarSeeD()">ESTADÍSTICAS DE LOS DATA SET</button>
+                <button id="btnEditP" class="botonesSD" onclick="mostraOcultarEditP()">EDITAR INFORMACIÓN DEL PERFIL</button>
+            </div>
+
+            <div class="cambiarDPerfil">                
+                <div class="cdrInfoPerfil">
+                    <h2 class="titleEditP">INFORMACIÓN PERSONAL</h2>
+        
+                    <div class="avatarED">
+                        <img src="imagenes/perfil.png" alt="Imagen de perfil" class="fotoPerED">
+                        <h3 class="solDatosAED">Foto o avatar del usuario:</h3>
+                        <input type="file" class="iDatFED">
+                    </div>
+                    
+        
+                    <div class="cuadroDatsED"> 
+        
+                        <div class="infoIOED">
+                            <h3 class="solDatosED">Nombre Completo: </h3>  
+                            <input type="text" class="iDatED">
+                        </div>
+                        
+                        <div class="infoIOED">
+                            <h3 class="solDatosED">Fecha de Nacimiento:</h3>
+                            <input type="date" name="date" class="iDatFNED" />
+        
+                        </div>
+        
+                        <div class="infoIOED">
+                            <h3 class="solDatosED">Nombre de usuario:</h3>
+                            <input type="text" class="iDatED">
+                        </div>
+        
+                        <div class="infoIOED">
+                            <h3 class="solDatosED">Contraseña:</h3>
+                            <input type="password" class="iDatED">
+                        </div>
+                        
+                    </div>
+        
+                    <div class="apBtnRED">
+                        <button id="btnR" class="botonRED">GUARDAR</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="estadisticaData">
+
+                <div class="cdrDataSDispo">
+
+                    <div class="tittleInfoDataDis">
+                        <h1 class="nomDataDis">DATA SET</h1>
+                    </div>
+
+                    <div class="marcoDataS">
+
+                        <div class="cdrDataS">
+                            <h1 class="nomDataS">Alisson Carillo</h1>
+                            <button type="submit" class="btnVDS"> <img src="imagenes/ojo.png" class="btnVDSI"> </button>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+                <div class="infoDescargas">
+
+                    <div class="tittleInfoDescargas">
+                        <h1 class="nomDescargas">HISTORIAL DE DESCARGAS</h1>
+                    </div>
+
+                    <div class="encabezadoTabla">
+
+                        <div class="titulosEncabezadoTabla">
+                            <div class="columnaUser">
+                                <h1 class="titulosColumnas">Username</h1>
+                            </div>
+    
+                            <div class="columnaCantDes">
+                                <h1 class="titulosColumnas">Cantidad de descargas</h1>
+                            </div>
+                        </div>
+
+                        
+
+                    </div>
+
+                    <div class="contenidoTabla">
+
+                        <div class="contenidoData">
+                            <div class="columnaUserD">
+                                <h1 class="textoTabla">PameFM</h1>
+                            </div>
+    
+                            <div class="columnaCantDesD">
+                                <h1 class="textoTabla">4</h1>
+                            </div>
+                        </div>
+                        
+
+
+
+
+                    </div>
+                </div>
+       
+            </div>
+            
         </div>
 
     </div>
