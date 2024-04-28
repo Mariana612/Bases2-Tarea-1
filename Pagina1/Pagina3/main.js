@@ -142,6 +142,38 @@ function displayDataset(dataset) {
     }
 }
 
+async function insertarDataSet(){
+        
+    const username = document.getElementById("username").value;
+    const descripcionOutput = document.getElementById("Descripcion").value;
+    
+    const requestBody = {
+        nombre: username,
+        descripcion: descripcionOutput,
+        photo: "\Pagina3\imagenes\buscar.png",
+        archivos:["\Pagina3\imagenes\buscar.png"]
+    };
+
+    try {
+        const response = await fetch('http://localhost:3002/dataset', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        if (response.ok) {
+            console.log('Datos insertados correctamente');
+        } else {
+            console.error('Error al insertar datos:', response.statusText);
+        }
+    } catch (err) {
+        console.error('Error de red:', err);
+    }      
+
+}
+
 
 
 
