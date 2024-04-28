@@ -112,3 +112,56 @@ function volverChats(){
     container4.style.display = "flex";
 }
 
+
+async function fetchDataset(dataId) {
+    const baseUrl = 'http://localhost:3002'; // Set this to the correct base URL
+    try {
+        const response = await fetch(`${baseUrl}/dataset/${dataId}`);
+        const data = await response.json();
+        if (response.ok) {
+            displayDataset(data);
+        } else {
+            console.error('Dataset not found', data);
+        }
+    } catch (error) {
+        console.error('Failed to fetch dataset:', error);
+    }
+}
+
+function displayDataset(dataset) {
+    // Assuming you have HTML elements with IDs to show these details
+    document.getElementById('username').textContent = dataset.Nombre;
+    document.getElementById('Descripcion').textContent = dataset.Descripción;
+    document.getElementById('fecha').textContent = new Date(dataset['Fecha de Inclusión']).toLocaleDateString();
+
+    // Update the video source if a video file is included in the dataset
+    const videoContainer = document.querySelector('.video-container video source');
+    if (dataset['Archivo(s)']) {
+        const mp4File = dataset['Archivo(s)'].find(file => file.endsWith('.mp4'));
+        if (mp4File) {
+            videoContainer.src = mp4File.replace(/\\/g, '/'); // Replace backslashes with forward slashes for URL compatibility
+        } else {
+            videoContainer.src = ''; // Set to an empty string or a default placeholder if no valid video file is present
+        }
+    } else {
+        videoContainer.src = ''; // Handle case where there are no files
+    }
+
+    const archivosElement = document.getElementById('archiId');
+    if (dataset['Archivo(s)'] && dataset['Archivo(s)'].length > 0) {
+        archivosElement.textContent = dataset['Archivo(s)'][0]; // Display the first URL
+    } else {
+        archivosElement.textContent = 'No file available'; // No file available
+    }
+
+    // Refresh the video load to update the source
+    document.querySelector('.video-container video').load();
+
+    const avatarImageElement = document.getElementById('fotoid');
+    if (dataset['Foto o avatar']) {
+        avatarImageElement.src = dataset['Foto o avatar'];
+    } else {
+        avatarImageElement.src = 'default-avatar.png'; // Use a default placeholder if no image is available
+    }
+}
+
