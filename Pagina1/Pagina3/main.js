@@ -13,7 +13,7 @@ window.onload = function() {
     console.log(dato); // Usas el dato como necesites, por ejemplo, mostrarlo en consola
 
     // Opcional: limpiar el sessionStorage si el dato ya no es necesario
-    sessionStorage.removeItem('idUsuario');
+    //sessionStorage.removeItem('idUsuario');
 };
 
 
@@ -195,3 +195,35 @@ function volverChats(){
     container3.style.display = "none";
     container4.style.display = "flex";
 }
+
+
+function editarInfoP(){
+    var nombreCompleto;
+    var fechaNacimiento; // Formato: '2024-04-28'
+    var username;
+    var password;
+    var passwordInput = document.getElementById('passwordP');
+
+    //Esto hace que se pueda ver la contraseña cuando se posiciona en el espacio
+    passwordInput.addEventListener('focus', function() {
+        this.type = 'text';  
+    });
+
+    passwordInput.addEventListener('blur', function() {
+        this.type = 'password';  
+    });
+
+
+    //Aquí le asigna la info a la variable 
+    
+    //Se muestra la info en la interfaz
+    document.getElementById('fullNameP').value = nombreCompleto;
+    document.getElementById('fechaNacP').value = fechaNacimiento; 
+    document.getElementById('userNameP').value = username;
+    passwordInput.value = password;
+    
+}
+
+
+
+
