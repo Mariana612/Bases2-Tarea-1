@@ -459,9 +459,22 @@ function agregarNuevoContacto(nombreChat){
 }
 
 
+fetchDatasetsByOwnerId(1);
 
-for (let i = 0; i < 20; i++) {
-    agregarDataSetPerfil('pruebaxd');
+async function fetchDatasetsByOwnerId(ownerId) {
+    const baseUrl = 'http://localhost:3002'; // Set this to the correct base URL
+    try {
+        const response = await fetch(`${baseUrl}/datasetOwner/${ownerId}`);
+        const datasets = await response.json();
+        if (response.ok) {
+            datasets.forEach(dataset => {
+                texto = dataset.Nombre + " "+ dataset.DatasetId;
+                agregarDataSetPerfil(texto);
+            });
+        } else {
+            console.error('No datasets found for this owner', datasets);
+        }
+    } catch (error) {
+        console.error('Failed to fetch datasets:', error);
+    }
 }
-
-
