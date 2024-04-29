@@ -321,6 +321,7 @@ function agregarDataSetPerfil(nombreDelDataSet){
     var button = document.createElement('button');
     button.type = 'submit';
     button.className = 'btnVDS';
+    button.setAttribute('onclick', 'actualizarTabla()');
 
     var image = document.createElement('img');
     image.src = 'imagenes/ojo.png'; 
