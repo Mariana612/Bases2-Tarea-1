@@ -40,6 +40,25 @@ app.get('/users/:username', async (req, res) => {
     }
 });
 
+app.get('/usersId/:usID', async (req, res) => {
+    const targetId = req.params.usID;
+    try {
+        const result = await pool.query(
+            'SELECT * FROM  get_user_info_by_id($1)',
+            [targetId]
+        );
+        const userInfo = result.rows[0];
+        if (userInfo) {
+            res.json(userInfo);
+        } else {
+            res.status(404).send('User not found');
+        }
+    } catch (err) {
+        console.error('Error executing query:', err);
+        res.status(500).send('Error executing query');
+    }
+});
+
 app.post('/addUser', async (req, res) => {
     const { username, password_hash, nombre_completo, fecha_nacimiento } = req.body;
     try {
