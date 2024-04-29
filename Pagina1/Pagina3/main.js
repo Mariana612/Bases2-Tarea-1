@@ -201,7 +201,7 @@ async function fetchComments(dataId) {
     }
 }
     
-    async function displayComments(comments) {
+async function displayComments(comments) {
         const commentsContainer = document.getElementById('commentsContainer');
         commentsContainer.innerHTML = ''; // Clear previous comments
     
@@ -220,7 +220,7 @@ async function fetchComments(dataId) {
     
             commentsContainer.appendChild(commentDiv);
         }
-    }
+}
 
     async function addComment() {
         const dataId = someDataId; // Ensure this is set correctly to the current dataset ID
@@ -330,6 +330,7 @@ try {
     console.error('Error fetching data:', error);
 }
 }
+
 TestUsr();
 
 async function nuevoChat(idPerson){
@@ -368,6 +369,7 @@ function editarInfoP(){
     passwordInput.value = password;
     
 }
+
 
 function agregarDataSetPerfil(nombreDelDataSet, idtabla){
     // Crear los divs
@@ -740,3 +742,32 @@ for (let i = 0; i < 5; i++) {
     agregarDataSet('imagenes/perfil.png', 'python', 'prueba xd', '22-04-2024', 'descargas/archivo.py', 'video/duck-drums.mp4');
 }
   
+async function updateUserInfo() {
+    const userId = sessionStorage.getItem('idUsuario');  // Assuming you store the user ID in sessionStorage
+    const fullName = document.getElementById('fullNameP').value;
+    const birthDate = document.getElementById('fechaNacP').value;
+    const username = document.getElementById('userNameP').value;
+    const password = document.getElementById('passwordP').value;
+
+    // Hash the password here if necessary before sending it to the server
+
+    const response = await fetch('http://localhost:3001/updateUser', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            idUser: userId,
+            nombre_completo: fullName,
+            fecha_nacimiento: birthDate,
+            username: username,
+            password_hash: password  // Make sure to securely handle and hash the password on the server side
+        })
+    });
+
+    if (response.ok) {
+        console.log('User info updated successfully');
+    } else {
+        console.error('Failed to update user info');
+    }
+}
