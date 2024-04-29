@@ -415,7 +415,7 @@ function agregarConversacion(nombreChat, mensaje){
     var message = document.createElement('h5');
     message.className = 'mensaje';
     message.textContent = mensaje;  // Puedes modificar el mensaje aquí
-
+    
     // Ensamblar los elementos
     messageDiv.appendChild(message);
     mainDiv.appendChild(messageDiv);
