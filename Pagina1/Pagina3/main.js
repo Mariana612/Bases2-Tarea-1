@@ -258,7 +258,7 @@ function volverChats(){
 }
 
 
-function verNuevosChats(){ //---------------aqui
+function verNuevosChats(){ 
     var container1 = document.getElementsByClassName("cdrContacto")[0];
     var container2 = document.getElementsByClassName("cdrChats")[0];
     var container3 = document.getElementsByClassName("cdrEnviarMsg")[0];
@@ -279,7 +279,7 @@ function verNuevosChats(){ //---------------aqui
     container7.style.display = "flex";
     container8.style.display = "none";
 
-    //agregarNuevoContacto(algo);
+    fetchAndAddAllUsers();
 }
 
 
@@ -538,5 +538,23 @@ async function fetchName(idUs) {
     } catch (error) {
         console.error(`Error fetching username for user ID ${idUs}:`, error);
         return null;
+    }
+}
+
+async function fetchAndAddAllUsers() {
+    const userApiBaseUrl = 'http://localhost:3001'; // Adjust to your actual User API base URL
+
+    try {
+        const response = await fetch(`${userApiBaseUrl}/allUsers`);
+        const users = await response.json();
+        if (response.ok) {
+            users.forEach(user => {
+                agregarNuevoContacto(user.username);
+            });
+        } else {
+            console.error('Failed to fetch users:', users);
+        }
+    } catch (error) {
+        console.error('Error fetching users:', error);
     }
 }
