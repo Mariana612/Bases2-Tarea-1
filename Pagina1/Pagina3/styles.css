@@ -975,7 +975,7 @@ form label .fa-solid {
 
 .marcoDataS{
 	display: flex;
-	justify-content: center;
+	
 
 	flex-direction: column;
 	overflow: auto;

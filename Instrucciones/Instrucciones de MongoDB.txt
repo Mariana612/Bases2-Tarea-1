@@ -8,21 +8,19 @@ docker exec -it my-mongo mongosh -u root -p example --authenticationDatabase adm
 
 use dataSetDB
 
+/// correxion db.dropDatabase();
+
 #crear tabla
 
 db.createCollection("dataset", {
    validator: {
       $jsonSchema: {
          bsonType: "object",
-         required: ["Nombre", "Descripción", "Fecha de Inclusión", "Foto o avatar", "Archivo(s)"],
+         required: ["Nombre", "Descripción", "Fecha de Inclusión", "Foto o avatar", "Archivo(s)","OwnerId"],
          properties: {
             Nombre: {
                bsonType: "string",
                description: "Nombre of the dataset"
-            },
-            PhotoId: {
-               bsonType: "int",
-               description: "Numero de foto"
             },
             DatasetId: {
                bsonType: "int",
@@ -43,7 +41,12 @@ db.createCollection("dataset", {
             "Archivo(s)": {
                bsonType: ["string", "array"],
                description: "URLs or paths to the file(s) containing the dataset data"
-            }
+            },
+            "OwnerId": {
+               bsonType: "int",
+               description: "Numero de posteador"
+            },
+            
          }
       }
    }
@@ -53,16 +56,16 @@ db.createCollection("dataset", {
 
 #ok ahora hacemos una funcion para sacar datos modo serio
 
-function insertDataset(nombre, photoId, dataId, descripcion, fotoAvatar, archivos) {
+function insertDataset(nombre, dataId, descripcion, fotoAvatar, archivos, idowner) {
     // Create a new document to insert
     var datasetDocument = {
         "Nombre": nombre,
-        "PhotoId": photoId,
         "DatasetId": dataId,
         "Descripción": descripcion,
         "Fecha de Inclusión": new Date(),
         "Foto o avatar": fotoAvatar,
-        "Archivo(s)": archivos
+        "Archivo(s)": archivos,
+        "OwnerId": idowner
     };
 
     // Insert the document into the "dataset" collection
@@ -72,17 +75,16 @@ function insertDataset(nombre, photoId, dataId, descripcion, fotoAvatar, archivo
 
 #ahora a probarlo uwu 
 
-insertDataset("Prueba bonita", 1, 1, "ay pero que locura", "\Pagina3\imagenes\buscar.png", ["\Pagina3\imagenes\buscar.png"]);
+insertDataset("Prueba bonita", 1, "ay pero que locura", "imagenes\\buscar.png", ["video\\duck-drums.mp4"],1);
+insertDataset("Prueba bonita", 2, "ay pero que locura", "imagenes\\perfil1.png", ["video\\duck-drums.mp4"],1);
 
 db.dataset.find()
 
 #OH WAO YA SIRVEN LOS INSERTS pero que bendicioooon, ahora trabajmos con la funcion para sacar la info
 
-function getDatasetInfo(dataId) {
-    var datasetDocument = db.dataset.findOne({ "DatasetId": dataId });
-    return datasetDocument;
+function getDatasetInfo(idowner) {
+    return db.dataset.find({ "OwnerId": idowner }).toArray();
 }
-
 #hora vamos a porbar esto
 
 var datasetInfo = getDatasetInfo(1);
@@ -121,7 +123,7 @@ function insertDatasetComment(idDataset, idUsuarioComment, comentario) {
     });
 }
 
-insertDatasetComment(1, 789, "Este es un comentario sobre el dataset 123.");
+insertDatasetComment(1, 2, "Este es un comentario sobre el dataset 1.");
 
 function getDatasetComments(idDataset) {
     return db.dataSetComment.find({"idDataset": idDataset}).toArray();
