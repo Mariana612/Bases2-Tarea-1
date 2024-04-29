@@ -235,7 +235,7 @@ async function editarInfoP(idUser){
 editarInfoP(1);
 
 
-function insertNewUser(idUser_pam) {
+function updateInfoUser(idUser_pam) {
     const fullName = document.getElementById('fullNameP').value;
     const birthdate = document.getElementById('fechaNacP').value;
     const username = document.getElementById('userNameP').value;  // Ensure this ID matches your HTML
