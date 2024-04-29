@@ -79,6 +79,20 @@ app.post('/addUser', async (req, res) => {
     }
 });
 
+app.get('/allUsers', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM get_all_users()');
+        if (result.rows.length > 0) {
+            res.json(result.rows);
+        } else {
+            res.status(404).send('No users found');
+        }
+    } catch (err) {
+        console.error('Error executing query:', err);
+        res.status(500).send('Error executing query');
+    }
+});
+
 const port = 3001;
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

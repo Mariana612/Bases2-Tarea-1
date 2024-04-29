@@ -258,7 +258,7 @@ function volverChats(){
 }
 
 
-function verNuevosChats(){
+function verNuevosChats(){ 
     var container1 = document.getElementsByClassName("cdrContacto")[0];
     var container2 = document.getElementsByClassName("cdrChats")[0];
     var container3 = document.getElementsByClassName("cdrEnviarMsg")[0];
@@ -278,11 +278,16 @@ function verNuevosChats(){
     container6.style.display = "flex";
     container7.style.display = "flex";
     container8.style.display = "none";
+
+    fetchAndAddAllUsers();
 }
 
 
-function nuevoChat(){
+async function nuevoChat(idPerson){
     //lo añade a la lista de contactos de la persona
+    console.log(idPerson);
+    const username = await fetchName(idPerson);
+    agregarContactoChat(username);
 
     abrirChat();
 }
@@ -411,6 +416,7 @@ function agregarContactoChat(nombreChat){
 
 }
 
+
 function agregarConversacion(nombreChat, mensaje){
     //Actualiza el nombre del contacto
     document.getElementById('nombreContactoMsg').textContent = nombreChat;
@@ -438,7 +444,7 @@ function agregarConversacion(nombreChat, mensaje){
 }
 
 
-function agregarNuevoContacto(nombreChat){
+function agregarNuevoContacto(nombreChat, idUs){
     // Crear los elementos
     var containerDiv = document.createElement('div');
     containerDiv.className = 'cdrContactos';
@@ -450,7 +456,9 @@ function agregarNuevoContacto(nombreChat){
     var button = document.createElement('button');
     button.type = 'submit';
     button.className = 'btnEC';
-    button.setAttribute('onclick', 'nuevoChat()');  
+    console.log('idUs:', idUs);  // Check the console to see what idUs actually contains before it's used
+    button.setAttribute('onclick', 'nuevoChat(\'' + idUs + '\')');  // Using escaping 
+
 
     var image = document.createElement('img');
     image.src = 'imagenes/iniciarConver.png';  
@@ -535,5 +543,25 @@ async function fetchName(idUs) {
     } catch (error) {
         console.error(`Error fetching username for user ID ${idUs}:`, error);
         return null;
+    }
+}
+
+async function fetchAndAddAllUsers() {
+    const userApiBaseUrl = 'http://localhost:3001'; // Adjust to your actual User API base URL
+
+    try {
+        const response = await fetch(`${userApiBaseUrl}/allUsers`);
+        const users = await response.json();
+        console.log(users); // Log the entire response to verify the structure
+        if (response.ok) {
+            users.forEach(user => {
+                console.log(user.iduser); // Ensure you are logging the correct field name
+                agregarNuevoContacto(user.username, user.iduser); // Correct the case to match your JSON structure
+            });
+        } else {
+            console.error('Failed to fetch users:', users);
+        }
+    } catch (error) {
+        console.error('Error fetching users:', error);
     }
 }
