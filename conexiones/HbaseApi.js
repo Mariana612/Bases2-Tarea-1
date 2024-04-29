@@ -3,7 +3,8 @@ const cors = require('cors');
 const { putData, getData, getRowsContainingSubstring } = require('./Hbase.js');
 const app = express();
 
-app.use(cors());  // Enable CORS for all routes
+app.use(cors());
+
 app.use(express.json());
 
 // Store Data
@@ -50,6 +51,20 @@ app.get('/hbase/search/:tableName/:substring', async (req, res) => {
     }
 });
 
+app.get('/UserMessages/:rowKey', async (req, res) => {
+    const { rowKey } = req.params;
+    try {
+        const data = await getData('UserMessages', rowKey);
+        if (data) {
+            res.json(data);
+        } else {
+            res.status(404).send('No data found for ' + rowKey);
+        }
+    } catch (error) {
+        console.error('Error retrieving data:', error);
+        res.status(500).send('Server error');
+    }
+});
 const port = 3004;
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

@@ -279,29 +279,9 @@ async function volverChats(){
     container7.style.display = "none";
     container8.style.display = "flex";
 
-    const idPerson = sessionStorage.getItem('idUsuario'); // Assuming 'idUsuario' is the current user's ID
-    const baseUrl = 'http://localhost:3004'; // Make sure this matches your API server's address
-    try {
-        const response = await fetch(`${baseUrl}/hbase/search/UserMessages/${idPerson}`);
-        const rowKeys = await response.json();
-        if (rowKeys.length > 0) {
-            rowKeys.forEach(async (rowKey) => {
-                // Split the row key on '#'
-                const parts = rowKey.split('#');
-                // Determine the part of the rowKey that is not the user's ID
-                const otherId = parts.find(part => part !== idPerson);
-                if (otherId) {
-                    const username = await fetchName(otherId);
-                    agregarContactoChat(username); // This function should handle displaying or processing the contact
-                }
-            });
-        } else {
-            console.log("No rows found containing the ID:", idPerson);
-        }
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
+
 }
+
 
 function verNuevosChats(){
     var container1 = document.getElementsByClassName("cdrContacto")[0];
@@ -326,7 +306,31 @@ function verNuevosChats(){
 
     fetchAndAddAllUsers();
 }
-
+async function TestUsr(){
+const idPerson = sessionStorage.getItem('idUsuario'); // Assuming 'idUsuario' is the current user's ID
+const baseUrl = 'http://localhost:3004'; // Make sure this matches your API server's address
+try {
+    const response = await fetch(`${baseUrl}/hbase/search/UserMessages/${idPerson}`);
+    const rowKeys = await response.json();
+    if (rowKeys.length > 0) {
+        rowKeys.forEach(async (rowKey) => {
+            // Split the row key on '#'
+            const parts = rowKey.split('#');
+            // Determine the part of the rowKey that is not the user's ID
+            const otherId = parts.find(part => part !== idPerson);
+            if (otherId) {
+                const username = await fetchName(otherId);
+                agregarContactoChat(username); // This function should handle displaying or processing the contact
+            }
+        });
+    } else {
+        console.log("No rows found containing the ID:", idPerson);
+    }
+} catch (error) {
+    console.error('Error fetching data:', error);
+}
+}
+TestUsr();
 
 async function nuevoChat(idPerson){
     //lo añade a la lista de contactos de la persona

@@ -70,8 +70,8 @@ async function putData(tableName, rowKey, columnFamily, columnQualifier, value) 
     }
 }
 
-//getData('UserMessages','1#2');
-putData('UserMessages','12#2','msgs','1','Hiii!')
+getData('UserMessages','1#2');
+// putData('UserMessages','12#2','msgs','1','Hiii!')
 
 module.exports = {
   putData,
