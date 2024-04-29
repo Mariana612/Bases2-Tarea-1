@@ -283,8 +283,11 @@ function verNuevosChats(){
 }
 
 
-function nuevoChat(){
+async function nuevoChat(idPerson){
     //lo añade a la lista de contactos de la persona
+    console.log(idPerson);
+    const username = await fetchName(idPerson);
+    agregarContactoChat(username);
 
     abrirChat();
 }
@@ -441,7 +444,7 @@ function agregarConversacion(nombreChat, mensaje){
 }
 
 
-function agregarNuevoContacto(nombreChat){
+function agregarNuevoContacto(nombreChat, idUs){
     // Crear los elementos
     var containerDiv = document.createElement('div');
     containerDiv.className = 'cdrContactos';
@@ -453,7 +456,9 @@ function agregarNuevoContacto(nombreChat){
     var button = document.createElement('button');
     button.type = 'submit';
     button.className = 'btnEC';
-    button.setAttribute('onclick', 'nuevoChat()');  
+    console.log('idUs:', idUs);  // Check the console to see what idUs actually contains before it's used
+    button.setAttribute('onclick', 'nuevoChat(\'' + idUs + '\')');  // Using escaping 
+
 
     var image = document.createElement('img');
     image.src = 'imagenes/iniciarConver.png';  
@@ -547,9 +552,11 @@ async function fetchAndAddAllUsers() {
     try {
         const response = await fetch(`${userApiBaseUrl}/allUsers`);
         const users = await response.json();
+        console.log(users); // Log the entire response to verify the structure
         if (response.ok) {
             users.forEach(user => {
-                agregarNuevoContacto(user.username);
+                console.log(user.iduser); // Ensure you are logging the correct field name
+                agregarNuevoContacto(user.username, user.iduser); // Correct the case to match your JSON structure
             });
         } else {
             console.error('Failed to fetch users:', users);
