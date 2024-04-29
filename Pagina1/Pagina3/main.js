@@ -144,12 +144,23 @@ function abrirChat(){
     var container1 = document.getElementsByClassName("cdrContacto")[0];
     var container2 = document.getElementsByClassName("cdrChats")[0];
     var container3 = document.getElementsByClassName("cdrEnviarMsg")[0];
+
     var container4 = document.getElementsByClassName("cdrChatsDispo")[0];
+    var container8 = document.getElementsByClassName("cdrBuscarNuevoChat")[0];
+
+    var container5 = document.getElementsByClassName("cdrContactoB")[0];
+    var container6 = document.getElementsByClassName("cdrChatsB")[0];
+    var container7 = document.getElementsByClassName("cdrVolverChatsDispo")[0];
+
 
     container1.style.display = "flex";
     container2.style.display = "flex";
     container3.style.display = "flex";
     container4.style.display = "none";
+    container5.style.display = "none";
+    container6.style.display = "none";
+    container7.style.display = "none";
+    container8.style.display = "none";
 }
 
 
@@ -219,11 +230,238 @@ function volverChats(){
     var container1 = document.getElementsByClassName("cdrContacto")[0];
     var container2 = document.getElementsByClassName("cdrChats")[0];
     var container3 = document.getElementsByClassName("cdrEnviarMsg")[0];
+
     var container4 = document.getElementsByClassName("cdrChatsDispo")[0];
+    var container8 = document.getElementsByClassName("cdrBuscarNuevoChat")[0];
+
+    var container5 = document.getElementsByClassName("cdrContactoB")[0];
+    var container6 = document.getElementsByClassName("cdrChatsB")[0];
+    var container7 = document.getElementsByClassName("cdrVolverChatsDispo")[0];
 
     container1.style.display = "none";
     container2.style.display = "none";
     container3.style.display = "none";
     container4.style.display = "flex";
+    container5.style.display = "none";
+    container6.style.display = "none";
+    container7.style.display = "none";
+    container8.style.display = "flex";
 }
+
+
+function verNuevosChats(){
+    var container1 = document.getElementsByClassName("cdrContacto")[0];
+    var container2 = document.getElementsByClassName("cdrChats")[0];
+    var container3 = document.getElementsByClassName("cdrEnviarMsg")[0];
+
+    var container4 = document.getElementsByClassName("cdrChatsDispo")[0];
+    var container8 = document.getElementsByClassName("cdrBuscarNuevoChat")[0];
+
+    var container5 = document.getElementsByClassName("cdrContactoB")[0];
+    var container6 = document.getElementsByClassName("cdrChatsB")[0];
+    var container7 = document.getElementsByClassName("cdrVolverChatsDispo")[0];
+
+    container1.style.display = "none";
+    container2.style.display = "none";
+    container3.style.display = "none";
+    container4.style.display = "none";
+    container5.style.display = "flex";
+    container6.style.display = "flex";
+    container7.style.display = "flex";
+    container8.style.display = "none";
+}
+
+
+function nuevoChat(){
+    //lo añade a la lista de contactos de la persona
+
+    abrirChat();
+}
+
+
+
+
+function editarInfoP(){
+    var nombreCompleto;
+    var fechaNacimiento; // Formato: '2024-04-28'
+    var username;
+    var password;
+    var passwordInput = document.getElementById('passwordP');
+
+    //Esto hace que se pueda ver la contraseña cuando se posiciona en el espacio
+    passwordInput.addEventListener('focus', function() {
+        this.type = 'text';  
+    });
+
+    passwordInput.addEventListener('blur', function() {
+        this.type = 'password';  
+    });
+
+
+    //Aquí le asigna la info a la variable 
+    
+    //Se muestra la info en la interfaz
+    document.getElementById('fullNameP').value = nombreCompleto;
+    document.getElementById('fechaNacP').value = fechaNacimiento; 
+    document.getElementById('userNameP').value = username;
+    passwordInput.value = password;
+    
+}
+
+
+function agregarDataSetPerfil(nombreDelDataSet){
+    // Crear los divs
+    var containerDiv = document.createElement('div');
+    containerDiv.className = 'cdrDataS';
+
+    var header = document.createElement('h1');
+    header.className = 'nomDataS';
+    header.textContent = nombreDelDataSet;
+
+    var button = document.createElement('button');
+    button.type = 'submit';
+    button.className = 'btnVDS';
+
+    var image = document.createElement('img');
+    image.src = 'imagenes/ojo.png'; 
+    image.className = 'btnVDSI';
+
+    // Unir los elementos
+    button.appendChild(image);
+    containerDiv.appendChild(header);
+    containerDiv.appendChild(button);
+
+    // Seleccionar el contenedor donde se insertarán el div creado 
+    var targetContainer = document.querySelector('.marcoDataS');
+
+    // Agregar el div contenedor al elemento seleccionado
+    targetContainer.appendChild(containerDiv);
+}
+
+
+function agregarFilaTablaHistorial(username, cantDescargas){
+    // Crear los divs
+    var mainDiv = document.createElement('div');
+    mainDiv.className = 'contenidoData';
+
+    var userColumnDiv = document.createElement('div');
+    userColumnDiv.className = 'columnaUserD';
+    var userHeader = document.createElement('h1');
+    userHeader.className = 'textoTabla';
+    userHeader.textContent = username;  // Cambia el texto según sea necesario
+    userColumnDiv.appendChild(userHeader);
+
+    var countColumnDiv = document.createElement('div');
+    countColumnDiv.className = 'columnaCantDesD';
+    var countHeader = document.createElement('h1');
+    countHeader.className = 'textoTabla';
+    countHeader.textContent = cantDescargas;  // Cambia el número según sea necesario
+    countColumnDiv.appendChild(countHeader);
+
+    // Unir los elementos
+    mainDiv.appendChild(userColumnDiv);
+    mainDiv.appendChild(countColumnDiv);
+
+    // Seleccionar el contenedor donde se insertarán los elementos
+    var targetContainer = document.querySelector('.contenidoTabla'); 
+
+    // Agregar el div contenedor al elemento seleccionado
+    targetContainer.appendChild(mainDiv);
+}
+
+
+function agregarContactoChat(nombreChat){
+    // Crear los divs
+    var containerDiv = document.createElement('div');
+    containerDiv.className = 'cdrContactos';
+
+    var header = document.createElement('h1');
+    header.className = 'nomContactos';
+    header.textContent = nombreChat;  // Ajusta el nombre como necesario
+
+    var button = document.createElement('button');
+    button.type = 'submit';
+    button.className = 'btnEC';
+    button.setAttribute('onclick', 'abrirChat()');  
+
+    var image = document.createElement('img');
+    image.src = 'imagenes/chat.png';  // Verifica que la ruta de la imagen sea correcta
+    image.className = 'btnECI';
+
+    // Unir los elementos
+    button.appendChild(image);
+    containerDiv.appendChild(header);
+    containerDiv.appendChild(button);
+
+    // Seleccionar el contenedor donde se insertarán los elementos
+    var targetContainer = document.querySelector('.cdrChatsDispo'); 
+
+    // Agregar el div contenedor al elemento seleccionado
+    targetContainer.appendChild(containerDiv);
+
+}
+
+function agregarConversacion(nombreChat, mensaje){
+    //Actualiza el nombre del contacto
+    document.getElementById('nombreContactoMsg').textContent = nombreChat;
+
+   // Crear los elementos
+    var mainDiv = document.createElement('div');
+    mainDiv.className = 'cdrMsg';
+
+    var messageDiv = document.createElement('div');
+    messageDiv.className = 'cdrMensaje';
+
+    var message = document.createElement('h5');
+    message.className = 'mensaje';
+    message.textContent = mensaje;  // Puedes modificar el mensaje aquí
+
+    // Ensamblar los elementos
+    messageDiv.appendChild(message);
+    mainDiv.appendChild(messageDiv);
+
+    // Seleccionar el contenedor donde se insertarán los elementos
+    var targetContainer = document.querySelector('.cdrChats'); 
+
+    // Agregar el div contenedor al elemento seleccionado
+    targetContainer.appendChild(mainDiv);
+}
+
+
+function agregarNuevoContacto(nombreChat){
+    // Crear los elementos
+    var containerDiv = document.createElement('div');
+    containerDiv.className = 'cdrContactos';
+
+    var header = document.createElement('h1');
+    header.className = 'nomContactos';
+    header.textContent = nombreChat;  
+
+    var button = document.createElement('button');
+    button.type = 'submit';
+    button.className = 'btnEC';
+    button.setAttribute('onclick', 'nuevoChat()');  
+
+    var image = document.createElement('img');
+    image.src = 'imagenes/iniciarConver.png';  
+    image.className = 'btnECI';
+
+    // Ensamblar los elementos
+    button.appendChild(image);
+    containerDiv.appendChild(header);
+    containerDiv.appendChild(button);
+
+    // Seleccionar el contenedor donde se insertarán los elementos
+    var targetContainer = document.querySelector('.cdrChatsB'); 
+
+    // Agregar el div contenedor al elemento seleccionado
+    targetContainer.appendChild(containerDiv);
+}
+
+
+
+for (let i = 0; i < 20; i++) {
+    agregarNuevoContacto('pruebaxd');
+}
+
 

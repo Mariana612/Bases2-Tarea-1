@@ -696,7 +696,7 @@ form label .fa-solid {
 
 	border: 0px solid purple;
 	height: 50px;
-	width: 435px;
+	width: 420px;
 	margin-bottom: 20px;
 }
 
@@ -741,7 +741,7 @@ form label .fa-solid {
 	align-items: start;
 
 	border: 0px solid orange;
-	height: 985px;
+	height: 900px;
 	width: 470px;
 }
 
@@ -1096,7 +1096,6 @@ form label .fa-solid {
 .titulosEncabezadoTabla{
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
 
 	border: 0px solid green;
 	width: 580px;
@@ -1142,6 +1141,8 @@ form label .fa-solid {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	overflow-x: hidden; /* Para habilitar el scroll horizontal */
+  	overflow-y: auto; /* Para deshabilitar el scroll vertical */
 
 	border: 0px solid black;
 	width: 580px;
@@ -1152,7 +1153,6 @@ form label .fa-solid {
 .contenidoData{
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
 
 	border: 0px solid green;
 	width: 580px;
@@ -1192,3 +1192,159 @@ form label .fa-solid {
 }
 
 
+/*BUCAR NUEVO CONTACTO*/
+.cdrContactoB{
+	display: none;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	border: 0px solid purple;
+	height: 60px;
+	width: 455px;
+	margin-bottom: 20px;
+}
+
+
+.nomContactoB{
+	display: flex;
+	border: 0px solid green;
+	height: 50px;
+	width: 400px;
+
+	overflow: hidden;
+	align-items: center;
+
+	font-size: 28px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: rgb(233, 156, 179);
+}
+
+
+.cdrChatsB{
+	display: none;
+	flex-direction: column;
+
+	border: 0px solid purple;
+	height: 830px;
+	width: 460px;
+
+	overflow: auto;
+	margin-bottom: 20px;
+}
+
+
+.cdrVolverChatsDispo{
+	display: none;
+	flex-direction: column;
+	align-items: start;
+
+	border: 0px solid black;
+	width: 460px;
+}
+
+.msgEscritoB{
+	display: block;
+	height: 100px;
+	width: 470px;
+	margin-bottom: 10px;
+	overflow: auto;
+
+	border: 4px solid rgb(224, 82, 141);
+	border-radius: 10px;
+
+	font-size: 18px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: black;
+}
+
+.botonesMsgB{
+	height: 40px;
+	width: 200px;
+
+	background-color: rgb(224, 82, 141);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 25px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}
+
+
+.cdrContactosB{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	border: 0px solid purple;
+	height: 50px;
+	width: 420px;
+	margin-bottom: 20px;
+}
+
+.nomContactosB{
+	display: flex;
+	border: 0px solid green;
+	height: 50px;
+	width: 370px;
+
+	overflow: hidden;
+	align-items: center;
+
+	font-size: 30px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+
+}
+
+.btnECB{
+	display: flex;
+	height: 50px;
+	width: 50px;
+
+	justify-content: center;	
+	align-items: center;
+
+	border: 1px solid rgb(233, 156, 179);
+	border-radius: 5px;
+	background-color: rgb(233, 156, 179);
+}
+
+.btnECIB{
+	height: 32px;
+	width: 35px;
+	margin: -5px;
+}
+
+
+
+.cdrBuscarNuevoChat{
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	margin-top: 20px;
+
+	border: 0px solid black;
+	width: 460px;
+}
+
+
+.botonesNewChat{
+	height: 40px;
+	width: 350px;
+	align-self: center;
+
+	background-color: rgb(224, 82, 141);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 25px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
+}

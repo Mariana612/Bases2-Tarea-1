@@ -32,22 +32,17 @@
 
 
             <div class="cdrContacto">
-                <h1 class="nomContacto">Alisson Carillo</h1>
+                <h1 class="nomContacto" id="nombreContactoMsg">Alisson Carillo</h1>
                 <button type="submit" class="btnVC" onclick="volverChats()"> <img src="imagenes/cerrar-ventana.png" class="btnVCI"> </button>
             </div>
 
             <div class="cdrChats">
-                <div class="cdrMsg">
+                
+                <!-- <div class="cdrMsg">
                     <div class="cdrMensaje">
                         <h5 class="mensaje">Hola, qué tal?</h5>
                     </div>
-                </div>
-    
-                <div class="cdrMsg">
-                    <div class="cdrMensaje">
-                        <h5 class="mensaje">Hola, qué tal?</h5>
-                    </div>
-                </div>
+                </div> -->
                 
             </div>
 
@@ -58,10 +53,34 @@
 
 
             <div class="cdrChatsDispo">
+
                 <div class="cdrContactos">
                     <h1 class="nomContactos">Alisson Carillo</h1>
                     <button type="submit" class="btnEC" onclick="abrirChat()"> <img src="imagenes/chat.png" class="btnECI"> </button>
                 </div>
+
+            </div>
+
+            <div class="cdrBuscarNuevoChat">
+                <button id="btnNew" class="botonesNewChat" onclick="verNuevosChats()">NUEVA CONVERSACIÓN</button>
+            </div>
+
+
+            <div class="cdrContactoB">
+                <h1 class="nomContactoB" id="nombreContactoMsg">BUSCAR NUEVO CONTACTO</h1>
+            </div>
+
+            <div class="cdrChatsB">
+                
+                <div class="cdrContactosB">
+                    <h1 class="nomContactosB">Alisson Carillo</h1>
+                    <button type="submit" class="btnECB" onclick="nuevoChat()"> <img src="imagenes/iniciarConver.png" class="btnECIB"> </button>
+                </div>
+                
+            </div>
+
+            <div class="cdrVolverChatsDispo">
+                <button id="btnVolverDispo" class="botonesMsgB" onclick="volverChats()">VOLVER</button>
             </div>
 
         </div>
@@ -88,23 +107,23 @@
         
                         <div class="infoIOED">
                             <h3 class="solDatosED">Nombre Completo: </h3>  
-                            <input type="text" class="iDatED">
+                            <input type="text" class="iDatED" id="fullNameP">
                         </div>
                         
                         <div class="infoIOED">
                             <h3 class="solDatosED">Fecha de Nacimiento:</h3>
-                            <input type="date" name="date" class="iDatFNED" />
+                            <input type="date" name="date" class="iDatFNED" id="fechaNacP" />
         
                         </div>
         
                         <div class="infoIOED">
                             <h3 class="solDatosED">Nombre de usuario:</h3>
-                            <input type="text" class="iDatED">
+                            <input type="text" class="iDatED" id="userNameP">
                         </div>
         
                         <div class="infoIOED">
                             <h3 class="solDatosED">Contraseña:</h3>
-                            <input type="password" class="iDatED">
+                            <input type="password" id="passwordP" class="iDatED">
                         </div>
                         
                     </div>
@@ -126,11 +145,11 @@
 
                     <div class="marcoDataS">
 
-                        <div class="cdrDataS">
+                        <!-- <div class="cdrDataS">
                             <h1 class="nomDataS">Alisson Carillo</h1>
                             <button type="submit" class="btnVDS"> <img src="imagenes/ojo.png" class="btnVDSI"> </button>
-                        </div>
-
+                        </div> -->
+ 
                     </div>
                     
                 </div>
@@ -153,27 +172,21 @@
                             </div>
                         </div>
 
-                        
-
                     </div>
 
                     <div class="contenidoTabla">
 
-                        <div class="contenidoData">
+                        <!-- <div class="contenidoData">
                             <div class="columnaUserD">
                                 <h1 class="textoTabla">PameFM</h1>
                             </div>
-    
                             <div class="columnaCantDesD">
                                 <h1 class="textoTabla">4</h1>
                             </div>
-                        </div>
+                        </div> -->
                         
-
-
-
-
                     </div>
+
                 </div>
        
             </div>
