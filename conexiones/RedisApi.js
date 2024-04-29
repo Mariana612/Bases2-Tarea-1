@@ -20,49 +20,30 @@ client.on('error', (err) => console.error('Redis Client Error', err));
 async function connectRedis() {
     await client.connect();
 }
-
-// Store Data
-app.post('/storeData', async (req, res) => {
-    const { idDataset, idPersons } = req.body;
-    const setKey = `data:${idDataset}:idPersons`;
-
+// API to add a user ID to a dataset
+app.post('/dataset/users/add', async (req, res) => {
+    const { datasetID, userID } = req.body;
     try {
-        await client.sAdd(setKey, idPersons);
-        res.status(201).send('Data stored successfully');
+        await client.lPush(`dataset:${datasetID}:users`, userID);
+        res.status(201).send(`User ID ${userID} added to dataset ${datasetID}`);
     } catch (err) {
-        console.error('Error storing data in Redis:', err);
-        res.status(500).send('Error storing data');
+        console.error('Redis Error:', err);
+        res.status(500).send('Internal Server Error');
     }
 });
 
-// Get IdPersons
-app.get('/getIdPersons/:idDataset', async (req, res) => {
-    const setKey = `data:${req.params.idDataset}:idPersons`;
+// API to get all user IDs from a dataset
+app.get('/dataset/users/:datasetID', async (req, res) => {
+    const { datasetID } = req.params;
     try {
-        const idPersons = await client.sMembers(setKey);
-        if (idPersons.length === 0) {
-            res.status(404).send('No idPersons found');
-        } else {
-            res.json(idPersons);
-        }
+        const userIDs = await client.lRange(`dataset:${datasetID}:users`, 0, -1);
+        res.json({ datasetID, userIDs });
     } catch (err) {
-        console.error('Error retrieving idPersons from Redis:', err);
-        res.status(500).send('Error retrieving data');
+        console.error('Redis Error:', err);
+        res.status(500).send('Internal Server Error');
     }
 });
 
-// Add More IdPersons
-app.patch('/addMoreIdPersons', async (req, res) => {
-    const { id, newIdPersons } = req.body;
-    const setKey = `data:${id}:idPersons`;
-    try {
-        await client.sAdd(setKey, newIdPersons);
-        res.send(`${newIdPersons.length} new idPerson(s) added to the set`);
-    } catch (err) {
-        console.error('Error adding new idPersons to Redis:', err);
-        res.status(500).send('Error updating data');
-    }
-});
 
 // Disconnect Redis gracefully
 async function closeConnection() {
