@@ -179,17 +179,26 @@ function abrirChat(){
         }
     }
     
-    function displayComments(comments) {
+    async function displayComments(comments) {
         const commentsContainer = document.getElementById('commentsContainer');
         commentsContainer.innerHTML = ''; // Clear previous comments
-        comments.forEach(comment => {
+    
+        for (const comment of comments) {
             const commentDiv = document.createElement('div');
             commentDiv.className = 'infoCom';
-            commentDiv.innerHTML = `<h4 class="solDatosCmt">Username: </h4><output class="iDatCmt">${comment.idUsuarioComment} - ${comment.comentario}</output>`;
+    
+            // Fetch the username asynchronously and then display the comment
+            try {
+                const username = await fetchName(comment.idUsuarioComment);
+                commentDiv.innerHTML = `<h4 class="solDatosCmt">Username: </h4><output class="iDatCmt">${username} - ${comment.comentario}</output>`;
+            } catch (error) {
+                commentDiv.innerHTML = `<h4 class="solDatosCmt">Username: </h4><output class="iDatCmt">Error fetching username - ${comment.comentario}</output>`;
+                console.error('Error fetching username:', error);
+            }
+    
             commentsContainer.appendChild(commentDiv);
-        });
+        }
     }
-
 
     async function addComment() {
         const dataId = someDataId; // Ensure this is set correctly to the current dataset ID
@@ -481,8 +490,7 @@ async function fetchDatasetsByOwnerId(ownerId) {
 }
 
 async function fetchAndDisplayUserStats(datasetID) {
-    const redisBaseUrl = 'http://localhost:3003'; // Change to your Redis API base URL
-    const userApiBaseUrl = 'http://localhost:3001'; // Change to your User API base URL
+    const redisBaseUrl = 'http://localhost:3003'; // Adjust to your actual Redis API base URL
 
     try {
         // Fetch the array of user IDs
@@ -497,19 +505,35 @@ async function fetchAndDisplayUserStats(datasetID) {
 
             // For each unique user ID, fetch the username and update the table
             for (const [userID, count] of Object.entries(counts)) {
-                const userResponse = await fetch(`${userApiBaseUrl}/usersId/${userID}`);
-                if (userResponse.ok) {
-                    const userData = await userResponse.json();
-                    const username = userData.username; // Ensure that your API returns 'username' in the response
+                const username = await fetchName(userID);
+                if (username) {
                     agregarFilaTablaHistorial(username, count);
                 } else {
                     console.error(`Failed to fetch username for user ID ${userID}`);
                 }
             }
         } else {
-            console.error('No user IDs found or error in response', result);
+            console.error('No user IDs found or error in response:', result);
         }
     } catch (error) {
         console.error('Failed to fetch user IDs:', error);
+    }
+}
+
+
+async function fetchName(idUs) {
+    const userApiBaseUrl = 'http://localhost:3001'; // Adjust to your actual User API base URL
+    try {
+        const userResponse = await fetch(`${userApiBaseUrl}/usersId/${idUs}`);
+        if (userResponse.ok) {
+            const userData = await userResponse.json();
+            return userData.username; // Ensure that your API returns 'username' in the response
+        } else {
+            console.error(`Failed to fetch username for user ID ${idUs}`);
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error fetching username for user ID ${idUs}:`, error);
+        return null;
     }
 }
