@@ -123,7 +123,7 @@ function insertDatasetComment(idDataset, idUsuarioComment, comentario) {
     });
 }
 
-insertDatasetComment(1, 789, "Este es un comentario sobre el dataset 123.");
+insertDatasetComment(1, 2, "Este es un comentario sobre el dataset 1.");
 
 function getDatasetComments(idDataset) {
     return db.dataSetComment.find({"idDataset": idDataset}).toArray();
