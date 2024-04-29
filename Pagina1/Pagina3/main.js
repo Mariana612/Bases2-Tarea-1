@@ -161,6 +161,42 @@ function abrirChat(){
     container8.style.display = "none";
 }
 
+async function insertarDataSet() {
+    const username = document.getElementById("username").value;
+    const descripcionOutput = document.getElementById("Descripcion").value;
+    const avatarUserInput = document.getElementById("photoAvatar").files[0]; // Obtener el archivo de la foto/avatar
+    const archivoInput = document.getElementById("archivosDatos").files[0]; // Obtener el archivo de datos
+
+
+    const idowner = 1; // por ahora esta esto fijo aquí
+    const idownerString = idowner.toString(); // Convertir el número entero a cadena
+
+    // Crear objeto FormData para enviar los datos y archivos
+    const formData = new FormData();
+    formData.append('photoAvatar', avatarUserInput); // Agregar la foto/avatar
+    formData.append('archivosDatos', archivoInput); // Agregar el archivo de datos
+
+    // Agregar los campos del requestBody al FormData
+    formData.append('nombre', username);
+    formData.append('descripcion', descripcionOutput);
+    formData.append('idowner', idownerString); // idwoner
+
+    try {
+        const response = await fetch('http://localhost:3002/dataset', {
+            method: 'POST',
+            body: formData 
+        });
+
+        if (response.ok) {
+            console.log('Datos insertados correctamente');
+        } else {
+            console.error('Error al insertar datos:', response.statusText);
+        }
+    } catch (err) {
+        console.error('Error de red:', err);
+    }
+}
+
 async function fetchComments(dataId) {
     const baseUrl = 'http://localhost:3002';
     try {
@@ -176,62 +212,62 @@ async function fetchComments(dataId) {
     }
 }
     
-    async function displayComments(comments) {
-        const commentsContainer = document.getElementById('commentsContainer');
-        commentsContainer.innerHTML = ''; // Clear previous comments
-    
-        for (const comment of comments) {
-            const commentDiv = document.createElement('div');
-            commentDiv.className = 'infoCom';
-    
-            // Fetch the username asynchronously and then display the comment
-            try {
-                const username = await fetchName(comment.idUsuarioComment);
-                commentDiv.innerHTML = `<h4 class="solDatosCmt">Username: </h4><output class="iDatCmt">${username} - ${comment.comentario}</output>`;
-            } catch (error) {
-                commentDiv.innerHTML = `<h4 class="solDatosCmt">Username: </h4><output class="iDatCmt">Error fetching username - ${comment.comentario}</output>`;
-                console.error('Error fetching username:', error);
-            }
-    
-            commentsContainer.appendChild(commentDiv);
-        }
-    }
+async function displayComments(comments) {
+    const commentsContainer = document.getElementById('commentsContainer');
+    commentsContainer.innerHTML = ''; // Clear previous comments
 
-    async function addComment() {
-        const dataId = someDataId; // Ensure this is set correctly to the current dataset ID
-        const commentInput = document.getElementById('newCommentInput');
-        const commentText = commentInput.value;
-        const baseUrl = 'http://localhost:3002';
-        alert(sessionStorage.getItem('idUsuario'));
-        idu = parseInt(sessionStorage.getItem('idUsuario'));
-        const commentData = {
-            idDataset: dataId,
-            idUsuarioComment: idu, // Assuming the user ID is stored in sessionStorage
-            
-            comentario: commentText
-        };
-    
+    for (const comment of comments) {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'infoCom';
+
+        // Fetch the username asynchronously and then display the comment
         try {
-            const response = await fetch(`${baseUrl}/comments`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(commentData)
-            });
-    
-            if (response.ok) {
-                // Clear input after successful submission
-                commentInput.value = '';
-                // Refresh comments to show the new one
-                fetchComments(dataId);
-            } else {
-                console.error('Failed to post comment');
-            }
+            const username = await fetchName(comment.idUsuarioComment);
+            commentDiv.innerHTML = `<h4 class="solDatosCmt">Username: </h4><output class="iDatCmt">${username} - ${comment.comentario}</output>`;
         } catch (error) {
-            console.error('Error posting comment:', error);
+            commentDiv.innerHTML = `<h4 class="solDatosCmt">Username: </h4><output class="iDatCmt">Error fetching username - ${comment.comentario}</output>`;
+            console.error('Error fetching username:', error);
         }
+
+        commentsContainer.appendChild(commentDiv);
     }
+}
+
+async function addComment() {
+    const dataId = someDataId; // Ensure this is set correctly to the current dataset ID
+    const commentInput = document.getElementById('newCommentInput');
+    const commentText = commentInput.value;
+    const baseUrl = 'http://localhost:3002';
+    alert(sessionStorage.getItem('idUsuario'));
+    idu = parseInt(sessionStorage.getItem('idUsuario'));
+    const commentData = {
+        idDataset: dataId,
+        idUsuarioComment: idu, // Assuming the user ID is stored in sessionStorage
+        
+        comentario: commentText
+    };
+
+    try {
+        const response = await fetch(`${baseUrl}/comments`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(commentData)
+        });
+
+        if (response.ok) {
+            // Clear input after successful submission
+            commentInput.value = '';
+            // Refresh comments to show the new one
+            fetchComments(dataId);
+        } else {
+            console.error('Failed to post comment');
+        }
+    } catch (error) {
+        console.error('Error posting comment:', error);
+    }
+}
 
 function volverChats(){
     var container1 = document.getElementsByClassName("cdrContacto")[0];
@@ -278,7 +314,6 @@ function verNuevosChats(){
 
     fetchAndAddAllUsers();
 }
-
 
 async function nuevoChat(idPerson){
     //lo añade a la lista de contactos de la persona
@@ -407,7 +442,6 @@ function agregarContactoChat(nombreChat){
 
 }
 
-
 function agregarConversacion(nombreChat, mensaje){
     //Actualiza el nombre del contacto
     document.getElementById('nombreContactoMsg').textContent = nombreChat;
@@ -433,7 +467,6 @@ function agregarConversacion(nombreChat, mensaje){
     // Agregar el div contenedor al elemento seleccionado
     targetContainer.appendChild(mainDiv);
 }
-
 
 function agregarNuevoContacto(nombreChat, idUs){
     // Crear los elementos
@@ -466,9 +499,6 @@ function agregarNuevoContacto(nombreChat, idUs){
     // Agregar el div contenedor al elemento seleccionado
     targetContainer.appendChild(containerDiv);
 }
-
-
-fetchDatasetsByOwnerId(1);
 
 async function fetchDatasetsByOwnerId(ownerId) {
     const baseUrl = 'http://localhost:3002'; // Set this to the correct base URL
@@ -518,7 +548,6 @@ async function fetchAndDisplayUserStats(datasetID) {
         console.error('Failed to fetch user IDs:', error);
     }
 }
-
 
 async function fetchName(idUs) {
     const userApiBaseUrl = 'http://localhost:3001'; // Adjust to your actual User API base URL
@@ -681,9 +710,55 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     targetContainer.appendChild(mainContainer);
 }
 
+function updateInfoUser(idUser_pam) {
+    const fullName = document.getElementById('fullNameP').value;
+    const birthdate = document.getElementById('fechaNacP').value;
+    const username = document.getElementById('userNameP').value;  // Ensure this ID matches your HTML
+    const password = document.getElementById('passwordP').value;
 
+    const requestBody = {
+        idUser: idUser_pam,
+        username: username,
+        password_hash: password,
+        nombre_completo: fullName,
+        fecha_nacimiento: birthdate
+    };
+
+    fetch(`http://localhost:3001/getIfo/${idUser_pam}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.text();  // Change here to handle non-JSON text
+    })
+    .then(text => {
+        try {
+            const jsonData = JSON.parse(text);   // Try to parse the text as JSON
+            console.log('Success:', jsonData);
+            alert(jsonData.message);
+        } catch (e) {
+            throw new Error('Failed to parse JSON response: ' + text);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error registering user: ' + error.message);
+    });
+}
+
+
+editarInfoP(1);
+fetchDatasetsByOwnerId(1);
 
 for (let i = 0; i < 5; i++) {
-    agregarDataSet('imagenes/perfil.png', 'python', 'prueba xd', '22-04-2024', 'descargas/archivo.py', 'video/duck-drums.mp4');
+    agregarContactoChat('patito');
 }
   
+
+
