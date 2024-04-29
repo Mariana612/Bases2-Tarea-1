@@ -309,7 +309,7 @@ function editarInfoP(){
 }
 
 
-function agregarDataSetPerfil(nombreDelDataSet){
+function agregarDataSetPerfil(nombreDelDataSet, idtabla){
     // Crear los divs
     var containerDiv = document.createElement('div');
     containerDiv.className = 'cdrDataS';
@@ -321,7 +321,7 @@ function agregarDataSetPerfil(nombreDelDataSet){
     var button = document.createElement('button');
     button.type = 'submit';
     button.className = 'btnVDS';
-    button.setAttribute('onclick', 'actualizarTabla()');
+    button.setAttribute('onclick', 'fetchAndDisplayUserStats(' + idtabla + ')');
 
     var image = document.createElement('img');
     image.src = 'imagenes/ojo.png'; 
@@ -416,7 +416,7 @@ function agregarConversacion(nombreChat, mensaje){
     var message = document.createElement('h5');
     message.className = 'mensaje';
     message.textContent = mensaje;  // Puedes modificar el mensaje aquí
-
+    
     // Ensamblar los elementos
     messageDiv.appendChild(message);
     mainDiv.appendChild(messageDiv);
@@ -460,9 +460,47 @@ function agregarNuevoContacto(nombreChat){
 }
 
 
+fetchDatasetsByOwnerId(1);
 
-for (let i = 0; i < 20; i++) {
-    agregarDataSetPerfil('pruebaxd');
+async function fetchDatasetsByOwnerId(ownerId) {
+    const baseUrl = 'http://localhost:3002'; // Set this to the correct base URL
+    try {
+        const response = await fetch(`${baseUrl}/datasetOwner/${ownerId}`);
+        const datasets = await response.json();
+        if (response.ok) {
+            datasets.forEach(dataset => {
+                texto = dataset.Nombre + " "+ dataset.DatasetId;
+                agregarDataSetPerfil(texto, dataset.DatasetId);
+            });
+        } else {
+            console.error('No datasets found for this owner', datasets);
+        }
+    } catch (error) {
+        console.error('Failed to fetch datasets:', error);
+    }
 }
 
+async function fetchAndDisplayUserStats(datasetID) {
+    const baseUrl = 'http://localhost:3003'; // Change this to the correct base URL of your Redis API
+    try {
+        // Fetch the array of user IDs
+        const response = await fetch(`${baseUrl}/dataset/users/${datasetID}`);
+        const result = await response.json();
+        if (response.ok && result.userIDs) {
+            // Count occurrences of each userID
+            const counts = result.userIDs.reduce((acc, userID) => {
+                acc[userID] = (acc[userID] || 0) + 1;
+                return acc;
+            }, {});
 
+            // Update the table for each userID
+            Object.entries(counts).forEach(([userID, count]) => {
+                agregarFilaTablaHistorial(userID, count);
+            });
+        } else {
+            console.error('No user IDs found or error in response', result);
+        }
+    } catch (error) {
+        console.error('Failed to fetch user IDs:', error);
+    }
+}
