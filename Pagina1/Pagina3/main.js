@@ -481,10 +481,12 @@ async function fetchDatasetsByOwnerId(ownerId) {
 }
 
 async function fetchAndDisplayUserStats(datasetID) {
-    const baseUrl = 'http://localhost:3003'; // Change this to the correct base URL of your Redis API
+    const redisBaseUrl = 'http://localhost:3003'; // Change to your Redis API base URL
+    const userApiBaseUrl = 'http://localhost:3001'; // Change to your User API base URL
+
     try {
         // Fetch the array of user IDs
-        const response = await fetch(`${baseUrl}/dataset/users/${datasetID}`);
+        const response = await fetch(`${redisBaseUrl}/dataset/users/${datasetID}`);
         const result = await response.json();
         if (response.ok && result.userIDs) {
             // Count occurrences of each userID
@@ -493,10 +495,17 @@ async function fetchAndDisplayUserStats(datasetID) {
                 return acc;
             }, {});
 
-            // Update the table for each userID
-            Object.entries(counts).forEach(([userID, count]) => {
-                agregarFilaTablaHistorial(userID, count);
-            });
+            // For each unique user ID, fetch the username and update the table
+            for (const [userID, count] of Object.entries(counts)) {
+                const userResponse = await fetch(`${userApiBaseUrl}/usersId/${userID}`);
+                if (userResponse.ok) {
+                    const userData = await userResponse.json();
+                    const username = userData.username; // Ensure that your API returns 'username' in the response
+                    agregarFilaTablaHistorial(username, count);
+                } else {
+                    console.error(`Failed to fetch username for user ID ${userID}`);
+                }
+            }
         } else {
             console.error('No user IDs found or error in response', result);
         }

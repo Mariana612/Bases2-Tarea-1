@@ -57,6 +57,27 @@ $$ LANGUAGE plpgsql;
 
 SELECT * FROM get_user_info_by_username_and_password('popito','popito');
 
+CREATE OR REPLACE FUNCTION get_user_info_by_id(
+    idUs INT
+)
+RETURNS TABLE (
+    idUser INT,
+    username VARCHAR,
+    password_hash VARCHAR,
+    nombre_completo VARCHAR,
+    fecha_nacimiento DATE
+) AS
+$$
+BEGIN
+    RETURN QUERY
+    SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento
+    FROM usuarios
+    WHERE usuarios.idUser = idUs;
+END;
+$$ LANGUAGE plpgsql;
+
+
+SELECT * FROM get_user_info_by_id(1);
 
 #funcion de insert 
 
