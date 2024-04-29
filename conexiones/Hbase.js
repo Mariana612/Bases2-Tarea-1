@@ -29,15 +29,15 @@ async function putData(tableName, rowKey, columnFamily, columnQualifier, value) 
         });
         const rows = response.data.Row;
         const filteredRows = rows.filter(row => {
-            // Decode the row key and check if it contains the substring
-            const rowKey = Buffer.from(row.key, 'base64').toString();
-            return rowKey.includes(substring);
+            // Split the row key by '#' and check if any part exactly matches the substring
+            const rowKeyParts = Buffer.from(row.key, 'base64').toString().split('#');
+            return rowKeyParts.includes(substring); // Use includes to check for exact match in the array
         });
 
         // Log or process the filtered rows
         filteredRows.forEach(row => {
             const rowKey = Buffer.from(row.key, 'base64').toString();
-            console.log(`Row Key: ${rowKey}`);
+            console.log(`Row Key: ${rowKey}`); // This will log only exact matches
         });
 
         return filteredRows.map(row => Buffer.from(row.key, 'base64').toString());
@@ -45,7 +45,6 @@ async function putData(tableName, rowKey, columnFamily, columnQualifier, value) 
         console.error('Failed to get data:', error.message);
     }
 }
-
 
   async function getData(tableName, rowKey) {
     const encodedRowKey = encodeURIComponent(rowKey);
@@ -71,7 +70,8 @@ async function putData(tableName, rowKey, columnFamily, columnQualifier, value) 
     }
 }
 
-//getData('UserMessages','001#002');
+//getData('UserMessages','1#2');
+putData('UserMessages','12#2','msgs','1','Hiii!')
 
 module.exports = {
   putData,

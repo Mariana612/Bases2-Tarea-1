@@ -17,7 +17,7 @@ window.onload = function() {
 };
 
 
-function mostraOcultarP(){
+async function mostraOcultarP(){
     var container1 = document.getElementsByClassName("perfil")[0];
 
     var container2 = document.getElementsByClassName("dataset")[0];
@@ -29,6 +29,31 @@ function mostraOcultarP(){
     container2.style.display = "none";
     container3.style.display = "none";
     container4.style.display = "none";
+
+    const idPerson = sessionStorage.getItem('idUsuario'); // Assuming 'idUsuario' is the current user's ID
+    const baseUrl = 'http://localhost:3004'; // Make sure this matches your API server's address
+    try {
+        const response = await fetch(`${baseUrl}/hbase/search/UserMessages/${idPerson}`);
+        const rowKeys = await response.json();
+        if (rowKeys.length > 0) {
+            rowKeys.forEach(async (rowKey) => {
+                // Split the row key on '#'
+                const parts = rowKey.split('#');
+                // Determine the part of the rowKey that is not the user's ID
+                const otherId = parts.find(part => part !== idPerson);
+                if (otherId) {
+                    const username = await fetchName(otherId);
+                    agregarContactoChat(username); // This function should handle displaying or processing the contact
+                }
+            });
+        } else {
+            console.log("No rows found containing the ID:", idPerson);
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+
+ 
 }
 
 function mostraOcultarSeeD(){
@@ -233,7 +258,7 @@ async function fetchComments(dataId) {
         }
     }
 
-function volverChats(){
+async function volverChats(){
     var container1 = document.getElementsByClassName("cdrContacto")[0];
     var container2 = document.getElementsByClassName("cdrChats")[0];
     var container3 = document.getElementsByClassName("cdrEnviarMsg")[0];
@@ -253,6 +278,29 @@ function volverChats(){
     container6.style.display = "none";
     container7.style.display = "none";
     container8.style.display = "flex";
+
+    const idPerson = sessionStorage.getItem('idUsuario'); // Assuming 'idUsuario' is the current user's ID
+    const baseUrl = 'http://localhost:3004'; // Make sure this matches your API server's address
+    try {
+        const response = await fetch(`${baseUrl}/hbase/search/UserMessages/${idPerson}`);
+        const rowKeys = await response.json();
+        if (rowKeys.length > 0) {
+            rowKeys.forEach(async (rowKey) => {
+                // Split the row key on '#'
+                const parts = rowKey.split('#');
+                // Determine the part of the rowKey that is not the user's ID
+                const otherId = parts.find(part => part !== idPerson);
+                if (otherId) {
+                    const username = await fetchName(otherId);
+                    agregarContactoChat(username); // This function should handle displaying or processing the contact
+                }
+            });
+        } else {
+            console.log("No rows found containing the ID:", idPerson);
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 }
 
 function verNuevosChats(){
@@ -287,6 +335,7 @@ async function nuevoChat(idPerson){
     agregarContactoChat(username);
 
     abrirChat();
+
 }
 
 function editarInfoP(){
