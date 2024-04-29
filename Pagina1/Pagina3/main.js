@@ -461,7 +461,7 @@ function agregarNuevoContacto(nombreChat){
 
 
 for (let i = 0; i < 20; i++) {
-    agregarNuevoContacto('pruebaxd');
+    agregarDataSetPerfil('pruebaxd');
 }
 
 

@@ -977,6 +977,9 @@ form label .fa-solid {
 	display: flex;
 	justify-content: center;
 
+	flex-direction: column;
+	overflow: auto;
+
 	height: 940px;
 	width: 470px;
 	border: 0px solid blue;
