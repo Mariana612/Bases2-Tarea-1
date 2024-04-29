@@ -157,6 +157,10 @@ async function insertarDataSet() {
     const avatarUserInput = document.getElementById("photoAvatar").files[0]; // Obtener el archivo de la foto/avatar
     const archivoInput = document.getElementById("archivosDatos").files[0]; // Obtener el archivo de datos
 
+
+    const idowner = 1; // por ahora esta esto fijo aquí
+    const idownerString = idowner.toString(); // Convertir el número entero a cadena
+
     // Crear objeto FormData para enviar los datos y archivos
     const formData = new FormData();
     formData.append('photoAvatar', avatarUserInput); // Agregar la foto/avatar
@@ -165,7 +169,7 @@ async function insertarDataSet() {
     // Agregar los campos del requestBody al FormData
     formData.append('nombre', username);
     formData.append('descripcion', descripcionOutput);
-    formData.append('idowner', '1'); // Convertir a string si es necesario
+    formData.append('idowner', idownerString); // idwoner
 
     try {
         const response = await fetch('http://localhost:3002/dataset', {
