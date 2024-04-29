@@ -77,7 +77,27 @@ END;
 $$ LANGUAGE plpgsql;
 
 
+
+CREATE OR REPLACE FUNCTION get_all_users()
+RETURNS TABLE (
+    idUser INT,
+    username VARCHAR(255),  -- Adjust the length as appropriate
+    password_hash VARCHAR(255),  -- Adjust the length as appropriate
+    nombre_completo VARCHAR(255),  -- Adjust the length as appropriate
+    fecha_nacimiento DATE
+) AS
+$$
+BEGIN
+    RETURN QUERY
+    SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, 
+           usuarios.nombre_completo, usuarios.fecha_nacimiento
+    FROM usuarios;
+END;
+$$ LANGUAGE plpgsql;
+
 SELECT * FROM get_user_info_by_id(1);
+
+SELECT * from get_all_users();
 
 #funcion de insert 
 

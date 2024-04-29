@@ -258,7 +258,7 @@ function volverChats(){
 }
 
 
-function verNuevosChats(){
+function verNuevosChats(){ //---------------aqui
     var container1 = document.getElementsByClassName("cdrContacto")[0];
     var container2 = document.getElementsByClassName("cdrChats")[0];
     var container3 = document.getElementsByClassName("cdrEnviarMsg")[0];
@@ -278,6 +278,8 @@ function verNuevosChats(){
     container6.style.display = "flex";
     container7.style.display = "flex";
     container8.style.display = "none";
+
+    //agregarNuevoContacto(algo);
 }
 
 
@@ -410,6 +412,7 @@ function agregarContactoChat(nombreChat){
     targetContainer.appendChild(containerDiv);
 
 }
+
 
 function agregarConversacion(nombreChat, mensaje){
     //Actualiza el nombre del contacto
