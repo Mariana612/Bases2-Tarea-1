@@ -11,7 +11,6 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // Middleware to parse JSON bodies
 
-let photoIdCounter = 1; // Inicializar el contador en 1
 let dataIdCounter = 1; // Inicializar el contador en 1
 
 async function main() {
@@ -22,15 +21,6 @@ async function main() {
 
         const database = client.db('dataSetDB');
         const collection = database.collection('dataset');
-
-        // Obtener el valor máximo actual de PhotoId en la base de datos
-        async function getMaxPhotoId() {
-            const result = await collection.findOne({}, { sort: { PhotoId: -1 }, projection: { PhotoId: 1 } });
-            return result ? result.PhotoId : 0;
-        }
-
-        // Inicializar photoIdCounter con el valor máximo actual de PhotoId + 1
-        photoIdCounter = await getMaxPhotoId() + 1;
 
         //Sigue la secuencia del id
         async function getMaxDataId() {
@@ -59,19 +49,18 @@ async function main() {
         // API to insert dataset
         app.post('/dataset', async (req, res) => {
             try {
-                const { nombre, descripcion, fotoAvatar, archivos } = req.body;
                 
+                const { nombre, descripcion, fotoAvatar, archivos,idowner } = req.body;
                 const datasetDocument = {
                     "Nombre": nombre,
-                    "PhotoId": photoIdCounter++,
-                    "DatasetId": dataIdCounter++,
+                    "DatasetId": dataIdCounter,
                     "Descripción": descripcion,
                     "Fecha de Inclusión": new Date(),
                     "Foto o avatar": fotoAvatar,
-                    "Archivo(s)": archivos
+                    "Archivo(s)": archivos,
+                    "OwnerId": idowner
                 };
                 const result = await collection.insertOne(datasetDocument);
-                console.log('counter de photo',photoIdCounter);
                 console.log('counter de data',dataIdCounter);
                 res.status(201).json(result);
             } catch (err) {
