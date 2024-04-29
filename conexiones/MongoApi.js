@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
+const multer = require('multer'); //esto es lo que se debe instalar
+const path = require('path');
+
 
 // MongoDB URI - replace with your actual URI if different
 const uri = "mongodb://root:example@localhost:27017";
@@ -11,7 +14,8 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // Middleware to parse JSON bodies
 
-let dataIdCounter = 1; // Inicializar el contador en 1
+let counterIdDataset = 1;
+
 
 async function main() {
     try {
@@ -27,8 +31,19 @@ async function main() {
             const result = await collection.findOne({}, { sort: { DatasetId: -1 }, projection: { DatasetId: 1 } });
             return result ? result.DatasetId : 0;
         }
-        //inicia dataCounter
-        dataIdCounter= await getMaxDataId() + 1;
+        
+        counterIdDataset= await getMaxDataId() + 1
+        // Configuración de Multer para manejar la carga de archivos
+        const storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                cb(null, 'C:\\GITHUB-TEC\\Bases2-Tarea-1\\Pagina1\\archivos'); // aquí va la ruta de la carpeta de destino para los archivos
+            },
+            filename: (req, file, cb) => {
+                const fileName = `${counterIdDataset}-${file.fieldname}${path.extname(file.originalname)}`;
+                cb(null, fileName);
+            }
+        });
+        const upload = multer({ storage: storage });
 
         // API to get dataset information by photo ID
         app.get('/dataset/:dataId', async (req, res) => {
@@ -46,22 +61,31 @@ async function main() {
             }
         });
 
-        // API to insert dataset
-        app.post('/dataset', async (req, res) => {
+        // API para insertar dataset
+        app.post('/dataset', upload.fields([{ name: 'photoAvatar', maxCount: 1 }, { name: 'archivosDatos', maxCount: 1 }]), async (req, res) => {
             try {
-                
-                const { nombre, descripcion, fotoAvatar, archivos,idowner } = req.body;
+                //el requestbody se hace de esta manera porque se manda desde la estructura FormData
+                const nombre = req.body.nombre;
+                const descripcion = req.body.descripcion;
+                const idowner = req.body.idowner;
+                const idownerInt = parseInt(idowner, 10);//como se recibe como tipo string el id, se pasa a integer
+
+                const photoAvatarUrl = req.files['photoAvatar'][0].path; // Obtén la ruta del avatar
+                const archivoUrl = req.files['archivosDatos'][0].path; // Obtén la ruta del archivo de datos
+                console.log(archivoUrl);
+
                 const datasetDocument = {
                     "Nombre": nombre,
-                    "DatasetId": dataIdCounter,
+                    "DatasetId": counterIdDataset,
                     "Descripción": descripcion,
                     "Fecha de Inclusión": new Date(),
-                    "Foto o avatar": fotoAvatar,
-                    "Archivo(s)": archivos,
-                    "OwnerId": idowner
+                    "Foto o avatar": photoAvatarUrl, // Usa la ruta del avatar
+                    "Archivo(s)": archivoUrl, // Usa la ruta del archivo de datos
+                    "OwnerId": idownerInt
                 };
+
                 const result = await collection.insertOne(datasetDocument);
-                console.log('counter de data',dataIdCounter);
+                console.log('Counter de data:', datasetDocument.DatasetId);
                 res.status(201).json(result);
             } catch (err) {
                 console.error('Failed to insert data:', err);
@@ -69,6 +93,7 @@ async function main() {
             }
         });
 
+        
         const port = 3002;
         app.listen(port, () => {
             console.log(`Server running on http://localhost:${port}`);

@@ -151,25 +151,26 @@ function abrirChat(){
     container4.style.display = "none";
 }
 
-async function insertarDataSet(){
-        
+async function insertarDataSet() {
     const username = document.getElementById("username").value;
     const descripcionOutput = document.getElementById("Descripcion").value;
-    
-    const requestBody = {
-        nombre: username,
-        descripcion: descripcionOutput,
-        photo: "\Pagina3\imagenes\buscar.png",
-        archivos:["\Pagina3\imagenes\buscar.png"]
-    };
+    const avatarUserInput = document.getElementById("photoAvatar").files[0]; // Obtener el archivo de la foto/avatar
+    const archivoInput = document.getElementById("archivosDatos").files[0]; // Obtener el archivo de datos
+
+    // Crear objeto FormData para enviar los datos y archivos
+    const formData = new FormData();
+    formData.append('photoAvatar', avatarUserInput); // Agregar la foto/avatar
+    formData.append('archivosDatos', archivoInput); // Agregar el archivo de datos
+
+    // Agregar los campos del requestBody al FormData
+    formData.append('nombre', username);
+    formData.append('descripcion', descripcionOutput);
+    formData.append('idowner', '1'); // Convertir a string si es necesario
 
     try {
         const response = await fetch('http://localhost:3002/dataset', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
+            body: formData 
         });
 
         if (response.ok) {
@@ -179,9 +180,9 @@ async function insertarDataSet(){
         }
     } catch (err) {
         console.error('Error de red:', err);
-    }      
-
+    }
 }
+
 
 
 function volverChats(){
