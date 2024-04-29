@@ -408,9 +408,12 @@ form label .fa-solid {
 }
 
 .verDataSet{
-	display: none;
+	display: flex;
 	flex-direction: row;
 	border: 0px solid black;
+
+	height: auto;
+	margin-bottom: 100px;
 }
 
 .tittleMC {
@@ -1350,4 +1353,16 @@ form label .fa-solid {
 	font-family: "Poppins", sans-serif;
 	font-weight: bold;
 	color: white;
+}
+
+
+
+.contenedorDataSet{
+	display: none;
+	flex-direction: column;
+
+	height: 10000px;
+	overflow: auto;
+
+	border: 0px solid salmon;
 }
