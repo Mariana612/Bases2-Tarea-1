@@ -139,6 +139,7 @@ function displayDataset(dataset) {
         avatarImageElement.src = 'default-avatar.png'; // Use a default placeholder if no image is available
     }
 }
+
 function abrirChat(){
     var container1 = document.getElementsByClassName("cdrContacto")[0];
     var container2 = document.getElementsByClassName("cdrChats")[0];
