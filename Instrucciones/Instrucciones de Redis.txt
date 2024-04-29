@@ -13,4 +13,3 @@ docker exec -it my-redis sh
 redis-cli
 
 #Listooo ya estamos conectados :D ahora todo se debe de correr en ese monton de numeros a mi me sale 127.0.0.1:6379>
-

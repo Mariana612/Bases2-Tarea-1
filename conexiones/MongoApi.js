@@ -38,18 +38,33 @@ async function main() {
             }
         });
 
+        app.get('/datasetOwner/:dataId', async (req, res) => {
+            try {
+                const idowner = parseInt(req.params.dataId);  // Parse dataId to integer
+                const datasetDocuments = await collection.find({ "OwnerId": idowner }).toArray();
+                if (datasetDocuments.length > 0) {
+                    res.json(datasetDocuments);
+                } else {
+                    res.status(404).send('Datasets not found for the specified OwnerId');
+                }
+            } catch (err) {
+                console.error('Failed to fetch data:', err);
+                res.status(500).send('Internal Server Error');
+            }
+        });
+
         // API to insert dataset
         app.post('/dataset', async (req, res) => {
             try {
-                const { nombre, photoId, dataId, descripcion, fotoAvatar, archivos } = req.body;
+                const { nombre, dataId, descripcion, fotoAvatar, archivos,idowner } = req.body;
                 const datasetDocument = {
                     "Nombre": nombre,
-                    "PhotoId": photoId,
                     "DatasetId": dataId,
                     "Descripción": descripcion,
                     "Fecha de Inclusión": new Date(),
                     "Foto o avatar": fotoAvatar,
-                    "Archivo(s)": archivos
+                    "Archivo(s)": archivos,
+                    "OwnerId": idowner
                 };
                 const result = await collection.insertOne(datasetDocument);
                 res.status(201).json(result);
