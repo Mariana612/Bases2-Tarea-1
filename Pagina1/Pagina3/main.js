@@ -1,4 +1,4 @@
-
+let rKey;
 var fechaActual = new Date();
 var formattedDate = ('0' + fechaActual.getDate()).slice(-2) + '/' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '/' + fechaActual.getFullYear();
 document.getElementById('fechaInclu').textContent = formattedDate;
@@ -169,6 +169,7 @@ function abrirChat(rowKey){
 }// abre el chat -- agregarConversacion(mensaje)
 
 async function iniciarChat(rowKey) {
+    rKey = rowKey;
    
     console.log(`Iniciando chat con rowKey: ${rowKey}`);
 
@@ -185,7 +186,7 @@ async function iniciarChat(rowKey) {
                 row.cells.forEach(cell => {
                     // Here we assume the column follows the format 'msgs:x'
                     if (cell.column.startsWith('msgs:')) {
-                        agregarConversacion(cell.value, rowKey);
+                        agregarConversacion(cell.value);
                     }
                 });
             });
@@ -198,11 +199,42 @@ async function iniciarChat(rowKey) {
     }
 }
 
-// async function iniciarChat(rowKey){
-//     limpiarMensajesChat();
-//     console.log(rowKey);
-//     //agregarConversacion(mensaje,rowKey);
-// }
+async function enviarMensaje(){
+    const message = document.getElementById('txtarea').value; // Grab the content from the textarea
+    if (!message) {
+        console.log("No message to send.");
+        return; // Do not proceed if there is no message
+    }
+
+    const baseUrl = 'http://localhost:3004'; // URL of your HBase API server
+    const tableName = 'UserMessages'; // The table where messages are stored
+    const columnFamily = 'msgs'; // The column family, adjust if different
+    const columnQualifier = new Date().toISOString(); // Use ISO string timestamp as a column qualifier for uniqueness
+
+    try {
+        const response = await fetch(`${baseUrl}/hbase/putData`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                tableName,
+                rowKey: rKey,
+                columnFamily,
+                columnQualifier,
+                value: message
+            })
+        });
+
+        if (response.ok) {
+            console.log('Message sent successfully');
+            document.getElementById('txtarea').value = ''; // Clear the textarea after successful send
+            agregarConversacion(message);
+        } else {
+            console.error('Failed to send message:', await response.text());
+        }
+    } catch (error) {
+        console.error('Error sending message:', error);
+    }
+}
 
 async function fetchComments(dataId) {
     const baseUrl = 'http://localhost:3002';
@@ -360,7 +392,7 @@ async function nuevoChat(idPerson){
     agregarContactoChat(username);
 
     
-    agregarConversacion("este es el inicio de un chat",rowkey);
+    agregarConversacion("este es el inicio de un chat");
     abrirChat();
 
 } //crea nuevo chat cuando se presiona el boton en BUSCAR NUEVO CONTACTO
@@ -485,7 +517,7 @@ function agregarContactoChat(nombreChat, rowKey){
 } // MENSAJERIA los agrega
 
 
-function agregarConversacion(mensaje,rowkey){
+function agregarConversacion(mensaje){
 
    // Crear los elementos
     var mainDiv = document.createElement('div');
