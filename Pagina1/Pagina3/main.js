@@ -647,23 +647,41 @@ async function fetchName(idUs) {
 
 async function fetchAndAddAllUsers() {
     const userApiBaseUrl = 'http://localhost:3001'; // Adjust to your actual User API base URL
+    const hbaseBaseUrl = 'http://localhost:3004'; // URL of your HBase API server
 
     try {
         const response = await fetch(`${userApiBaseUrl}/allUsers`);
         const users = await response.json();
-        console.log(users); // Log the entire response to verify the structure
         if (response.ok) {
-            users.forEach(user => {
-                console.log(user.iduser); // Ensure you are logging the correct field name
-                agregarNuevoContacto(user.username, user.iduser); // Correct the case to match your JSON structure
-            });
+            for (const user of users) {
+                const currentUserId = sessionStorage.getItem('idUsuario');
+                const potentialRowKey = `${currentUserId}#${user.iduser}`;
+
+                // Check if a row with this key exists in HBase
+                const checkResponse = await fetch(`${hbaseBaseUrl}/hbase/getData/UserMessages/${encodeURIComponent(potentialRowKey)}`);
+                
+                if (checkResponse.ok) {
+                    const data = await checkResponse.json();
+                    if (data.length === 0) {
+                        console.log(`No data found for row key: ${potentialRowKey}, adding contact`);
+                        agregarNuevoContacto(user.username, user.iduser);
+                    } else {
+                        console.log(`Row key exists: ${potentialRowKey}, skipping`);
+                    }
+                } else {
+                    // Handle non-200 responses gracefully
+                    console.log(`No data found for row key: ${potentialRowKey}, adding contact due to error or non-existence`);
+                    agregarNuevoContacto(user.username, user.iduser);
+                }
+            }
         } else {
             console.error('Failed to fetch users:', users);
         }
     } catch (error) {
         console.error('Error fetching users:', error);
     }
-} // busca todos los id de posgress y los pone en BUSCAR NUEVO CONTACTO
+}
+
 
 function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, rutaArchivoDat, rutaVideo){
     // Crear el contenedor principal
