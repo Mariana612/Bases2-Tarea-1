@@ -47,17 +47,17 @@
             </div>
 
             <div class="cdrEnviarMsg">
-                <textarea class="msgEscrito" placeholder="Escribe un mensaje..."></textarea>
+                <textarea id="txtarea" class="msgEscrito" placeholder="Escribe un mensaje..."></textarea>
                 <button id="btnMsg" class="botonesMsg" onclick="enviarMensaje()">ENVIAR</button>
             </div>
 
 
             <div class="cdrChatsDispo">
 
-                <div class="cdrContactos">
+                <!-- <div class="cdrContactos">
                     <h1 class="nomContactos">Alisson Carillo</h1>
                     <button type="submit" class="btnEC" onclick="abrirChat()"> <img src="imagenes/chat.png" class="btnECI"> </button>
-                </div>
+                </div> -->
 
             </div>
 
@@ -129,7 +129,7 @@
                     </div>
         
                     <div class="apBtnRED">
-                        <button id="btnR" class="botonRED">GUARDAR</button>
+                        <button id="btnR" class="botonRED" onclick="updateUserInfo()">GUARDAR</button>
                     </div>
                 </div>
 
