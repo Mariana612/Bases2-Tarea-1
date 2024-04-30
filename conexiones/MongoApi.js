@@ -37,7 +37,7 @@ async function main() {
         // Configuración de Multer para manejar la carga de archivos
         const storage = multer.diskStorage({
             destination: (req, file, cb) => {
-                cb(null, 'C:\\GITHUB-TEC\\Bases2-Tarea-1\\Pagina1\\archivos'); // aquí va la ruta de la carpeta de destino para los archivos
+                cb(null, 'Pagina1\\archivos'); // aquí va la ruta de la carpeta de destino para los archivos
             },
             filename: (req, file, cb) => {
                 const fileName = `${counterIdDataset}-${file.fieldname}${path.extname(file.originalname)}`;

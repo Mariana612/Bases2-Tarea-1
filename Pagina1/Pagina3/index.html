@@ -202,17 +202,17 @@
             <div class="avatar">
                 <img src="imagenes/perfil1.png" alt="Imagen de perfil" class="fotoPer">
                 <h3 class="solDatosA">Foto o avatar:</h3>
-                <input type="file" class="iDatF">
+                <input type="file" id="photoAvatar" class="iDatF">
             </div>
 
             <div class="infoIO">
                 <h3 class="solDatos">Nombre: </h3>
-                <input type="text" class="iDat">
+                <input type="text" id="username" class="iDat">
             </div>
 
             <div class="infoIO">
                 <h3 class="solDatos">Descripción:</h3>
-                <input type="text" class="iDat">
+                <input type="text" id="Descripcion" class="iDat">
             </div>
 
             <div class="infoIO">
@@ -223,18 +223,18 @@
 
             <div class="infoIO">
                 <h3 class="solDatos">Archivo con los datos:</h3>
-                <input type="file" class="iDatF">
+                <input type="file" id="archivosDatos" class="iDatF">
             </div>
 
             <div class="infoIO">
                 <h3 class="solDatos">Video tutorial:</h3>
-                <input type="file" class="iDatF">
+                <input type="file" id="videoTuto" class="iDatF">
             </div>
 
         </div>
 
         <div class="apBtnR">
-            <button id="btnR" class="botonR">GUARDAR</button>
+            <button onclick="insertarDataSet()" id="btnR" class="botonR">GUARDAR</button>
         </div>
 
     </div>
