@@ -3,7 +3,8 @@ const cors = require('cors');
 const { putData, getData, getRowsContainingSubstring } = require('./Hbase.js');
 const app = express();
 
-app.use(cors());  // Enable CORS for all routes
+app.use(cors());
+
 app.use(express.json());
 
 // Store Data
@@ -47,6 +48,26 @@ app.get('/hbase/search/:tableName/:substring', async (req, res) => {
     } catch (err) {
         console.error('Error searching data in HBase:', err);
         res.status(500).send('Error searching data');
+    }
+});
+
+app.get('/UserMessages/:rowKey', async (req, res) => {
+    const rowKey = decodeURIComponent(req.params.rowKey);
+    console.log(`Fetching data for rowKey: ${rowKey}`);
+
+    try {
+        const data = await getData('UserMessages', rowKey);
+        if (data.length > 0) {  // Asumiendo que getData ahora devuelve un array directamente
+            console.log(`Data retrieved successfully for rowKey: ${rowKey}`);
+            
+            res.json(data);
+        } else {
+            console.log(`No data found for rowKey: ${rowKey}`);
+            res.status(404).send('No data found');
+        }
+    } catch (error) {
+        console.error(`Error retrieving data for rowKey: ${rowKey}`, error);
+        res.status(500).send('Server error');
     }
 });
 
