@@ -16,7 +16,7 @@ db.createCollection("dataset", {
    validator: {
       $jsonSchema: {
          bsonType: "object",
-         required: ["Nombre", "Descripción", "Fecha de Inclusión", "Foto o avatar", "Archivo(s)","OwnerId"],
+         required: ["Nombre", "Descripción", "Fecha de Inclusión", "Foto o avatar", "Archivo(s)","OwnerId", "Video"],
          properties: {
             Nombre: {
                bsonType: "string",
@@ -46,6 +46,10 @@ db.createCollection("dataset", {
                bsonType: "int",
                description: "Numero de posteador"
             },
+            "Video": {
+               bsonType: "string",
+               description: "Patch del video"
+            }
             
          }
       }
@@ -56,7 +60,7 @@ db.createCollection("dataset", {
 
 #ok ahora hacemos una funcion para sacar datos modo serio
 
-function insertDataset(nombre, dataId, descripcion, fotoAvatar, archivos, idowner) {
+function insertDataset(nombre, dataId, descripcion, fotoAvatar, archivos, idowner, strVideo) {
     // Create a new document to insert
     var datasetDocument = {
         "Nombre": nombre,
@@ -65,7 +69,8 @@ function insertDataset(nombre, dataId, descripcion, fotoAvatar, archivos, idowne
         "Fecha de Inclusión": new Date(),
         "Foto o avatar": fotoAvatar,
         "Archivo(s)": archivos,
-        "OwnerId": idowner
+        "OwnerId": idowner,
+        "Video": strVideo
     };
 
     // Insert the document into the "dataset" collection
@@ -75,8 +80,8 @@ function insertDataset(nombre, dataId, descripcion, fotoAvatar, archivos, idowne
 
 #ahora a probarlo uwu 
 
-insertDataset("Prueba bonita", 1, "ay pero que locura", "imagenes\\buscar.png", ["video\\duck-drums.mp4"],1);
-insertDataset("Prueba bonita", 2, "ay pero que locura", "imagenes\\perfil1.png", ["video\\duck-drums.mp4"],1);
+insertDataset("Prueba bonita", 1, "ay pero que locura", "imagenes\\buscar.png", ["video\\duck-drums.mp4"],1,"video\\duck-drums.mp4");
+insertDataset("Prueba bonita", 2, "ay pero que locura", "imagenes\\perfil1.png", ["video\\duck-drums.mp4"],1,"video\\duck-drums.mp4");
 
 db.dataset.find()
 
