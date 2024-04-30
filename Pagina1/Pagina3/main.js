@@ -85,8 +85,43 @@ function mostraOcultarEditP(){
 
     if(container1.style.display == "none"){
         container1.style.display = "flex";
+        algo();
     }
-}
+    
+
+
+} // TRABAJANDO ACA
+
+async function algo(){
+    const userId = sessionStorage.getItem('idUsuario');
+        const apiUrl = `http://localhost:3001/usersId/${userId}`;
+
+        try {
+            const response = await fetch(apiUrl);
+            if (response.ok) {
+                const userData = await response.json();
+                // Populate the form with the fetched data
+                document.getElementById('fullNameP').value = userData.nombre_completo;
+                console.log(userData.fecha_nacimiento);
+                const dateOfBirth = new Date(userData.fecha_nacimiento);
+                const formattedDate = dateOfBirth.toISOString().split('T')[0]; // This splits the ISO string at 'T' and takes the first part
+                
+                document.getElementById('fechaNacP').value = formattedDate;
+                document.getElementById('userNameP').value = userData.username;
+                const passwordInput = document.getElementById('passwordP');
+                passwordInput.placeholder = 'Enter new password';  // Optionally, you can leave it empty or with a hint
+          
+                // Passwords typically aren't retrieved for security reasons
+                // If necessary, handle the password separately or prompt for re-entry
+            } else {
+                console.error('Failed to fetch user data:', await response.text());
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    
+    }
+
 
 async function fetchDataset(dataId) {
     const baseUrl = 'http://localhost:3002'; // Set this to the correct base URL
@@ -840,7 +875,7 @@ async function updateUserInfo() {
     } else {
         console.error('Failed to update user info');
     }
-} //No es necesario
+} //ESTOY TRABAJANDO AQUI
 
 
 function limpiarMensajeria(){
