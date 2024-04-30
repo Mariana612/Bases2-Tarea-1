@@ -85,13 +85,54 @@ function mostraOcultarEditP(){
     }
 }
 
-async function fetchDataset(dataId) {
+async function fetchDataset() {
     const baseUrl = 'http://localhost:3002'; // Set this to the correct base URL
     try {
-        const response = await fetch(`${baseUrl}/dataset/${dataId}`);
+        const response = await fetch(`${baseUrl}/alldataset`);
         const data = await response.json();
         if (response.ok) {
-            displayDataset(data);
+
+            data.forEach(dataset=>{
+                const fotoString = dataset['Foto o avatar'] ? dataset['Foto o avatar'].toString() : '';
+                const archivoString = dataset['Archivo(s)'] ? dataset['Archivo(s)'].toString() : '';
+                
+                var videoPath;
+                var parts;
+                var fileName;
+                var rutaVideo;
+                var rutaImg;
+                var rutaFile;
+                var inicioRuta = 'archivos/';
+
+                videoPath = dataset.Video
+                parts = videoPath.split('\\'); // Usa doble backslash para escapar correctamente en JavaScript
+                
+                fileName = parts.pop(); // Extrae el último elemento del array
+                rutaVideo = inicioRuta + fileName;
+
+                
+                videoPath = fotoString //Aqui pone lo de la ruta de la imagen 
+                parts = videoPath.split('\\'); // Usa doble backslash para escapar correctamente en JavaScript
+                fileName = parts.pop(); // Extrae el último elemento del array
+                rutaImg= inicioRuta +  fileName;
+                
+
+                videoPath = archivoString //Aqui pone lo de la ruta del archivo
+                parts = videoPath.split('\\'); // Usa doble backslash para escapar correctamente en JavaScript
+                fileName = parts.pop(); // Extrae el último elemento del array
+                rutaFile= inicioRuta +  fileName;
+
+                //se le da formato a la fecha
+                const fechaOriginal = new Date(dataset['Fecha de Inclusión']);
+                const dia = String(fechaOriginal.getDate()).padStart(2, '0'); // Agrega ceros a la izquierda si es necesario
+                const mes = String(fechaOriginal.getMonth() + 1).padStart(2, '0'); // Agrega ceros a la izquierda si es necesario
+                const año = fechaOriginal.getFullYear();
+
+                const fechaFormateada = `${dia}-${mes}-${año}`;
+                
+                agregarDataSet(rutaImg, dataset.Nombre, dataset.Descripción, fechaFormateada, rutaFile, rutaVideo );
+            });
+            
         } else {
             console.error('Dataset not found', data);
         }
@@ -756,10 +797,8 @@ function updateInfoUser(idUser_pam) {
 
 editarInfoP(1);
 fetchDatasetsByOwnerId(1);
+fetchDataset();//para ver los dataSet 
 
 for (let i = 0; i < 5; i++) {
     agregarContactoChat('patito');
 }
-  
-
-
