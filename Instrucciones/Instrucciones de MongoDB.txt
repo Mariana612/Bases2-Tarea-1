@@ -133,3 +133,11 @@ insertDatasetComment(1, 2, "Este es un comentario sobre el dataset 1.");
 function getDatasetComments(idDataset) {
     return db.dataSetComment.find({"idDataset": idDataset}).toArray();
 }
+
+#Se obtienen todos los dataSet de la coleccion
+function obtenerColeccionCompleta() {
+    return db.dataset.find({}).toArray();
+}
+
+#pueden simplemente llamar lo así jeje
+obtenerColeccionCompleta();
