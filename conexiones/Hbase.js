@@ -48,7 +48,7 @@ async function putData(tableName, rowKey, columnFamily, columnQualifier, value) 
 
   async function getData(tableName, rowKey) {
     const encodedRowKey = encodeURIComponent(rowKey);
-    const url = `http://localhost:8080/${tableName}/${encodedRowKey}`;
+    const url = `http://localhost:3004/${tableName}/${encodedRowKey}`;
 
     try {
         const response = await axios.get(url, {
@@ -70,7 +70,7 @@ async function putData(tableName, rowKey, columnFamily, columnQualifier, value) 
     }
 }
 
-getData('UserMessages','1#2');
+//getData('UserMessages','1#2');
 // putData('UserMessages','12#2','msgs','1','Hiii!')
 
 module.exports = {

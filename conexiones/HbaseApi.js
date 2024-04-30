@@ -52,19 +52,24 @@ app.get('/hbase/search/:tableName/:substring', async (req, res) => {
 });
 
 app.get('/UserMessages/:rowKey', async (req, res) => {
-    const { rowKey } = req.params;
+    const rowKey = decodeURIComponent(req.params.rowKey);
+    console.log(`Fetching data for rowKey: ${rowKey}`);
+
     try {
         const data = await getData('UserMessages', rowKey);
-        if (data) {
+        if (data && data.length > 0) {
+            console.log(`Data retrieved successfully for rowKey: ${rowKey}`);
             res.json(data);
         } else {
-            res.status(404).send('No data found for ' + rowKey);
+            console.log(`No data found for rowKey: ${rowKey}`);
+            res.status(404).send('No data found');
         }
     } catch (error) {
-        console.error('Error retrieving data:', error);
+        console.error(`Error retrieving data for rowKey: ${rowKey}`, error);
         res.status(500).send('Server error');
     }
 });
+
 const port = 3004;
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

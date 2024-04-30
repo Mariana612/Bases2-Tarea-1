@@ -29,32 +29,10 @@ async function mostraOcultarP(){
     container2.style.display = "none";
     container3.style.display = "none";
     container4.style.display = "none";
-
-    const idPerson = sessionStorage.getItem('idUsuario'); // Assuming 'idUsuario' is the current user's ID
-    const baseUrl = 'http://localhost:3004'; // Make sure this matches your API server's address
-    try {
-        const response = await fetch(`${baseUrl}/hbase/search/UserMessages/${idPerson}`);
-        const rowKeys = await response.json();
-        if (rowKeys.length > 0) {
-            rowKeys.forEach(async (rowKey) => {
-                // Split the row key on '#'
-                const parts = rowKey.split('#');
-                // Determine the part of the rowKey that is not the user's ID
-                const otherId = parts.find(part => part !== idPerson);
-                if (otherId) {
-                    const username = await fetchName(otherId);
-                    agregarContactoChat(username); // This function should handle displaying or processing the contact
-                }
-            });
-        } else {
-            console.log("No rows found containing the ID:", idPerson);
-        }
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-
- 
+    limpiarMensajeria();
+    TestUsr();
 }
+
 
 function mostraOcultarSeeD(){
     var container1 = document.getElementsByClassName("cambiarDPerfil")[0];
@@ -123,7 +101,7 @@ async function fetchDataset(dataId) {
     } catch (error) {
         console.error('Failed to fetch dataset:', error);
     }
-}
+} // no lo uso
 
 function displayDataset(dataset) {
     // Assuming you have HTML elements with IDs to show these details
@@ -161,9 +139,9 @@ function displayDataset(dataset) {
         avatarImageElement.src = 'default-avatar.png'; // Use a default placeholder if no image is available
     }
     fetchComments(dataset.DatasetId);
-}
+} // no lo uso
 
-function abrirChat(){
+function abrirChat(rowKey){
 
     var container1 = document.getElementsByClassName("cdrContacto")[0];
     var container2 = document.getElementsByClassName("cdrChats")[0];
@@ -185,6 +163,13 @@ function abrirChat(){
     container6.style.display = "none";
     container7.style.display = "none";
     container8.style.display = "none";
+    iniciarChat(rowKey);
+}// abre el chat -- agregarConversacion(mensaje)
+
+async function iniciarChat(rowKey){
+    limpiarMensajesChat();
+    console.log(rowKey);
+    //agregarConversacion(mensaje,rowKey);
 }
 
 async function fetchComments(dataId) {
@@ -200,7 +185,7 @@ async function fetchComments(dataId) {
     } catch (error) {
         console.error('Failed to fetch comments:', error);
     }
-}
+} // no lo uso
     
 async function displayComments(comments) {
         const commentsContainer = document.getElementById('commentsContainer');
@@ -221,9 +206,9 @@ async function displayComments(comments) {
     
             commentsContainer.appendChild(commentDiv);
         }
-}
+} // no lo uso
 
-    async function addComment() {
+async function addComment() {
         const dataId = someDataId; // Ensure this is set correctly to the current dataset ID
         const commentInput = document.getElementById('newCommentInput');
         const commentText = commentInput.value;
@@ -257,7 +242,7 @@ async function displayComments(comments) {
         } catch (error) {
             console.error('Error posting comment:', error);
         }
-    }
+}// no lo uso
 
 async function volverChats(){
     var container1 = document.getElementsByClassName("cdrContacto")[0];
@@ -281,7 +266,7 @@ async function volverChats(){
     container8.style.display = "flex";
 
 
-}
+} // vuelve al menu principal
 
 
 function verNuevosChats(){
@@ -305,8 +290,10 @@ function verNuevosChats(){
     container7.style.display = "flex";
     container8.style.display = "none";
 
+    limpiarNuevosContactos();
     fetchAndAddAllUsers();
-}
+} // permite que el voton de NUEVA CONVERSACION sirva
+
 async function TestUsr(){
 const idPerson = sessionStorage.getItem('idUsuario'); // Assuming 'idUsuario' is the current user's ID
 const baseUrl = 'http://localhost:3004'; // Make sure this matches your API server's address
@@ -321,7 +308,7 @@ try {
             const otherId = parts.find(part => part !== idPerson);
             if (otherId) {
                 const username = await fetchName(otherId);
-                agregarContactoChat(username); // This function should handle displaying or processing the contact
+                agregarContactoChat(username, rowKey); // This function should handle displaying or processing the contact
             }
         });
     } else {
@@ -330,21 +317,21 @@ try {
 } catch (error) {
     console.error('Error fetching data:', error);
 }
-}
-
+} // muestra al inicioen mensajeria
 TestUsr();
 
 async function nuevoChat(idPerson){
     //lo añade a la lista de contactos de la persona
     console.log(idPerson);
     const username = await fetchName(idPerson);
+    //se tiene que crear el nuevo rowkey
     agregarContactoChat(username);
 
     
-    agregarConversacion("este es el inicio de un chat");
+    agregarConversacion("este es el inicio de un chat",rowkey);
     abrirChat();
 
-}
+} //crea nuevo chat cuando se presiona el boton en BUSCAR NUEVO CONTACTO
 
 function editarInfoP(){
     var nombreCompleto;
@@ -371,7 +358,7 @@ function editarInfoP(){
     document.getElementById('userNameP').value = username;
     passwordInput.value = password;
     
-}
+}// no lo uso
 
 
 function agregarDataSetPerfil(nombreDelDataSet, idtabla){
@@ -402,7 +389,7 @@ function agregarDataSetPerfil(nombreDelDataSet, idtabla){
 
     // Agregar el div contenedor al elemento seleccionado
     targetContainer.appendChild(containerDiv);
-}
+} // no lo uso
 
 function agregarFilaTablaHistorial(username, cantDescargas){
     // Crear los divs
@@ -432,9 +419,9 @@ function agregarFilaTablaHistorial(username, cantDescargas){
 
     // Agregar el div contenedor al elemento seleccionado
     targetContainer.appendChild(mainDiv);
-}
+} // no lo uso
 
-function agregarContactoChat(nombreChat){
+function agregarContactoChat(nombreChat, rowKey){
     // Crear los divs
     var containerDiv = document.createElement('div');
     containerDiv.className = 'cdrContactos';
@@ -446,7 +433,7 @@ function agregarContactoChat(nombreChat){
     var button = document.createElement('button');
     button.type = 'submit';
     button.className = 'btnEC';
-    button.setAttribute('onclick', 'abrirChat()');  
+    button.setAttribute('onclick', 'abrirChat(\'' + rowKey + '\')');  
 
     var image = document.createElement('img');
     image.src = 'imagenes/chat.png';  // Verifica que la ruta de la imagen sea correcta
@@ -463,10 +450,10 @@ function agregarContactoChat(nombreChat){
     // Agregar el div contenedor al elemento seleccionado
     targetContainer.appendChild(containerDiv);
 
-}
+} // MENSAJERIA los agrega
 
 
-function agregarConversacion(mensaje){
+function agregarConversacion(mensaje,rowkey){
 
    // Crear los elementos
     var mainDiv = document.createElement('div');
@@ -488,7 +475,7 @@ function agregarConversacion(mensaje){
 
     // Agregar el div contenedor al elemento seleccionado
     targetContainer.appendChild(mainDiv);
-}
+}   // ENVAIR MENSAJE no lo necesita ftm
 
 
 function agregarNuevoContacto(nombreChat, idUs){
@@ -521,10 +508,10 @@ function agregarNuevoContacto(nombreChat, idUs){
 
     // Agregar el div contenedor al elemento seleccionado
     targetContainer.appendChild(containerDiv);
-}
+} // agrega todas las cosas cosas en BUSCAR NUEVO CONTACTO
 
 
-fetchDatasetsByOwnerId(1);
+fetchDatasetsByOwnerId(1); //esto despliiega las varas del user
 
 async function fetchDatasetsByOwnerId(ownerId) {
     const baseUrl = 'http://localhost:3002'; // Set this to the correct base URL
@@ -542,7 +529,8 @@ async function fetchDatasetsByOwnerId(ownerId) {
     } catch (error) {
         console.error('Failed to fetch datasets:', error);
     }
-}
+}// no se necesita
+
 
 async function fetchAndDisplayUserStats(datasetID) {
     const redisBaseUrl = 'http://localhost:3003'; // Adjust to your actual Redis API base URL
@@ -573,7 +561,7 @@ async function fetchAndDisplayUserStats(datasetID) {
     } catch (error) {
         console.error('Failed to fetch user IDs:', error);
     }
-}
+}//no se necesita
 
 
 async function fetchName(idUs) {
@@ -591,7 +579,7 @@ async function fetchName(idUs) {
         console.error(`Error fetching username for user ID ${idUs}:`, error);
         return null;
     }
-}
+}// no se necesita 
 
 async function fetchAndAddAllUsers() {
     const userApiBaseUrl = 'http://localhost:3001'; // Adjust to your actual User API base URL
@@ -611,7 +599,7 @@ async function fetchAndAddAllUsers() {
     } catch (error) {
         console.error('Error fetching users:', error);
     }
-}
+} // busca todos los id de posgress y los pone en BUSCAR NUEVO CONTACTO
 
 function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, rutaArchivoDat, rutaVideo){
     // Crear el contenedor principal
@@ -735,13 +723,11 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
 
     var targetContainer = document.querySelector('.contenedorDataSet'); 
     targetContainer.appendChild(mainContainer);
-}
-
-
+}  // cosas de pame
 
 for (let i = 0; i < 5; i++) {
     agregarDataSet('imagenes/perfil.png', 'python', 'prueba xd', '22-04-2024', 'descargas/archivo.py', 'video/duck-drums.mp4');
-}
+}//cosas de pame
   
 async function updateUserInfo() {
     const userId = sessionStorage.getItem('idUsuario');  // Assuming you store the user ID in sessionStorage
@@ -771,4 +757,70 @@ async function updateUserInfo() {
     } else {
         console.error('Failed to update user info');
     }
-}
+} //No es necesario
+
+
+function limpiarMensajeria(){
+    var container = document.querySelector('.cdrChatsDispo');
+
+    if (container) {
+        var divs = container.querySelectorAll('div');
+
+        divs.forEach(function(div) {
+            container.removeChild(div);
+        });
+    }
+
+} // limpia mensajeria principal
+
+function limpiarMensajesChat(){
+    var container = document.querySelector('.cdrChats');
+
+    if (container) {
+        var divs = container.querySelectorAll('div');
+
+        divs.forEach(function(div) {
+            container.removeChild(div);
+        });
+    }
+
+    
+} // elimina chat
+
+function limpiarNuevosContactos(){
+    var container = document.querySelector('.cdrChatsB');
+
+    if (container) {
+        var divs = container.querySelectorAll('div');
+
+        divs.forEach(function(div) {
+            container.removeChild(div);
+        });
+    }
+    
+} // eliumina nuevos contactos
+
+function limpiarDataSet(){
+    var container = document.querySelector('.marcoDataS');
+
+    if (container) {
+        var divs = container.querySelectorAll('div');
+
+        divs.forEach(function(div) {
+            container.removeChild(div);
+        });
+    }
+    
+} // limpia dataset
+
+function limpiarTablaData(){
+    var container = document.querySelector('.contenidoTabla');
+
+    if (container) {
+        var divs = container.querySelectorAll('div');
+
+        divs.forEach(function(div) {
+            container.removeChild(div);
+        });
+    }
+} //limpia tabla
