@@ -58,6 +58,25 @@ app.get('/usersId/:usID', async (req, res) => {
         res.status(500).send('Error executing query');
     }
 });
+app.post('/updateUser', async (req, res) => {
+    const { idUser, username, password_hash, nombre_completo, fecha_nacimiento } = req.body;
+
+    try {
+        const result = await pool.query(
+            `UPDATE usuarios SET username = $1, password_hash = $2, nombre_completo = $3, fecha_nacimiento = $4 WHERE idUser = $5`,
+            [username, password_hash, nombre_completo, fecha_nacimiento, idUser]
+        );
+
+        if (result.rowCount > 0) {
+            res.status(200).json({ message: 'User updated successfully' });
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (err) {
+        console.error('Error executing query:', err);
+        res.status(500).json({ error: 'Error updating user' });
+    }
+});
 
 app.post('/addUser', async (req, res) => {
     const { username, password_hash, nombre_completo, fecha_nacimiento } = req.body;
