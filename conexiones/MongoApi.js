@@ -13,9 +13,6 @@ const app = express();
 app.use(cors());  // This will enable CORS for all routes
 app.use(express.json()); // Middleware to parse JSON bodies
 
-let counterIdDataset = 1;
-
-
 async function main() {
     try {
         // Connect the MongoDB client
@@ -33,15 +30,24 @@ async function main() {
             return result ? result.DatasetId : 0;
         }
         
-        counterIdDataset= await getMaxDataId() + 1
+        
         // Configuración de Multer para manejar la carga de archivos
         const storage = multer.diskStorage({
             destination: (req, file, cb) => {
                 cb(null, 'Pagina1\\archivos'); // aquí va la ruta de la carpeta de destino para los archivos
             },
-            filename: (req, file, cb) => {
-                const fileName = `${counterIdDataset}-${file.fieldname}${path.extname(file.originalname)}`;
-                cb(null, fileName);
+            filename: async (req, file, cb) => {
+                try {
+                    // Obtener el próximo ID de dataset
+                    const nextDatasetId = await getMaxDataId() + 1;
+        
+                    // Construir el nombre del archivo con el ID del dataset
+                    const fileName = `${nextDatasetId}-${file.fieldname}${path.extname(file.originalname)}`;
+                    
+                    cb(null, fileName);
+                } catch (err) {
+                    cb(err); // Manejar el error en caso de que falle la obtención del próximo ID de dataset
+                }
             }
         });
         const upload = multer({ storage: storage });
@@ -78,29 +84,9 @@ async function main() {
             }
         });
 
-        // API to insert dataset
-        /* app.post('/dataset', async (req, res) => {
-            try {
-                const { nombre, dataId, descripcion, fotoAvatar, archivos,idowner } = req.body;
-                const datasetDocument = {
-                    "Nombre": nombre,
-                    "DatasetId": dataId,
-                    "Descripción": descripcion,
-                    "Fecha de Inclusión": new Date(),
-                    "Foto o avatar": fotoAvatar,
-                    "Archivo(s)": archivos,
-                    "OwnerId": idowner
-                };
-                const result = await collection.insertOne(datasetDocument);
-                res.status(201).json(result);
-            } catch (err) {
-                console.error('Failed to insert data:', err);
-                res.status(500).send('Internal Server Error');
-            }
-        }); */
-
+        
         // API para insertar dataset
-        app.post('/dataset', upload.fields([{ name: 'photoAvatar', maxCount: 1 }, { name: 'archivosDatos', maxCount: 1 }]), async (req, res) => {
+        app.post('/dataset', upload.fields([{ name: 'photoAvatar', maxCount: 1 }, { name: 'archivosDatos', maxCount: 1 }, { name: 'videoTuto', maxCount: 1 }]), async (req, res) => {
             try {
                 //el requestbody se hace de esta manera porque se manda desde la estructura FormData
                 const nombre = req.body.nombre;
@@ -110,16 +96,19 @@ async function main() {
 
                 const photoAvatarUrl = req.files['photoAvatar'][0].path; // Obtén la ruta del avatar
                 const archivoUrl = req.files['archivosDatos'][0].path; // Obtén la ruta del archivo de datos
+                const tutoUrl = req.files['videoTuto'][0].path.toString(); // Obtén la ruta del archivo de datos
+
                 console.log(archivoUrl);
 
                 const datasetDocument = {
                     "Nombre": nombre,
-                    "DatasetId": counterIdDataset,
+                    "DatasetId": await getMaxDataId() + 1,
                     "Descripción": descripcion,
                     "Fecha de Inclusión": new Date(),
                     "Foto o avatar": photoAvatarUrl, // Usa la ruta del avatar
                     "Archivo(s)": archivoUrl, // Usa la ruta del archivo de datos
-                    "OwnerId": idownerInt
+                    "OwnerId": idownerInt,
+                    "Video": tutoUrl
                 };
 
                 const result = await collection.insertOne(datasetDocument);

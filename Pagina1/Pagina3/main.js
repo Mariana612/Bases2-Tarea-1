@@ -166,7 +166,7 @@ async function insertarDataSet() {
     const descripcionOutput = document.getElementById("Descripcion").value;
     const avatarUserInput = document.getElementById("photoAvatar").files[0]; // Obtener el archivo de la foto/avatar
     const archivoInput = document.getElementById("archivosDatos").files[0]; // Obtener el archivo de datos
-
+    const videoInput = document.getElementById("videoTuto").files[0];
 
     const idowner = 1; // por ahora esta esto fijo aquí
     const idownerString = idowner.toString(); // Convertir el número entero a cadena
@@ -175,6 +175,7 @@ async function insertarDataSet() {
     const formData = new FormData();
     formData.append('photoAvatar', avatarUserInput); // Agregar la foto/avatar
     formData.append('archivosDatos', archivoInput); // Agregar el archivo de datos
+    formData.append('videoTuto', videoInput);
 
     // Agregar los campos del requestBody al FormData
     formData.append('nombre', username);
