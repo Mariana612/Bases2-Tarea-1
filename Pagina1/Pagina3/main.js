@@ -387,13 +387,15 @@ TestUsr();
 async function nuevoChat(idPerson){
     //lo añade a la lista de contactos de la persona
     console.log(idPerson);
+    const currentUserId = sessionStorage.getItem('idUsuario');
     const username = await fetchName(idPerson);
     //se tiene que crear el nuevo rowkey
     agregarContactoChat(username);
+    const potentialRowKey = `${currentUserId}#${idPerson}`;
 
     
     agregarConversacion("este es el inicio de un chat");
-    abrirChat();
+    abrirChat(potentialRowKey);
 
 } //crea nuevo chat cuando se presiona el boton en BUSCAR NUEVO CONTACTO
 
@@ -645,6 +647,7 @@ async function fetchName(idUs) {
     }
 }// no se necesita 
 
+
 async function fetchAndAddAllUsers() {
     const userApiBaseUrl = 'http://localhost:3001'; // Adjust to your actual User API base URL
     const hbaseBaseUrl = 'http://localhost:3004'; // URL of your HBase API server
@@ -679,9 +682,7 @@ async function fetchAndAddAllUsers() {
         }
     } catch (error) {
         console.error('Error fetching users:', error);
-    }
-}
-
+    }}
 
 function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, rutaArchivoDat, rutaVideo){
     // Crear el contenedor principal
