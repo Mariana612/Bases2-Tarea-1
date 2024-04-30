@@ -85,8 +85,43 @@ function mostraOcultarEditP(){
 
     if(container1.style.display == "none"){
         container1.style.display = "flex";
+        algo();
     }
-}
+    
+
+
+} // TRABAJANDO ACA
+
+async function algo(){
+    const userId = sessionStorage.getItem('idUsuario');
+        const apiUrl = `http://localhost:3001/usersId/${userId}`;
+
+        try {
+            const response = await fetch(apiUrl);
+            if (response.ok) {
+                const userData = await response.json();
+                // Populate the form with the fetched data
+                document.getElementById('fullNameP').value = userData.nombre_completo;
+                console.log(userData.fecha_nacimiento);
+                const dateOfBirth = new Date(userData.fecha_nacimiento);
+                const formattedDate = dateOfBirth.toISOString().split('T')[0]; // This splits the ISO string at 'T' and takes the first part
+                
+                document.getElementById('fechaNacP').value = formattedDate;
+                document.getElementById('userNameP').value = userData.username;
+                const passwordInput = document.getElementById('passwordP');
+                passwordInput.placeholder = 'Enter new password';  // Optionally, you can leave it empty or with a hint
+          
+                // Passwords typically aren't retrieved for security reasons
+                // If necessary, handle the password separately or prompt for re-entry
+            } else {
+                console.error('Failed to fetch user data:', await response.text());
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    
+    }
+
 
 async function fetchDataset(dataId) {
     const baseUrl = 'http://localhost:3002'; // Set this to the correct base URL
@@ -387,13 +422,15 @@ TestUsr();
 async function nuevoChat(idPerson){
     //lo añade a la lista de contactos de la persona
     console.log(idPerson);
+    const currentUserId = sessionStorage.getItem('idUsuario');
     const username = await fetchName(idPerson);
     //se tiene que crear el nuevo rowkey
     agregarContactoChat(username);
+    const potentialRowKey = `${currentUserId}#${idPerson}`;
 
     
     agregarConversacion("este es el inicio de un chat");
-    abrirChat();
+    abrirChat(potentialRowKey);
 
 } //crea nuevo chat cuando se presiona el boton en BUSCAR NUEVO CONTACTO
 
@@ -645,25 +682,42 @@ async function fetchName(idUs) {
     }
 }// no se necesita 
 
+
 async function fetchAndAddAllUsers() {
     const userApiBaseUrl = 'http://localhost:3001'; // Adjust to your actual User API base URL
+    const hbaseBaseUrl = 'http://localhost:3004'; // URL of your HBase API server
 
     try {
         const response = await fetch(`${userApiBaseUrl}/allUsers`);
         const users = await response.json();
-        console.log(users); // Log the entire response to verify the structure
         if (response.ok) {
-            users.forEach(user => {
-                console.log(user.iduser); // Ensure you are logging the correct field name
-                agregarNuevoContacto(user.username, user.iduser); // Correct the case to match your JSON structure
-            });
+            for (const user of users) {
+                const currentUserId = sessionStorage.getItem('idUsuario');
+                const potentialRowKey = `${currentUserId}#${user.iduser}`;
+
+                // Check if a row with this key exists in HBase
+                const checkResponse = await fetch(`${hbaseBaseUrl}/hbase/getData/UserMessages/${encodeURIComponent(potentialRowKey)}`);
+                
+                if (checkResponse.ok) {
+                    const data = await checkResponse.json();
+                    if (data.length === 0) {
+                        console.log(`No data found for row key: ${potentialRowKey}, adding contact`);
+                        agregarNuevoContacto(user.username, user.iduser);
+                    } else {
+                        console.log(`Row key exists: ${potentialRowKey}, skipping`);
+                    }
+                } else {
+                    // Handle non-200 responses gracefully
+                    console.log(`No data found for row key: ${potentialRowKey}, adding contact due to error or non-existence`);
+                    agregarNuevoContacto(user.username, user.iduser);
+                }
+            }
         } else {
             console.error('Failed to fetch users:', users);
         }
     } catch (error) {
         console.error('Error fetching users:', error);
-    }
-} // busca todos los id de posgress y los pone en BUSCAR NUEVO CONTACTO
+    }}
 
 function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, rutaArchivoDat, rutaVideo){
     // Crear el contenedor principal
@@ -821,7 +875,7 @@ async function updateUserInfo() {
     } else {
         console.error('Failed to update user info');
     }
-} //No es necesario
+} //ESTOY TRABAJANDO AQUI
 
 
 function limpiarMensajeria(){
