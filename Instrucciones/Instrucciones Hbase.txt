@@ -7,10 +7,10 @@ docker exec -it my-hbase hbase shell
 create 'UserMessages', 'msgs'
 
 #insertamos algo
-put 'UserMessages', '001#002', 'msgs:1234567890123', 'Hello, how are you?'
+put 'UserMessages', '1#2', 'msgs:2', 'Hello, how are you?'
 
 #chequeamos que todo sirva
-scan 'UserMessages', {ROWPREFIXFILTER => '001#002'}
+scan 'UserMessages', {ROWPREFIXFILTER => '1#2'}
 
 #success!
 

@@ -142,6 +142,7 @@ function displayDataset(dataset) {
 } // no lo uso
 
 function abrirChat(rowKey){
+    
 
     var container1 = document.getElementsByClassName("cdrContacto")[0];
     var container2 = document.getElementsByClassName("cdrChats")[0];
@@ -163,14 +164,45 @@ function abrirChat(rowKey){
     container6.style.display = "none";
     container7.style.display = "none";
     container8.style.display = "none";
+    limpiarMensajesChat();
     iniciarChat(rowKey);
 }// abre el chat -- agregarConversacion(mensaje)
 
-async function iniciarChat(rowKey){
-    limpiarMensajesChat();
-    console.log(rowKey);
-    //agregarConversacion(mensaje,rowKey);
+async function iniciarChat(rowKey) {
+   
+    console.log(`Iniciando chat con rowKey: ${rowKey}`);
+
+    // URL de la API configurada en HbaseApi.js para recuperar mensajes por rowKey
+    const baseUrl = 'http://localhost:3004'; // Asegúrate de que este puerto coincida con el de tu servidor HbaseApi
+    const url = `${baseUrl}/UserMessages/${encodeURIComponent(rowKey)}`;
+
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            const mensajes = await response.json();
+            // Iterate over each message received and use agregarConversacion to display it
+            mensajes.forEach(row => {
+                row.cells.forEach(cell => {
+                    // Here we assume the column follows the format 'msgs:x'
+                    if (cell.column.startsWith('msgs:')) {
+                        agregarConversacion(cell.value, rowKey);
+                    }
+                });
+            });
+            console.log(`Mensajes cargados para rowKey: ${rowKey}`);
+        } else {
+            console.log(`No se encontraron mensajes para rowKey: ${rowKey}`);
+        }
+    } catch (error) {
+        console.error(`Error al recuperar mensajes para rowKey: ${rowKey}:`, error);
+    }
 }
+
+// async function iniciarChat(rowKey){
+//     limpiarMensajesChat();
+//     console.log(rowKey);
+//     //agregarConversacion(mensaje,rowKey);
+// }
 
 async function fetchComments(dataId) {
     const baseUrl = 'http://localhost:3002';
@@ -773,19 +805,15 @@ function limpiarMensajeria(){
 
 } // limpia mensajeria principal
 
-function limpiarMensajesChat(){
+function limpiarMensajesChat() {
     var container = document.querySelector('.cdrChats');
 
     if (container) {
-        var divs = container.querySelectorAll('div');
-
-        divs.forEach(function(div) {
-            container.removeChild(div);
-        });
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
     }
-
-    
-} // elimina chat
+}
 
 function limpiarNuevosContactos(){
     var container = document.querySelector('.cdrChatsB');

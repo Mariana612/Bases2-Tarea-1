@@ -57,8 +57,9 @@ app.get('/UserMessages/:rowKey', async (req, res) => {
 
     try {
         const data = await getData('UserMessages', rowKey);
-        if (data && data.length > 0) {
+        if (data.length > 0) {  // Asumiendo que getData ahora devuelve un array directamente
             console.log(`Data retrieved successfully for rowKey: ${rowKey}`);
+            
             res.json(data);
         } else {
             console.log(`No data found for rowKey: ${rowKey}`);
