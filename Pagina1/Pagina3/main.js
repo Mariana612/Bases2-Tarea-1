@@ -164,6 +164,7 @@ function displayDataset(dataset) {
 }
 
 function abrirChat(){
+
     var container1 = document.getElementsByClassName("cdrContacto")[0];
     var container2 = document.getElementsByClassName("cdrChats")[0];
     var container3 = document.getElementsByClassName("cdrEnviarMsg")[0];
@@ -339,6 +340,8 @@ async function nuevoChat(idPerson){
     const username = await fetchName(idPerson);
     agregarContactoChat(username);
 
+    
+    agregarConversacion("este es el inicio de un chat");
     abrirChat();
 
 }
@@ -463,9 +466,7 @@ function agregarContactoChat(nombreChat){
 }
 
 
-function agregarConversacion(nombreChat, mensaje){
-    //Actualiza el nombre del contacto
-    document.getElementById('nombreContactoMsg').textContent = nombreChat;
+function agregarConversacion(mensaje){
 
    // Crear los elementos
     var mainDiv = document.createElement('div');
