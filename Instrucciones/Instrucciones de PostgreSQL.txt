@@ -53,6 +53,27 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+
+CREATE OR REPLACE FUNCTION get_user_info_by_username_and_password(
+    username_param VARCHAR,
+    password_hash_param VARCHAR
+)
+RETURNS TABLE (
+    idUser INT,
+    username VARCHAR,
+    password_hash VARCHAR,
+    nombre_completo VARCHAR,
+    fecha_nacimiento DATE
+) AS
+$$
+BEGIN
+    RETURN QUERY
+    SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento
+    FROM usuarios
+    WHERE usuarios.username = username_param;
+END;
+$$ LANGUAGE plpgsql;
+
 # si quiere probar la funcion haga lo siguiente 
 
 SELECT * FROM get_user_info_by_username_and_password('popito','popito');
