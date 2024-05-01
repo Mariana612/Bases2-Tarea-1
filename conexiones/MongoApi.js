@@ -34,7 +34,7 @@ async function main() {
         // Configuración de Multer para manejar la carga de archivos
         const storage = multer.diskStorage({
             destination: (req, file, cb) => {
-                cb(null, 'Pagina1\\archivos'); // aquí va la ruta de la carpeta de destino para los archivos
+                cb(null, 'Pagina1\\Pagina3\\archivos'); // aquí va la ruta de la carpeta de destino para los archivos
             },
             filename: async (req, file, cb) => {
                 try {
@@ -85,6 +85,20 @@ async function main() {
         });
 
         
+        app.get('/alldataset', async (req, res) => {
+            try {
+                const datasetDocuments = await collection.find({}).toArray();
+                if (datasetDocuments.length > 0) {
+                    res.json(datasetDocuments);
+                } else {
+                    res.status(404).send('Datasets not found for the specified OwnerId');
+                }
+            } catch (err) {
+                console.error('Failed to fetch data:', err);
+                res.status(500).send('Internal Server Error');
+            }
+        });
+
         // API para insertar dataset
         app.post('/dataset', upload.fields([{ name: 'photoAvatar', maxCount: 1 }, { name: 'archivosDatos', maxCount: 1 }, { name: 'videoTuto', maxCount: 1 }]), async (req, res) => {
             try {
@@ -94,8 +108,8 @@ async function main() {
                 const idowner = req.body.idowner;
                 const idownerInt = parseInt(idowner, 10);//como se recibe como tipo string el id, se pasa a integer
 
-                const photoAvatarUrl = req.files['photoAvatar'][0].path; // Obtén la ruta del avatar
-                const archivoUrl = req.files['archivosDatos'][0].path; // Obtén la ruta del archivo de datos
+                const photoAvatarUrl = req.files['photoAvatar'][0].path.toString(); // Obtén la ruta del avatar
+                const archivoUrl = req.files['archivosDatos'][0].path.toString(); // Obtén la ruta del archivo de datos
                 const tutoUrl = req.files['videoTuto'][0].path.toString(); // Obtén la ruta del archivo de datos
 
                 console.log(archivoUrl);
