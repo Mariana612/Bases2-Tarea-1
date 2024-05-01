@@ -82,14 +82,14 @@ function mostraOcultarEditP(){
 
     if(container1.style.display == "none"){
         container1.style.display = "flex";
-        algo();
+        displayEditUser();
     }
     
 
 
 } // TRABAJANDO ACA
 
-async function algo(){
+async function displayEditUser(){
     const userId = sessionStorage.getItem('idUsuario');
         const apiUrl = `http://localhost:3001/usersId/${userId}`;
 
@@ -128,44 +128,7 @@ async function fetchDataset() {
         if (response.ok) {
 
             data.forEach(dataset=>{
-                const fotoString = dataset['Foto o avatar'] ? dataset['Foto o avatar'].toString() : '';
-                const archivoString = dataset['Archivo(s)'] ? dataset['Archivo(s)'].toString() : '';
-                
-                var videoPath;
-                var parts;
-                var fileName;
-                var rutaVideo;
-                var rutaImg;
-                var rutaFile;
-                var inicioRuta = 'archivos/';
-
-                videoPath = dataset.Video
-                parts = videoPath.split('\\'); // Usa doble backslash para escapar correctamente en JavaScript
-                
-                fileName = parts.pop(); // Extrae el último elemento del array
-                rutaVideo = inicioRuta + fileName;
-
-                
-                videoPath = fotoString //Aqui pone lo de la ruta de la imagen 
-                parts = videoPath.split('\\'); // Usa doble backslash para escapar correctamente en JavaScript
-                fileName = parts.pop(); // Extrae el último elemento del array
-                rutaImg= inicioRuta +  fileName;
-                
-
-                videoPath = archivoString //Aqui pone lo de la ruta del archivo
-                parts = videoPath.split('\\'); // Usa doble backslash para escapar correctamente en JavaScript
-                fileName = parts.pop(); // Extrae el último elemento del array
-                rutaFile= inicioRuta +  fileName;
-
-                //se le da formato a la fecha
-                const fechaOriginal = new Date(dataset['Fecha de Inclusión']);
-                const dia = String(fechaOriginal.getDate()).padStart(2, '0'); // Agrega ceros a la izquierda si es necesario
-                const mes = String(fechaOriginal.getMonth() + 1).padStart(2, '0'); // Agrega ceros a la izquierda si es necesario
-                const año = fechaOriginal.getFullYear();
-
-                const fechaFormateada = `${dia}-${mes}-${año}`;
-                
-                agregarDataSet(rutaImg, dataset.Nombre, dataset.Descripción, fechaFormateada, rutaFile, rutaVideo );
+                displayDaset(dataset);
             });
             
         } else {
@@ -174,45 +137,7 @@ async function fetchDataset() {
     } catch (error) {
         console.error('Failed to fetch dataset:', error);
     }
-} // no lo uso
-
-function displayDataset(dataset) {
-    // Assuming you have HTML elements with IDs to show these details
-    document.getElementById('username').textContent = dataset.Nombre;
-    document.getElementById('Descripcion').textContent = dataset.Descripción;
-    document.getElementById('fecha').textContent = new Date(dataset['Fecha de Inclusión']).toLocaleDateString();
-
-    // Update the video source if a video file is included in the dataset
-    const videoContainer = document.querySelector('.video-container video source');
-    if (dataset['Archivo(s)']) {
-        const mp4File = dataset['Archivo(s)'].find(file => file.endsWith('.mp4'));
-        if (mp4File) {
-            videoContainer.src = mp4File.replace(/\\/g, '/'); // Replace backslashes with forward slashes for URL compatibility
-        } else {
-            videoContainer.src = ''; // Set to an empty string or a default placeholder if no valid video file is present
-        }
-    } else {
-        videoContainer.src = ''; // Handle case where there are no files
-    }
-
-    const archivosElement = document.getElementById('archiId');
-    if (dataset['Archivo(s)'] && dataset['Archivo(s)'].length > 0) {
-        archivosElement.textContent = dataset['Archivo(s)'][0]; // Display the first URL
-    } else {
-        archivosElement.textContent = 'No file available'; // No file available
-    }
-
-    // Refresh the video load to update the source
-    document.querySelector('.video-container video').load();
-
-    const avatarImageElement = document.getElementById('fotoid');
-    if (dataset['Foto o avatar']) {
-        avatarImageElement.src = dataset['Foto o avatar'];
-    } else {
-        avatarImageElement.src = 'default-avatar.png'; // Use a default placeholder if no image is available
-    }
-    fetchComments(dataset.DatasetId);
-} // no lo uso
+} 
 
 function abrirChat(rowKey){
     
@@ -494,7 +419,7 @@ function verNuevosChats(){
     fetchAndAddAllUsers();
 } // permite que el voton de NUEVA CONVERSACION sirva
 
-async function TestUsr(){
+async function muestraMensajeria(){
 const idPerson = sessionStorage.getItem('idUsuario'); // Assuming 'idUsuario' is the current user's ID
 const baseUrl = 'http://localhost:3004'; // Make sure this matches your API server's address
 try {
@@ -518,7 +443,7 @@ try {
     console.error('Error fetching data:', error);
 }
 } // muestra al inicioen mensajeria
-TestUsr();
+muestraMensajeria();
 
 async function nuevoChat(idPerson){
     //lo añade a la lista de contactos de la persona
@@ -941,10 +866,6 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     var targetContainer = document.querySelector('.contenedorDataSet'); 
     targetContainer.appendChild(mainContainer);
 }  // cosas de pame
-
-for (let i = 0; i < 5; i++) {
-    agregarDataSet('imagenes/perfil.png', 'python', 'prueba xd', '22-04-2024', 'descargas/archivo.py', 'video/duck-drums.mp4');
-}//cosas de pame
   
 async function updateUserInfo() {
     const userId = sessionStorage.getItem('idUsuario');  // Assuming you store the user ID in sessionStorage
@@ -975,57 +896,26 @@ async function updateUserInfo() {
         console.error('Failed to update user info');
     }
 } //ESTOY TRABAJANDO AQUI
+
 async function buscarDataset() {
-    const nombreDataset=document.getElementById("criterioBusInpu").value;
+    const criterioBusInpu=document.getElementById("criterioBusInpu").value;
     const baseUrl = 'http://localhost:3002'; // Set this to the correct base URL
     try {
         const response = await fetch(`${baseUrl}/alldataset`);
         const data = await response.json();
         if (response.ok) {
-
+            //const id= parseInt(getidUsername(criterioBusInpu));//llama a la funcion postgresql
+            const id= parseInt(criterioBusInpu);//este es de prueba
+            //llamar funcion  de postgree y validar que si viene un 0 es que no existe el username
             data.forEach(dataset=>{
-                if(nombreDataset===dataset.Nombre){
-                    alert("entreee");
-                    const fotoString = dataset['Foto o avatar'] ? dataset['Foto o avatar'].toString() : '';
-                    const archivoString = dataset['Archivo(s)'] ? dataset['Archivo(s)'].toString() : '';
-                    
-                    var videoPath;
-                    var parts;
-                    var fileName;
-                    var rutaVideo;
-                    var rutaImg;
-                    var rutaFile;
-                    var inicioRuta = 'archivos/';
-
-                    videoPath = dataset.Video
-                    parts = videoPath.split('\\'); // Usa doble backslash para escapar correctamente en JavaScript
-                    
-                    fileName = parts.pop(); // Extrae el último elemento del array
-                    rutaVideo = inicioRuta + fileName;
-
-                    
-                    videoPath = fotoString //Aqui pone lo de la ruta de la imagen 
-                    parts = videoPath.split('\\'); // Usa doble backslash para escapar correctamente en JavaScript
-                    fileName = parts.pop(); // Extrae el último elemento del array
-                    rutaImg= inicioRuta +  fileName;
-                    
-
-                    videoPath = archivoString //Aqui pone lo de la ruta del archivo
-                    parts = videoPath.split('\\'); // Usa doble backslash para escapar correctamente en JavaScript
-                    fileName = parts.pop(); // Extrae el último elemento del array
-                    rutaFile= inicioRuta +  fileName;
-
-                    //se le da formato a la fecha
-                    const fechaOriginal = new Date(dataset['Fecha de Inclusión']);
-                    const dia = String(fechaOriginal.getDate()).padStart(2, '0'); // Agrega ceros a la izquierda si es necesario
-                    const mes = String(fechaOriginal.getMonth() + 1).padStart(2, '0'); // Agrega ceros a la izquierda si es necesario
-                    const año = fechaOriginal.getFullYear();
-
-                    const fechaFormateada = `${dia}-${mes}-${año}`;
-                    
-                    agregarDataSet(rutaImg, dataset.Nombre, dataset.Descripción, fechaFormateada, rutaFile, rutaVideo );
+                if(criterioBusInpu===dataset.Nombre){
+                    displayDaset(dataset);
+                }
+                if(id === dataset["OwnerId"]){
+                    displayDaset(dataset);
                 }
             });
+
         } else {
             console.error('Dataset not found', data);
         }
@@ -1034,8 +924,48 @@ async function buscarDataset() {
     }
 }
 
+function displayDaset(dataset){
+    const fotoString = dataset['Foto o avatar'] ? dataset['Foto o avatar'].toString() : '';
+    const archivoString = dataset['Archivo(s)'] ? dataset['Archivo(s)'].toString() : '';
+    
+    var videoPath;
+    var parts;
+    var fileName;
+    var rutaVideo;
+    var rutaImg;
+    var rutaFile;
+    var inicioRuta = 'archivos/';
+
+    videoPath = dataset.Video
+    parts = videoPath.split('\\'); // Usa doble backslash para escapar correctamente en JavaScript
+    
+    fileName = parts.pop(); // Extrae el último elemento del array
+    rutaVideo = inicioRuta + fileName;
+
+    
+    videoPath = fotoString //Aqui pone lo de la ruta de la imagen 
+    parts = videoPath.split('\\'); // Usa doble backslash para escapar correctamente en JavaScript
+    fileName = parts.pop(); // Extrae el último elemento del array
+    rutaImg= inicioRuta +  fileName;
+    
+
+    videoPath = archivoString //Aqui pone lo de la ruta del archivo
+    parts = videoPath.split('\\'); // Usa doble backslash para escapar correctamente en JavaScript
+    fileName = parts.pop(); // Extrae el último elemento del array
+    rutaFile= inicioRuta +  fileName;
+
+    //se le da formato a la fecha
+    const fechaOriginal = new Date(dataset['Fecha de Inclusión']);
+    const dia = String(fechaOriginal.getDate()).padStart(2, '0'); // Agrega ceros a la izquierda si es necesario
+    const mes = String(fechaOriginal.getMonth() + 1).padStart(2, '0'); // Agrega ceros a la izquierda si es necesario
+    const año = fechaOriginal.getFullYear();
+
+    const fechaFormateada = `${dia}-${mes}-${año}`;
+    
+    agregarDataSet(rutaImg, dataset.Nombre, dataset.Descripción, fechaFormateada, rutaFile, rutaVideo );    
+}
+
 editarInfoP(1);
-fetchDatasetsByOwnerId(1);
 fetchDataset();//para ver los dataSet 
 
 function limpiarMensajeria(){
@@ -1098,3 +1028,21 @@ function limpiarTablaData(){
         });
     }
 } //limpia tabla
+
+//funcion de obtener el id del user 
+async function getidUsername(username) {
+    const userApiBaseUrl = 'http://localhost:3001'; // Adjust to your actual User API base URL
+    try {
+        const userResponse = await fetch(`${userApiBaseUrl}/getuser/${username}`);
+        if (userResponse.ok) {
+            const userData = await userResponse.json();
+            return userData.idUser // Ensure that your API returns 'username' in the response
+        } else {
+            console.error(`Failed to fetch username for user ID ${username}`);
+            return 0;
+        }
+    } catch (error) {
+        console.error(`Error fetching username for user ID ${username}:`, error);
+        return null;
+    }
+}

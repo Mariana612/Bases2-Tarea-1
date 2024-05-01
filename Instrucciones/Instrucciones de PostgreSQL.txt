@@ -54,9 +54,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION get_user_info_by_username_and_password(
-    username_param VARCHAR,
-    password_hash_param VARCHAR
+CREATE OR REPLACE FUNCTION get_user_info_by_username(
+    username_param VARCHAR
 )
 RETURNS TABLE (
     idUser INT,

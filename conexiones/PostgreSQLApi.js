@@ -25,8 +25,28 @@ app.get('/users/:username', async (req, res) => {
     const passwordHash = req.query.passwordHash; // Assuming the password hash is provided as a query parameter
     try {
         const result = await pool.query(
-            'SELECT * FROM get_user_info_by_username($1, $2)',
+            'SELECT * FROM get_user_info_by_username_and_password($1, $2)',
             [targetUsername, passwordHash]
+        );
+        const userInfo = result.rows[0];
+        if (userInfo) {
+            res.json(userInfo);
+        } else {
+            res.status(404).send('User not found');
+        }
+    } catch (err) {
+        console.error('Error executing query:', err);
+        res.status(500).send('Error executing query');
+    }
+});
+
+//esta es la de obtener user
+app.get('/getuser/:username', async (req, res) => {
+    const targetUsername = req.params.username;
+    try {
+        const result = await pool.query(
+            'SELECT * FROM get_user_info_by_username($1)',
+            [targetUsername]
         );
         const userInfo = result.rows[0];
         if (userInfo) {
