@@ -825,6 +825,17 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     var videoNotSupported = document.createTextNode('Tu navegador no soporta el elemento de video.');
     video.appendChild(videoNotSupported);
 
+    // Añadir botón de descarga
+    var descargaDiv = document.createElement('div');
+    descargaDiv.className = 'cdrBotonDescarga';
+    var descargaButton = document.createElement('button');
+    descargaButton.id = 'btnDescargar';
+    descargaButton.className = 'botonesDes';
+    descargaButton.textContent = 'DESCARGAR';
+    descargaButton.setAttribute('onclick', 'descargarDataSet()'); // Asegúrate de que descargarDataSet() esté definida
+    descargaDiv.appendChild(descargaButton);
+    cuadroDatsDS.appendChild(descargaDiv);
+
     // Crear y llenar datasetC
     var titleMC = document.createElement('h4');
     titleMC.className = 'tittleMC';
@@ -898,6 +909,7 @@ async function updateUserInfo() {
 } //ESTOY TRABAJANDO AQUI
 
 async function buscarDataset() {
+    limpiarContenedorData(); //CREO QUE VA A AQUI
     const criterioBusInpu=document.getElementById("criterioBusInpu").value;
     const baseUrl = 'http://localhost:3002'; // Set this to the correct base URL
     try {
@@ -1045,4 +1057,23 @@ async function getidUsername(username) {
         console.error(`Error fetching username for user ID ${username}:`, error);
         return null;
     }
+}
+
+function limpiarContenedorData(){
+    // Seleccionar el contenedor por su ID
+    var contenedor = document.getElementById('contenedorDataSetV');
+
+    // Seleccionar todos los divs con la clase 'verDataSet' dentro del contenedor
+    var divsParaEliminar = contenedor.querySelectorAll('.verDataSet');
+
+    // Iterar sobre la colección de divs y eliminar cada uno
+    divsParaEliminar.forEach(function(div) {
+        contenedor.removeChild(div);
+    });
+
+} //limpia el "Ver Data Set"
+
+
+function descargarDataSet(){
+    limpiarContenedorData();
 }

@@ -1364,5 +1364,21 @@ form label .fa-solid {
 	height: 10000px;
 	overflow: auto;
 
-	border: 0px solid salmon;
+	border: 1px solid salmon;
+}
+
+
+.botonesDes{
+	height: 50px;
+	width: 200px;
+	margin-top: 35px;
+
+	background-color: rgb(118, 23, 128);
+	border-radius: 8px;
+	border: 0px;
+
+	font-size: 25px;
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: white;
 }
