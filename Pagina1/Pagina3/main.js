@@ -3,10 +3,7 @@ var fechaActual = new Date();
 var formattedDate = ('0' + fechaActual.getDate()).slice(-2) + '/' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '/' + fechaActual.getFullYear();
 document.getElementById('fechaInclu').textContent = formattedDate;
 
-document.addEventListener('DOMContentLoaded', function() {
-    someDataId = 1;
-    fetchDataset(someDataId);  // Replace 'someDataId' with a specific dataset ID you want to load initially
-});
+
 
 window.onload = function() {
     var dato = sessionStorage.getItem('idUsuario'); // Obtienes el dato desde sessionStorage
