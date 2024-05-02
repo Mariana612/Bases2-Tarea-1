@@ -11,8 +11,11 @@ CREATE TABLE usuarios (
     username VARCHAR(50) NOT NULL,
     password_hash VARCHAR(100) NOT NULL,
     nombre_completo VARCHAR(100) NOT NULL,
-    fecha_nacimiento DATE
+    fecha_nacimiento DATE,
+    userPhoto VARCHAR(255) NOT NULL
 );
+
+SELECT add_usuario('popito', 'popito', 'Full Name', '1990-01-01','Pagina1\\Pagina3\\archivos\\6-photoAvatar.png');
 
 # se inicia el pichazo de inserts de prueba :)
 INSERT INTO usuarios (idUser, username, password_hash, nombre_completo, fecha_nacimiento)
@@ -42,12 +45,13 @@ RETURNS TABLE (
     username VARCHAR,
     password_hash VARCHAR,
     nombre_completo VARCHAR,
-    fecha_nacimiento DATE
+    fecha_nacimiento DATE,
+    userPhoto VARCHAR
 ) AS
 $$
 BEGIN
     RETURN QUERY
-    SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento
+    SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento, usuarios.userPhoto
     FROM usuarios
     WHERE usuarios.username = username_param AND usuarios.password_hash = password_hash_param;
 END;
@@ -62,12 +66,13 @@ RETURNS TABLE (
     username VARCHAR,
     password_hash VARCHAR,
     nombre_completo VARCHAR,
-    fecha_nacimiento DATE
+    fecha_nacimiento DATE,
+    userPhoto VARCHAR
 ) AS
 $$
 BEGIN
     RETURN QUERY
-    SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento
+    SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento, usuarios.userPhoto
     FROM usuarios
     WHERE usuarios.username = username_param;
 END;
@@ -85,12 +90,13 @@ RETURNS TABLE (
     username VARCHAR,
     password_hash VARCHAR,
     nombre_completo VARCHAR,
-    fecha_nacimiento DATE
+    fecha_nacimiento DATE,
+    userPhoto VARCHAR
 ) AS
 $$
 BEGIN
     RETURN QUERY
-    SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento
+    SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, usuarios.nombre_completo, usuarios.fecha_nacimiento, usuarios.userPhoto
     FROM usuarios
     WHERE usuarios.idUser = idUs;
 END;
@@ -104,13 +110,14 @@ RETURNS TABLE (
     username VARCHAR(255),  -- Adjust the length as appropriate
     password_hash VARCHAR(255),  -- Adjust the length as appropriate
     nombre_completo VARCHAR(255),  -- Adjust the length as appropriate
-    fecha_nacimiento DATE
+    fecha_nacimiento DATE,
+    userPhoto VARCHAR
 ) AS
 $$
 BEGIN
     RETURN QUERY
     SELECT usuarios.idUser, usuarios.username, usuarios.password_hash, 
-           usuarios.nombre_completo, usuarios.fecha_nacimiento
+           usuarios.nombre_completo, usuarios.fecha_nacimiento, usuarios.userPhoto
     FROM usuarios;
 END;
 $$ LANGUAGE plpgsql;
@@ -125,14 +132,15 @@ CREATE OR REPLACE FUNCTION add_usuario(
     p_username VARCHAR,
     p_password_hash VARCHAR,
     p_nombre_completo VARCHAR,
-    p_fecha_nacimiento DATE
+    p_fecha_nacimiento DATE,
+    p_userPhoto VARCHAR
 )
 RETURNS INTEGER AS $$
 DECLARE
     v_user_id INTEGER;
 BEGIN
-    INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento)
-    VALUES (p_username, p_password_hash, p_nombre_completo, p_fecha_nacimiento)
+    INSERT INTO usuarios (username, password_hash, nombre_completo, fecha_nacimiento, userPhoto)
+    VALUES (p_username, p_password_hash, p_nombre_completo, p_fecha_nacimiento, p_userPhoto)
     RETURNING idUser INTO v_user_id;
 
     RETURN v_user_id;
@@ -145,5 +153,5 @@ SELECT setval(pg_get_serial_sequence('usuarios', 'iduser'), (SELECT MAX(iduser) 
 
 
 #agregar un usuario
-SELECT add_usuario('username', 'passwordHash', 'Full Name', '1990-01-01');
+SELECT add_usuario('popito', 'popito', 'Full Name', '1990-01-01');
 

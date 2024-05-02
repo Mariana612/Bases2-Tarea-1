@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const multer = require('multer'); //esto es lo que se debe instalar
+
 
 
 const { Pool } = require('pg');
@@ -11,6 +13,27 @@ app.use(express.json());
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+        // Configuración de Multer para manejar la carga de archivos
+        const storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                cb(null, 'Pagina1\\Pagina3\\archivos'); // aquí va la ruta de la carpeta de destino para los archivos
+            },
+            filename: async (req, file, cb) => {
+                try {
+                    // Obtener el próximo ID de dataset
+                    const nextDatasetId = Date.now();
+        
+                    // Construir el nombre del archivo con el ID del dataset
+                    const fileName = `${nextDatasetId}-${file.fieldname}${path.extname(file.originalname)}`;
+                    
+                    cb(null, fileName);
+                } catch (err) {
+                    cb(err); // Manejar el error en caso de que falle la obtención del próximo ID de dataset
+                }
+            }
+        });
+        const upload = multer({ storage: storage });
 
 const pool = new Pool({
     user: 'master',
@@ -78,13 +101,38 @@ app.get('/usersId/:usID', async (req, res) => {
         res.status(500).send('Error executing query');
     }
 });
-app.post('/updateUser', async (req, res) => {
-    const { idUser, username, password_hash, nombre_completo, fecha_nacimiento } = req.body;
+// app.post('/updateUser', async (req, res) => {
+//     const { idUser, username, password_hash, nombre_completo, fecha_nacimiento } = req.body;
 
+//     try {
+//         const result = await pool.query(
+//             `UPDATE usuarios SET username = $1, password_hash = $2, nombre_completo = $3, fecha_nacimiento = $4, userPhoto = $5 WHERE idUser = $6`,
+//             [username, password_hash, nombre_completo, fecha_nacimiento, userPhoto, idUser]
+//         );
+
+//         if (result.rowCount > 0) {
+//             res.status(200).json({ message: 'User updated successfully' });
+//         } else {
+//             res.status(404).json({ error: 'User not found' });
+//         }
+//     } catch (err) {
+//         console.error('Error executing query:', err);
+//         res.status(500).json({ error: 'Error updating user' });
+//     }
+// });
+app.post('/updateUser', upload.single('userPhoto'), async (req, res) => { // ABER QUE PASA
+    const idUser = req.body.idUser;
+    const username = req.body.username;
+    const password_hash = req.body.password_hash;
+    const nombre_completo = req.body.nombre_completo;
+    const fecha_nacimiento = req.body.fecha_nacimiento;
+    const userPhoto = req.file ? req.file.path : null;  // Handling file, assuming it's optional
+
+    console.log(userPhoto);
     try {
         const result = await pool.query(
-            `UPDATE usuarios SET username = $1, password_hash = $2, nombre_completo = $3, fecha_nacimiento = $4 WHERE idUser = $5`,
-            [username, password_hash, nombre_completo, fecha_nacimiento, idUser]
+            `UPDATE usuarios SET username = $1, password_hash = $2, nombre_completo = $3, fecha_nacimiento = $4, userPhoto = $5 WHERE idUser = $6`,
+            [username, password_hash, nombre_completo, fecha_nacimiento, userPhoto, idUser]
         );
 
         if (result.rowCount > 0) {
@@ -99,11 +147,11 @@ app.post('/updateUser', async (req, res) => {
 });
 
 app.post('/addUser', async (req, res) => {
-    const { username, password_hash, nombre_completo, fecha_nacimiento } = req.body;
+    const { username, password_hash, nombre_completo, fecha_nacimiento, userPhoto } = req.body;
     try {
         const result = await pool.query(
-            'SELECT add_usuario($1, $2, $3, $4)',
-            [username, password_hash, nombre_completo, fecha_nacimiento]
+            'SELECT add_usuario($1, $2, $3, $4, $5)',
+            [username, password_hash, nombre_completo, fecha_nacimiento, userPhoto]
         );
         if (result.rowCount > 0) {
             console.log({ message: 'User added successfully' });

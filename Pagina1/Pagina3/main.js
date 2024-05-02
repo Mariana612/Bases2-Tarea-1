@@ -89,35 +89,30 @@ function mostraOcultarEditP(){
 
 } // TRABAJANDO ACA
 
-async function displayEditUser(){
+async function displayEditUser() {
     const userId = sessionStorage.getItem('idUsuario');
-        const apiUrl = `http://localhost:3001/usersId/${userId}`;
+    const apiUrl = `http://localhost:3001/usersId/${userId}`;
 
-        try {
-            const response = await fetch(apiUrl);
-            if (response.ok) {
-                const userData = await response.json();
-                // Populate the form with the fetched data
-                document.getElementById('fullNameP').value = userData.nombre_completo;
-                console.log(userData.fecha_nacimiento);
-                const dateOfBirth = new Date(userData.fecha_nacimiento);
-                const formattedDate = dateOfBirth.toISOString().split('T')[0]; // This splits the ISO string at 'T' and takes the first part
-                
-                document.getElementById('fechaNacP').value = formattedDate;
-                document.getElementById('userNameP').value = userData.username;
-                const passwordInput = document.getElementById('passwordP');
-                passwordInput.placeholder = 'Enter new password';  // Optionally, you can leave it empty or with a hint
-          
-                // Passwords typically aren't retrieved for security reasons
-                // If necessary, handle the password separately or prompt for re-entry
-            } else {
-                console.error('Failed to fetch user data:', await response.text());
-            }
-        } catch (error) {
-            console.error('Error fetching user data:', error);
+    try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const userData = await response.json();
+            console.log("Fetched user data:", userData);
+            document.getElementById('fullNameP').value = userData.nombre_completo;
+            const dateOfBirth = new Date(userData.fecha_nacimiento);
+            document.getElementById('fechaNacP').value = dateOfBirth.toISOString().split('T')[0];
+            document.getElementById('userNameP').value = userData.username;
+            // Corrected property name here:
+            // Assuming the root is already serving `Pagina1/Pagina3/`
+            document.getElementById('userPhotoDisplay').src = userData.userphoto ? userData.userphoto.split('Pagina1\\Pagina3\\')[1].replace(/\\/g, '/') : 'Pagina1\\imagenes\\perfil.png';
+
+        } else {
+            console.error('Failed to fetch user data:', await response.text());
         }
-    
+    } catch (error) {
+        console.error('Error fetching user data:', error);
     }
+}
 
 
 async function fetchDataset() {
@@ -884,27 +879,27 @@ async function updateUserInfo() {
     const birthDate = document.getElementById('fechaNacP').value;
     const username = document.getElementById('userNameP').value;
     const password = document.getElementById('passwordP').value;
+    const archivoInput = document.getElementById("fileid").files[0];
 
     // Hash the password here if necessary before sending it to the server
 
+    const formData = new FormData();
+    formData.append('idUser', userId);
+    formData.append('nombre_completo', fullName);
+    formData.append('fecha_nacimiento', birthDate);
+    formData.append('username', username);
+    formData.append('userPhoto', archivoInput);
+    formData.append('password_hash', password);
+
     const response = await fetch('http://localhost:3001/updateUser', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            idUser: userId,
-            nombre_completo: fullName,
-            fecha_nacimiento: birthDate,
-            username: username,
-            password_hash: password  // Make sure to securely handle and hash the password on the server side
-        })
+        body: formData  // No headers needed; FormData sets the appropriate Content-Type
     });
 
     if (response.ok) {
         console.log('User info updated successfully');
     } else {
-        console.error('Failed to update user info');
+        console.error('Failed to update user info', await response.text());
     }
 } //ESTOY TRABAJANDO AQUI
 
