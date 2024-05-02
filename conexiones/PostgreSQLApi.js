@@ -64,18 +64,16 @@ app.get('/users/:username', async (req, res) => {
 });
 
 //esta es la de obtener user
+// PostgreSQL API to get user information by username
 app.get('/getuser/:username', async (req, res) => {
-    const targetUsername = req.params.username;
+    const targetUsername = req.params.username.trim().toLowerCase();  // Ensure case insensitivity
     try {
-        const result = await pool.query(
-            'SELECT * FROM get_user_info_by_username($1)',
-            [targetUsername]
-        );
-        const userInfo = result.rows[0];
-        if (userInfo) {
-            res.json(userInfo);
+        const query = 'SELECT * FROM usuarios WHERE lower(username) = $1';
+        const result = await pool.query(query, [targetUsername]);
+        if (result.rows.length > 0) {
+            res.json(result.rows[0]);  // Send user data if found
         } else {
-            res.status(404).send('User not found');
+            res.status(404).send('User not found');  // Handle no user found
         }
     } catch (err) {
         console.error('Error executing query:', err);

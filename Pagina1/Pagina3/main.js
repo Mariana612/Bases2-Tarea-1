@@ -234,8 +234,8 @@ async function insertarDataSet() {
     const avatarUserInput = document.getElementById("photoAvatar").files[0]; // Obtener el archivo de la foto/avatar
     const archivoInput = document.getElementById("archivosDatos").files[0]; // Obtener el archivo de datos
     const videoInput = document.getElementById("videoTuto").files[0];
+    const idowner = sessionStorage.getItem('idUsuario');
 
-    const idowner = 1; // por ahora esta esto fijo aquí
     const idownerString = idowner.toString(); // Convertir el número entero a cadena
 
     // Crear objeto FormData para enviar los datos y archivos
@@ -903,32 +903,71 @@ async function updateUserInfo() {
 } //ESTOY TRABAJANDO AQUI
 
 async function buscarDataset() {
-    limpiarContenedorData(); //CREO QUE VA A AQUI
-    const criterioBusInpu=document.getElementById("criterioBusInpu").value;
-    const baseUrl = 'http://localhost:3002'; // Set this to the correct base URL
-    try {
-        const response = await fetch(`${baseUrl}/alldataset`);
-        const data = await response.json();
-        if (response.ok) {
-            //const id= parseInt(getidUsername(criterioBusInpu));//llama a la funcion postgresql
-            const id= parseInt(criterioBusInpu);//este es de prueba
-            //llamar funcion  de postgree y validar que si viene un 0 es que no existe el username
-            data.forEach(dataset=>{
-                if(criterioBusInpu===dataset.Nombre){
-                    displayDaset(dataset);
-                }
-                if(id === dataset["OwnerId"]){
-                    displayDaset(dataset);
-                }
-            });
+    limpiarContenedorData(); // Assuming this function correctly clears the display area
+    console.log("Started buscarDataset");
+    const criterioBusInput = document.getElementById("criterioBusInpu").value;
+    const baseUrl = 'http://localhost:3002'; // Base URL for dataset API
+    let flag1 = 0;
 
-        } else {
-            console.error('Dataset not found', data);
+    try {
+        
+        console.log("Making API call to fetch datasets");
+        const response = await fetch(`${baseUrl}/alldataset`);
+        if (!response.ok) throw new Error('Failed to fetch datasets');
+
+        const datasets = await response.json();
+        console.log("Datasets fetched", datasets);
+
+        datasets.forEach(dataset => {
+            if (dataset.Nombre === criterioBusInput) {
+                console.log("Displaying dataset", dataset);
+                displayDaset(dataset);
+                flag1 =1;
+            }
+            
+        });
+        console.log(flag1);
+        if(flag1==0){
+            throw new Error('Not id');
         }
+
+        
+    
     } catch (error) {
-        console.error('Failed to fetch dataset:', error);
+        //console.error('Failed to fetch dataset or user ID:', error);
+        buscarDataset2(criterioBusInput);
     }
 }
+async function buscarDataset2(criterioBusInput) {    
+    const baseUrl = 'http://localhost:3002'; // Base URL for dataset API    
+    try {
+        // First, attempt to retrieve the user ID based on the username
+        const userId = await getidUsername(criterioBusInput);
+
+        // If no valid user ID, log and exit the function
+        if (!userId) {
+            console.log('No valid user ID found');
+            return;
+        }
+
+        // Fetch all datasets (assuming all datasets need to be fetched regardless)
+        const response = await fetch(`${baseUrl}/alldataset`);
+        if (!response.ok) throw new Error('Failed to fetch datasets');
+
+        const datasets = await response.json();
+
+        // Display datasets that match the user ID or dataset name
+        
+        datasets.forEach(dataset => {
+            if (dataset.Nombre === criterioBusInput || dataset.OwnerId === userId) {
+                displayDaset(dataset);
+            }
+        });
+
+    }     catch(error){
+        console.error('Failed to fetch dataset or user ID:', error);
+        }
+    }
 
 function displayDaset(dataset){
     const fotoString = dataset['Foto o avatar'] ? dataset['Foto o avatar'].toString() : '';
@@ -1037,22 +1076,20 @@ function limpiarTablaData(){
 
 //funcion de obtener el id del user 
 async function getidUsername(username) {
-    const userApiBaseUrl = 'http://localhost:3001'; // Adjust to your actual User API base URL
+    const userApiBaseUrl = 'http://localhost:3001';
     try {
-        const userResponse = await fetch(`${userApiBaseUrl}/getuser/${username}`);
-        if (userResponse.ok) {
-            const userData = await userResponse.json();
-            return userData.idUser // Ensure that your API returns 'username' in the response
-        } else {
-            console.error(`Failed to fetch username for user ID ${username}`);
-            return 0;
+        const response = await fetch(`${userApiBaseUrl}/getuser/${encodeURIComponent(username)}`);
+        if (!response.ok) {
+            console.log(`No user found with username ${username}`);
+            return null;  // Ensure this logic is correctly handling non-OK responses
         }
+        const userData = await response.json();
+        return userData.iduser;  // Make sure the key here matches exactly with your database column names
     } catch (error) {
         console.error(`Error fetching username for user ID ${username}:`, error);
         return null;
     }
 }
-
 function limpiarContenedorData(){
     // Seleccionar el contenedor por su ID
     var contenedor = document.getElementById('contenedorDataSetV');
