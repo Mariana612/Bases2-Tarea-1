@@ -102,8 +102,7 @@ async function displayEditUser() {
             const dateOfBirth = new Date(userData.fecha_nacimiento);
             document.getElementById('fechaNacP').value = dateOfBirth.toISOString().split('T')[0];
             document.getElementById('userNameP').value = userData.username;
-            // Corrected property name here:
-            // Assuming the root is already serving `Pagina1/Pagina3/`
+
             document.getElementById('userPhotoDisplay').src = userData.userphoto ? userData.userphoto.split('Pagina1\\Pagina3\\')[1].replace(/\\/g, '/') : 'Pagina1\\imagenes\\perfil.png';
 
         } else {

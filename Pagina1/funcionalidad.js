@@ -56,35 +56,33 @@ function insertNewUser() {
     const birthdate = document.getElementById('birthdateInput').value;
     const username = document.getElementById('userInput').value;  // Ensure this ID matches your HTML
     const password = document.getElementById('passwordInput').value;
+    const userPhoto = document.getElementById('fileId').files[0];
 
-    const requestBody = {
-        username: username,
-        password_hash: password,
-        nombre_completo: fullName,
-        fecha_nacimiento: birthdate
-    };
+    console.log(fullName);
+    console.log(birthdate);
+    console.log(username);
+    console.log(password);
+    console.log(userPhoto);
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password_hash', password);  // Assume you will hash it before sending or handle it securely
+    formData.append('nombre_completo', fullName);
+    formData.append('fecha_nacimiento', birthdate);
+    formData.append('userPhoto', userPhoto);  // Add the file to the form data
 
     fetch('http://localhost:3001/addUser', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestBody)
+        body: formData  // Sending as FormData will set the appropriate Content-Type
     })
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.text();  // Change here to handle non-JSON text
+        return response.json();
     })
-    .then(text => {
-        try {
-            const jsonData = JSON.parse(text);   // Try to parse the text as JSON
-            console.log('Success:', jsonData);
-            alert(jsonData.message);
-        } catch (e) {
-            throw new Error('Failed to parse JSON response: ' + text);
-        }
+    .then(data => {
+        console.log('Success:', data);
+        alert('User registered successfully!');
     })
     .catch(error => {
         console.error('Error:', error);

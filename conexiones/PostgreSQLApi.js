@@ -146,8 +146,15 @@ app.post('/updateUser', upload.single('userPhoto'), async (req, res) => { // ABE
     }
 });
 
-app.post('/addUser', async (req, res) => {
-    const { username, password_hash, nombre_completo, fecha_nacimiento, userPhoto } = req.body;
+app.post('/addUser', upload.single('userPhoto'), async (req, res) => {
+    const idUser = req.body.idUser;
+    const username = req.body.username;
+    const password_hash = req.body.password_hash;
+    const nombre_completo = req.body.nombre_completo;
+    const fecha_nacimiento = req.body.fecha_nacimiento;
+    const userPhoto = req.file ? req.file.path : null;  // Handling file, assuming it's optional
+    console.log(userPhoto);
+    
     try {
         const result = await pool.query(
             'SELECT add_usuario($1, $2, $3, $4, $5)',
@@ -156,7 +163,6 @@ app.post('/addUser', async (req, res) => {
         if (result.rowCount > 0) {
             console.log({ message: 'User added successfully' });
             res.status(201).json({ message: 'User added successfully' });
-
         } else {
             res.status(400).json({ error: 'No user was added' });
         }
@@ -165,6 +171,25 @@ app.post('/addUser', async (req, res) => {
         res.status(500).json({ error: 'Error adding user' });
     }
 });
+// app.post('/addUser', async (req, res) => {
+//     const { username, password_hash, nombre_completo, fecha_nacimiento, userPhoto } = req.body;
+//     try {
+//         const result = await pool.query(
+//             'SELECT add_usuario($1, $2, $3, $4, $5)',
+//             [username, password_hash, nombre_completo, fecha_nacimiento, userPhoto]
+//         );
+//         if (result.rowCount > 0) {
+//             console.log({ message: 'User added successfully' });
+//             res.status(201).json({ message: 'User added successfully' });
+
+//         } else {
+//             res.status(400).json({ error: 'No user was added' });
+//         }
+//     } catch (err) {
+//         console.error('Error executing query:', err);
+//         res.status(500).json({ error: 'Error adding user' });
+//     }
+// });
 
 app.get('/allUsers', async (req, res) => {
     try {
