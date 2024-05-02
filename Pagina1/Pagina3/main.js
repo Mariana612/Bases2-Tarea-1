@@ -302,7 +302,7 @@ async function displayComments(comments) {
 } // no lo uso
 
 async function addComment() {
-        const dataId = someDataId; // Ensure this is set correctly to the current dataset ID
+        //const dataId = someDataId; // Ensure this is set correctly to the current dataset ID
         const commentInput = document.getElementById('newCommentInput');
         const commentText = commentInput.value;
         const baseUrl = 'http://localhost:3002';
@@ -737,7 +737,8 @@ async function fetchAndAddAllUsers() {
         console.error('Error fetching users:', error);
     }}
 
-function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, rutaArchivoDat, rutaVideo){
+function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, rutaArchivoDat, rutaVideo,idData){
+    console.log(idData);
     // Crear el contenedor principal
     var mainContainer = document.createElement('div');
     mainContainer.className = 'verDataSet';
@@ -822,11 +823,20 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     // Añadir botón de descarga
     var descargaDiv = document.createElement('div');
     descargaDiv.className = 'cdrBotonDescarga';
+    //var descargaButton = document.createElement('button');
+    // descargaButton.id = 'btnDescargar';
+    // descargaButton.className = 'botonesDes';
+    // descargaButton.textContent = 'DESCARGAR';
+    // descargaButton.setAttribute('onclick', 'descargarDataSet()'); // Asegúrate de que descargarDataSet() esté definida
+
     var descargaButton = document.createElement('button');
     descargaButton.id = 'btnDescargar';
     descargaButton.className = 'botonesDes';
     descargaButton.textContent = 'DESCARGAR';
-    descargaButton.setAttribute('onclick', 'descargarDataSet()'); // Asegúrate de que descargarDataSet() esté definida
+
+// Set up the onclick handler to call descargarDataSet with idData
+    descargaButton.onclick = function() { descargarDataSet(idData); };
+
     descargaDiv.appendChild(descargaButton);
     cuadroDatsDS.appendChild(descargaDiv);
 
@@ -1007,7 +1017,7 @@ function displayDaset(dataset){
 
     const fechaFormateada = `${dia}-${mes}-${año}`;
     
-    agregarDataSet(rutaImg, dataset.Nombre, dataset.Descripción, fechaFormateada, rutaFile, rutaVideo );    
+    agregarDataSet(rutaImg, dataset.Nombre, dataset.Descripción, fechaFormateada, rutaFile, rutaVideo,dataset.DatasetId );    
 }
 
 editarInfoP(1);
@@ -1105,6 +1115,7 @@ function limpiarContenedorData(){
 } //limpia el "Ver Data Set"
 
 
-function descargarDataSet(){
-    limpiarContenedorData();
+function descargarDataSet(idData){
+    console.log("Downloading dataset with ID:", idData);
+    //limpiarContenedorData();
 }
