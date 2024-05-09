@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #633ed5,#4a28ea);
+}
+form{
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    text-align: center;
+    padding: 20px 25px;
+    box-shadow: 0 5px 10px rgba(9, 2, 71, 0.7);
+}
+
+form .tittle{
+    color: #000000;
+    font-size: 35px;
+    font-weight: 800;
+    margin-bottom:  30px;
+}
+
+form label{
+    margin-bottom: 35px;
+}
+
+
+form label .fa-solid{
+    font-size: 20px;
+    color: #1b0779;
+    margin-right: 10px;
+
+}
+
+form label .fa-regular{
+    font-size: 20px;
+    color: #1b0779;
+    margin-right: 10px;
+
+}
