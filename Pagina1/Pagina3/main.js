@@ -513,6 +513,7 @@ function agregarDataSetPerfil(nombreDelDataSet, idtabla){
 } // no lo uso
 
 function agregarFilaTablaHistorial(username, cantDescargas){
+    limpiarTablaData();
     // Crear los divs
     var mainDiv = document.createElement('div');
     mainDiv.className = 'contenidoData';
@@ -631,7 +632,7 @@ function agregarNuevoContacto(nombreChat, idUs){
 } // agrega todas las cosas cosas en BUSCAR NUEVO CONTACTO
 
 
-fetchDatasetsByOwnerId(1); //esto despliiega las varas del user
+fetchDatasetsByOwnerId(sessionStorage.getItem('idUsuario')); //esto despliiega las varas del user
 
 async function fetchDatasetsByOwnerId(ownerId) {
     const baseUrl = 'http://localhost:3002'; // Set this to the correct base URL
@@ -640,7 +641,7 @@ async function fetchDatasetsByOwnerId(ownerId) {
         const datasets = await response.json();
         if (response.ok) {
             datasets.forEach(dataset => {
-                texto = dataset.Nombre + " "+ dataset.DatasetId;
+                texto = dataset.Nombre;
                 agregarDataSetPerfil(texto, dataset.DatasetId);
             });
         } else {
@@ -1115,7 +1116,24 @@ function limpiarContenedorData(){
 } //limpia el "Ver Data Set"
 
 
-function descargarDataSet(idData){
-    console.log("Downloading dataset with ID:", idData);
-    //limpiarContenedorData();
+async function descargarDataSet(idData) {
+    const userID = sessionStorage.getItem('idUsuario');  // Get the user ID from session storage
+
+    try {
+        const response = await fetch('http://localhost:3003/dataset/users/add', {  // Adjust the port if your server runs on a different one
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ datasetID: idData, userID: userID })
+        });
+
+        if (response.ok) {
+            console.log('User ID added successfully to dataset');
+        } else {
+            console.error('Failed to add:', response.statusText);
+        }
+    } catch (err) {
+        console.error('Network Error:', err);
+    }
 }
