@@ -228,6 +228,22 @@ async function enviarMensaje(){
     }
 }
 
+document.getElementById('photoAvatar').addEventListener('change', function() {
+    // Ensure the file is selected
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+
+        // Function to execute once the file is read
+        reader.onload = function(e) {
+            // Set the loaded image as the source for the image element
+            document.getElementById('imagenDatAl').src = e.target.result;
+        };
+
+        // Read the file as a data URL (base64)
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+
 async function insertarDataSet() {
     const username = document.getElementById("username").value;
     const descripcionOutput = document.getElementById("Descripcion").value;
