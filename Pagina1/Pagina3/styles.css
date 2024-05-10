@@ -375,7 +375,7 @@ form label .fa-solid {
 	flex-direction: column;
 	overflow: auto;
 	margin-top: -40px;
-	border: 0px solid red;
+	border: 1px solid red;
 }
 
 .cuadroDatsC2{
@@ -1381,4 +1381,28 @@ form label .fa-solid {
 	font-family: "Poppins", sans-serif;
 	font-weight: bold;
 	color: white;
+}
+
+
+.comentariosPubli{
+	border: 1px solid blue;
+	width: 650px;
+}
+
+.userComentarios{
+	color: rgb(166, 70, 176); 
+	font-size: 30px;
+	font-family: "Poppins", sans-serif;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+
+.userComentariosTexto{
+
+	color:black; 
+	font-size: 20px;
+	font-family: "Poppins", sans-serif;
+	margin-bottom: 0px;
+	margin-top: 0px;
 }
