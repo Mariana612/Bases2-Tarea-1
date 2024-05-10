@@ -1020,7 +1020,7 @@ function displayDaset(dataset){
     agregarDataSet(rutaImg, dataset.Nombre, dataset.Descripción, fechaFormateada, rutaFile, rutaVideo,dataset.DatasetId );    
 }
 
-editarInfoP(1);
+//editarInfoP(1);
 fetchDataset();//para ver los dataSet 
 
 function limpiarMensajeria(){

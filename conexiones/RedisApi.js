@@ -60,3 +60,6 @@ process.on('SIGINT', async () => {
     await closeConnection();
     process.exit();
 });
+
+
+// CANTIDAD DE DESCARGAS
