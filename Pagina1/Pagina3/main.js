@@ -512,8 +512,8 @@ function agregarDataSetPerfil(nombreDelDataSet, idtabla){
     targetContainer.appendChild(containerDiv);
 } // no lo uso
 
-function agregarFilaTablaHistorial(username, cantDescargas){
-    limpiarTablaData();
+function agregarFilaTablaHistorial(username, cantDescargas){ 
+   
     // Crear los divs
     var mainDiv = document.createElement('div');
     mainDiv.className = 'contenidoData';
@@ -655,6 +655,7 @@ async function fetchDatasetsByOwnerId(ownerId) {
 
 async function fetchAndDisplayUserStats(datasetID) {
     const redisBaseUrl = 'http://localhost:3003'; // Adjust to your actual Redis API base URL
+    limpiarTablaData();
 
     try {
         // Fetch the array of user IDs
@@ -713,6 +714,7 @@ async function fetchAndAddAllUsers() {
             for (const user of users) {
                 const currentUserId = sessionStorage.getItem('idUsuario');
                 const potentialRowKey = `${currentUserId}#${user.iduser}`;
+                const potentialRowKey2 = `${user.iduser}#${currentUserId}`;
 
                 // Check if a row with this key exists in HBase
                 const checkResponse = await fetch(`${hbaseBaseUrl}/hbase/getData/UserMessages/${encodeURIComponent(potentialRowKey)}`);
@@ -725,18 +727,29 @@ async function fetchAndAddAllUsers() {
                     } else {
                         console.log(`Row key exists: ${potentialRowKey}, skipping`);
                     }
-                } else {
+                } 
+                else {
+                    const checkResponse2 = await fetch(`${hbaseBaseUrl}/hbase/getData/UserMessages/${encodeURIComponent(potentialRowKey2)}`);
                     // Handle non-200 responses gracefully
-                    console.log(`No data found for row key: ${potentialRowKey}, adding contact due to error or non-existence`);
-                    agregarNuevoContacto(user.username, user.iduser);
-                }
+                    if (checkResponse2.ok) {
+                        console.log("Skipping");
+                    }else{ 
+                        if(user.iduser === Number(sessionStorage.getItem('idUsuario')))
+                        {console.log("Skipping");}
+                        else{
+                        console.log(`No data found for row key: ${potentialRowKey}, adding contact due to error or non-existence`);
+                        agregarNuevoContacto(user.username, user.iduser);
+                     }
+                    }
+                 } 
             }
         } else {
             console.error('Failed to fetch users:', users);
         }
     } catch (error) {
         console.error('Error fetching users:', error);
-    }}
+    }
+}
 
 function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, rutaArchivoDat, rutaVideo,idData){
     console.log(idData);
