@@ -824,7 +824,7 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     var descargaDiv = document.createElement('div');
     descargaDiv.className = 'cdrBotonDescarga';
     var descargaButton = document.createElement('button');
-    descargaButton.id = 'btnDescargar';
+    descargaButton.id = 'btnDescargar' + idData.toString();
     descargaButton.className = 'botonesDes';
     descargaButton.textContent = 'DESCARGAR';
 
