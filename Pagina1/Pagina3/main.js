@@ -861,10 +861,10 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     cuadroDatsC2.appendChild(inputComment);
 
     var commentButton = document.createElement('button');
-    commentButton.id = 'btnComen' + idData.toString();
+    commentButton.id = 'btnComen';
     commentButton.className = 'botonesC';
     commentButton.textContent = 'COMENTAR';
-    commentButton.setAttribute('onclick', 'addComment()');  // Asegúrate de que la función addComment() esté definida
+    commentButton.setAttribute('onclick', 'addComment(idData)');  // Asegúrate de que la función addComment() esté definida
     cuadroDatsC2.appendChild(commentButton);
 
     // Ensamblar todo en el contenedor principal
