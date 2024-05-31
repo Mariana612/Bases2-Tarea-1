@@ -853,18 +853,12 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     // Añadir botón de descarga
     var descargaDiv = document.createElement('div');
     descargaDiv.className = 'cdrBotonDescarga';
-    //var descargaButton = document.createElement('button');
-    // descargaButton.id = 'btnDescargar';
-    // descargaButton.className = 'botonesDes';
-    // descargaButton.textContent = 'DESCARGAR';
-    // descargaButton.setAttribute('onclick', 'descargarDataSet()'); // Asegúrate de que descargarDataSet() esté definida
-
     var descargaButton = document.createElement('button');
     descargaButton.id = 'btnDescargar';
     descargaButton.className = 'botonesDes';
     descargaButton.textContent = 'DESCARGAR';
 
-// Set up the onclick handler to call descargarDataSet with idData
+    // Set up the onclick handler to call descargarDataSet with idData
     descargaButton.onclick = function() { descargarDataSet(idData); };
 
     descargaDiv.appendChild(descargaButton);
@@ -877,7 +871,7 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     datasetC.appendChild(titleMC);
 
     var commentsContainer = document.createElement('div');
-    commentsContainer.id = 'commentsContainer';
+    commentsContainer.id = 'commentsContainer' + idData.toString();
     commentsContainer.className = 'cuadroDatsC';
     datasetC.appendChild(commentsContainer);
 
@@ -892,7 +886,7 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
 
     var inputComment = document.createElement('input');
     inputComment.type = 'text';
-    inputComment.id = 'newCommentInput';
+    inputComment.id = 'newCommentInput' + idData.toString();
     inputComment.className = 'iDatCmt2';
     cuadroDatsC2.appendChild(inputComment);
 
@@ -900,7 +894,7 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     commentButton.id = 'btnComen';
     commentButton.className = 'botonesC';
     commentButton.textContent = 'COMENTAR';
-    commentButton.setAttribute('onclick', 'addComment()');  // Asegúrate de que la función addComment() esté definida
+    commentButton.setAttribute('onclick', 'addComment(idData)');  // Asegúrate de que la función addComment() esté definida
     cuadroDatsC2.appendChild(commentButton);
 
     // Ensamblar todo en el contenedor principal
@@ -1054,64 +1048,57 @@ function displayDaset(dataset){
 fetchDataset();//para ver los dataSet 
 
 function limpiarMensajeria(){
-    var container = document.querySelector('.cdrChatsDispo');
+    var contenedor = document.getElementById('idCdrChatsDispo');
 
-    if (container) {
-        var divs = container.querySelectorAll('div');
+    var divsParaEliminar = contenedor.querySelectorAll('.cdrContactos');
 
-        divs.forEach(function(div) {
-            container.removeChild(div);
-        });
-    }
+    divsParaEliminar.forEach(function(div) {
+        contenedor.removeChild(div);
+    });
 
 } // limpia mensajeria principal
 
 function limpiarMensajesChat() {
-    var container = document.querySelector('.cdrChats');
+    var contenedor = document.getElementById('idCdrChats');
 
-    if (container) {
-        while (container.firstChild) {
-            container.removeChild(container.firstChild);
-        }
-    }
+    var divsParaEliminar = contenedor.querySelectorAll('.cdrMsg');
+
+    divsParaEliminar.forEach(function(div) {
+        contenedor.removeChild(div);
+    });
 }
 
 function limpiarNuevosContactos(){
-    var container = document.querySelector('.cdrChatsB');
+    var contenedor = document.getElementById('idCdrChatsB');
 
-    if (container) {
-        var divs = container.querySelectorAll('div');
+    var divsParaEliminar = contenedor.querySelectorAll('.cdrContactosB');
 
-        divs.forEach(function(div) {
-            container.removeChild(div);
-        });
-    }
-    
+    divsParaEliminar.forEach(function(div) {
+        contenedor.removeChild(div);
+    });
+
 } // eliumina nuevos contactos
 
 function limpiarDataSet(){
-    var container = document.querySelector('.marcoDataS');
+    var contenedor = document.getElementById('idMarcoDataS');
 
-    if (container) {
-        var divs = container.querySelectorAll('div');
+    var divsParaEliminar = contenedor.querySelectorAll('.cdrDataS');
 
-        divs.forEach(function(div) {
-            container.removeChild(div);
-        });
-    }
+    divsParaEliminar.forEach(function(div) {
+        contenedor.removeChild(div);
+    });
     
-} // limpia dataset
+} // limpia dataset del perfil
 
 function limpiarTablaData(){
-    var container = document.querySelector('.contenidoTabla');
+    var contenedor = document.getElementById('idContenidoTabla');
 
-    if (container) {
-        var divs = container.querySelectorAll('div');
+    var divsParaEliminar = contenedor.querySelectorAll('.contenidoData');
 
-        divs.forEach(function(div) {
-            container.removeChild(div);
-        });
-    }
+    divsParaEliminar.forEach(function(div) {
+        contenedor.removeChild(div);
+    });
+
 } //limpia tabla
 
 //funcion de obtener el id del user 
@@ -1130,6 +1117,7 @@ async function getidUsername(username) {
         return null;
     }
 }
+
 function limpiarContenedorData(){
     // Seleccionar el contenedor por su ID
     var contenedor = document.getElementById('contenedorDataSetV');
@@ -1166,3 +1154,29 @@ async function descargarDataSet(idData) {
         console.error('Network Error:', err);
     }
 }
+
+function agregarComentarioDataSet(userName, comentario, idData){
+    // Crear los elementos
+    var divComentarioHecho = document.createElement("div");
+    var h1ComUser = document.createElement("h1");
+    var divComTexto = document.createElement("div");
+
+    // Establecer clases CSS
+    divComentarioHecho.className = "comentarioHecho";
+    h1ComUser.className = "comUser";
+    divComTexto.className = "comTexto";
+
+    // Añadir contenido
+    h1ComUser.textContent = userName;
+    divComTexto.textContent = comentario;
+
+    // Anidar los elementos
+    divComentarioHecho.appendChild(h1ComUser);
+    divComentarioHecho.appendChild(divComTexto);
+
+    // Obtener el contenedor y añadir el elemento creado
+    var contenedorComData = 'commentsContainer' + idData.toString();
+    var commentsContainer = document.getElementById(contenedorComData);
+    commentsContainer.appendChild(divComentarioHecho);
+
+} //agregarComentarioDataSet('userName', 'comentario', 1)
