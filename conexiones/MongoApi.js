@@ -134,6 +134,7 @@ async function main() {
             }
         });
 
+        
         app.post('/comments', async (req, res) => {
             console.log(req.body); // Add this line to log the incoming request data
             try {

@@ -999,7 +999,7 @@ async function buscarDataset2(criterioBusInput) {
         });
 
     }     catch(error){
-        console.error('Failed to fetch dataset or user ID:', error);
+        fetchDataset();
         }
     }
 
@@ -1108,6 +1108,7 @@ async function getidUsername(username) {
         const response = await fetch(`${userApiBaseUrl}/getuser/${encodeURIComponent(username)}`);
         if (!response.ok) {
             console.log(`No user found with username ${username}`);
+            fetchDataset();
             return null;  // Ensure this logic is correctly handling non-OK responses
         }
         const userData = await response.json();
