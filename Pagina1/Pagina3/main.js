@@ -26,7 +26,7 @@ async function mostraOcultarP(){
     container2.style.display = "none";
     container3.style.display = "none";
     container4.style.display = "none";
-    limpiarMensajeria();
+    //limpiarMensajeria();
     TestUsr();
 }
 
@@ -309,8 +309,7 @@ async function displayComments(comments,dataId) {
             } catch (error) {
                // commentDiv.innerHTML = `<h4 class="solDatosCmt">Username: </h4><output class="iDatCmt">Error fetching username - ${comment.comentario}</output>`;
                 console.error('Error fetching username:', error);
-            }
-        }
+            }}
 
 } // no lo uso
 
@@ -341,9 +340,11 @@ async function addComment(idData) {
     
             if (response.ok) {
                 // Clear input after successful submission
-                commentInput.value = '';
+               
                 // Refresh comments to show the new one
-                fetchComments(idData);
+                const username = await fetchName(sessionStorage.getItem('idUsuario'));
+                agregarComentarioDataSet(username, commentText, idData);
+                commentInput.value = '';
             } else {
                 console.error('Failed to post comment');
             }
@@ -379,6 +380,7 @@ async function volverChats(){
 
 
 function verNuevosChats(){
+    
     var container1 = document.getElementsByClassName("cdrContacto")[0];
     var container2 = document.getElementsByClassName("cdrChats")[0];
     var container3 = document.getElementsByClassName("cdrEnviarMsg")[0];
@@ -404,6 +406,7 @@ function verNuevosChats(){
 } // permite que el voton de NUEVA CONVERSACION sirva
 
 async function muestraMensajeria(){
+    
 const idPerson = sessionStorage.getItem('idUsuario'); // Assuming 'idUsuario' is the current user's ID
 const baseUrl = 'http://localhost:3004'; // Make sure this matches your API server's address
 try {
@@ -426,6 +429,7 @@ try {
 } catch (error) {
     console.error('Error fetching data:', error);
 }
+
 } // muestra al inicioen mensajeria
 muestraMensajeria();
 
