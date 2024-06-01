@@ -236,8 +236,8 @@ async function insertarDataSet() {
     const videoInput = document.getElementById("videoTuto").files[0];
     const idowner = sessionStorage.getItem('idUsuario');
 
-    const idownerString = idowner.toString(); // Convertir el número entero a cadena
-
+    //const idownerString = idowner.toString(); // Convertir el número entero a cadena
+    const idownerString="1";
     // Crear objeto FormData para enviar los datos y archivos
     const formData = new FormData();
     formData.append('photoAvatar', avatarUserInput); // Agregar la foto/avatar
@@ -271,7 +271,7 @@ async function fetchComments(dataId) {
         const response = await fetch(`${baseUrl}/comments/${dataId}`);
         const comments = await response.json();
         if (response.ok) {
-            displayComments(comments);
+            agregarComentarioDataSet("panita",comments.comentario,dataId);
         } else {
             console.error('Comments not found', comments);
         }
@@ -279,7 +279,8 @@ async function fetchComments(dataId) {
         console.error('Failed to fetch comments:', error);
     }
 } // no lo uso
-    
+ 
+//hacer una función de encontrar al username 
 async function displayComments(comments) {
         const commentsContainer = document.getElementById('commentsContainer');
         commentsContainer.innerHTML = ''; // Clear previous comments
@@ -309,15 +310,16 @@ async function addComment() {
         alert(sessionStorage.getItem('idUsuario'));
         idu = parseInt(sessionStorage.getItem('idUsuario'));
         const commentData = {
-            idDataset: dataId,
-            idUsuarioComment: idu, // Assuming the user ID is stored in sessionStorage
+            idDataset: 1,
+            idUsuarioComment: 2, // Assuming the user ID is stored in sessionStorage
             
             comentario: commentText
         };
     
         try {
             const username = await fetchName(comment.idUsuarioComment);
-            commentDiv.innerHTML = `<h4 class="solDatosCmt">Username: </h4><output class="iDatCmt">${username} - ${comment.comentario}</output>`;
+            console.log(username.comentario);
+            agregarComentarioDataSet("NewCome",username.comentario,dataId);
         } catch (error) {
             commentDiv.innerHTML = `<h4 class="solDatosCmt">Username: </h4><output class="iDatCmt">Error fetching username - ${comment.comentario}</output>`;
             console.error('Error fetching username:', error);
@@ -683,6 +685,7 @@ async function fetchAndDisplayUserStats(datasetID) {
     }
 }//no se necesita
 
+//aqui toy
 async function fetchName(idUs) {
     const userApiBaseUrl = 'http://localhost:3001'; // Adjust to your actual User API base URL
     try {
@@ -864,7 +867,7 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     commentButton.id = 'btnComen';
     commentButton.className = 'botonesC';
     commentButton.textContent = 'COMENTAR';
-    commentButton.setAttribute('onclick', 'addComment(idData)');  // Asegúrate de que la función addComment() esté definida
+    commentButton.setAttribute('onclick', 'addComment()');  // Asegúrate de que la función addComment() esté definida
     cuadroDatsC2.appendChild(commentButton);
 
     // Ensamblar todo en el contenedor principal
@@ -934,8 +937,6 @@ async function buscarDataset() {
         if(flag1==0){
             throw new Error('Not id');
         }
-
-        
     
     } catch (error) {
         //console.error('Failed to fetch dataset or user ID:', error);
@@ -1012,6 +1013,8 @@ function displayDaset(dataset){
     const fechaFormateada = `${dia}-${mes}-${año}`;
     
     agregarDataSet(rutaImg, dataset.Nombre, dataset.Descripción, fechaFormateada, rutaFile, rutaVideo,dataset.DatasetId );    
+    fetchComments(dataset.DatasetId);
+    
 }
 
 editarInfoP(1);
