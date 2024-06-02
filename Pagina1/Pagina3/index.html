@@ -70,12 +70,9 @@
                 <h1 class="nomContactoB" id="nombreContactoMsg">BUSCAR NUEVO CONTACTO</h1>
             </div>
 
-            <div class="cdrChatsB" id="idCdrChatsB">
+            <div class="cdrChatsB" id="idCdrChatsBB">
                 
-                <div class="cdrContactosB">
-                    <!-- <h1 class="nomContactosB">Alisson Carillo</h1> -->
-                    <button type="submit" class="btnECB" onclick="nuevoChat()"> <img src="imagenes/iniciarConver.png" class="btnECIB"> </button>
-                </div> 
+   
                 
             </div>
 
@@ -200,7 +197,7 @@
             <h2 class="tittleMR">DATA SET</h2>
 
             <div class="avatar">
-                <img src="imagenes/perfil1.png" alt="Imagen de perfil" class="fotoPer" id="imagenDatAl">
+                <img id="idFoto" src="imagenes/perfil1.png" alt="Imagen de perfil" class="fotoPer">
                 <h3 class="solDatosA">Foto o avatar:</h3>
                 <input type="file" id="photoAvatar" class="iDatF">
             </div>
@@ -239,6 +236,48 @@
 
     </div>
 
+    <div class="datasetClon">
+        <div class="cuadroDats">
+            <h2 class="tittleMR">DATA SET</h2>
+
+            <div class="avatar">
+                <img id="idFotoC" alt="Imagen de perfil" class="fotoPer">
+                <h3 class="solDatosA">Foto o avatar</h3>
+            </div>
+
+            <div class="infoIO">
+                <h3 class="solDatos">Nombre: </h3>
+                <input type="text" id="usernameC" class="iDat">
+            </div>
+
+            <div class="infoIO">
+                <h3 class="solDatos">Descripción:</h3>
+                <input type="text" id="DescripcionC" class="iDat">
+            </div>
+
+            <div class="infoIO">
+                <h3 class="solDatos">Fecha de inclusión:</h3>
+                <output id="fechaIncluC" name="date" class="iDatFN" ></output>
+
+            </div>
+
+            <div class="infoIO">
+                <h3 class="solDatos">Archivo con los datos:</h3>
+                <output id="archivosDatosC" class="iDat">
+            </div>
+
+            <div class="infoIO">
+                <h3 class="solDatos">Video tutorial:</h3>
+                <output id="videoTutoC" class="iDat">
+            </div>
+
+        </div>
+
+        <div class="apBtnR">
+            <button onclick="insertarDataSetClon()" id="btnR" class="botonR">CLONAR</button>
+        </div>
+
+    </div>
 
     <div class="barraBus">
         <input type="text" id="criterioBusInpu" class="criterioBus"> 
@@ -246,7 +285,74 @@
     </div>
     
     <div class="contenedorDataSet" id="contenedorDataSetV">
+<!-- 
+        <div class="verDataSet">
+            <div class="datasetA">
+                <div class="cuadroDatsDS">
+                    <h2 class="tittleMV">DATA SET</h2>
+        
+                    <div class="avatar">
+                        <img id= "fotoid" src="" alt="Imagen de perfil" class="fotoPer">
+                        <h3 class="solDatosACom">Foto o avatar</h3>
+                    </div>
+        
+                    <div class="infoIO">
+                        <h3 class="solDatosCom">Nombre: </h3>
+                        <output id="username" class="iDatDS"></output>
+                    </div>
+        
+                    <div class="infoIO">
+                        <h3 class="solDatosCom">Descripción:</h3>
+                        <output id="Descripcion" class="iDatDS"></output>
+                    </div>
+        
+                    <div class="infoIO">
+                        <h3 class="solDatosCom">Fecha de inclusión:</h3>
+                        <output id="fecha" class="iDatDS"></output>
+                    </div>
+        
+                    <div class="infoIO">
+                        <h3 class="solDatosCom">Archivo con los datos:</h3>
+                        <output id="archiId" class="iDatDS"></output>
+                    </div>
+        
+                    <div class="infoIO">
+                        <h3 class="solDatosCom">Video tutorial:</h3>
+                    </div>
+                    
+                    <div class="video-container">
+                        <video controls width="100%">
+                            <source src="" type="video/mp4">
+                            Tu navegador no soporta el elemento de video.
+                        </video>
+                    </div>  
+                    
+                    <div class="cdrBotonDescarga">
+                        <button id="btnComen" class="botonesDes" onclick="descargarDataSet()">DESCARGAR</button>
+                    </div>
 
+
+                </div>
+            </div>
+    
+            
+    
+    
+            <div class="datasetC">
+                <h4 class="tittleMC">COMENTARIOS</h4>
+                <div id="commentsContainer" class="cuadroDatsC">
+
+
+                </div>
+    
+                <div class="cuadroDatsC2">
+                    <h3 class="solDatosCmt2">Agregar comentario</h3>
+                    <input type="text" id="newCommentInput" class="iDatCmt2">
+                    <button id="btnComen" class="botonesC" onclick="addComment()">COMENTAR</button>
+                </div>
+      
+            </div>
+        </div> -->
 
     </div>
     

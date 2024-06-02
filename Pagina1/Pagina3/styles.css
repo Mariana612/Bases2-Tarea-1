@@ -52,6 +52,20 @@ form label .fa-solid {
     margin-bottom: 20px; 
 }
 
+.datasetClon{
+	display: none;
+    flex-direction: column; 
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    height: 25%; 
+    width: 800px;
+    border: 10px solid rgb(219, 6, 104);
+    border-radius: 20px;
+    background-color: white;
+    margin: 0 auto; /* Center horizontally */
+    margin-bottom: 20px; 
+}
+
 .tittleMR {
 	color: rgb(219, 6, 104); 
 	font-size: 100px;
@@ -1414,4 +1428,9 @@ form label .fa-solid {
 	font-family: "Poppins", sans-serif;
 	color: black;
 	margin: 0px;
+}
+
+.cdrBotonDescarga{
+	display: flex;
+	justify-content: space-between;
 }

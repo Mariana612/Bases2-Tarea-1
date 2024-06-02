@@ -125,6 +125,44 @@ async function main() {
                     "Video": tutoUrl
                 };
 
+                
+                
+                const result = await collection.insertOne(datasetDocument);
+                console.log('Counter de data:', datasetDocument.DatasetId);
+                res.status(201).json(result);
+            } catch (err) {
+                console.error('Failed to insert data:', err);
+                res.status(500).send('Internal Server Error');
+            }
+        });
+
+        app.post('/datasetclone', upload.fields([{ name: 'photoAvatar', maxCount: 1 }, { name: 'archivosDatos', maxCount: 1 }, { name: 'videoTuto', maxCount: 1 }]), async (req, res) => {
+            try {
+                //el requestbody se hace de esta manera porque se manda desde la estructura FormData
+                const nombre = req.body.nombre;
+                const descripcion = req.body.descripcion;
+                const idowner = req.body.idowner;
+                const idownerInt = parseInt(idowner, 10);//como se recibe como tipo string el id, se pasa a integer
+
+                const photoAvatarUrl = req.body.photoAvatar; // Obtén la ruta del avatar
+                const archivoUrl = req.body.archivosDatos; // Obtén la ruta del archivo de datos
+                const tutoUrl = req.body.videoTuto;; // Obtén la ruta del archivo de datos
+
+                console.log(archivoUrl);
+
+                const datasetDocument = {
+                    "Nombre": nombre,
+                    "DatasetId": await getMaxDataId() + 1,
+                    "Descripción": descripcion,
+                    "Fecha de Inclusión": new Date(),
+                    "Foto o avatar": photoAvatarUrl, // Usa la ruta del avatar
+                    "Archivo(s)": archivoUrl, // Usa la ruta del archivo de datos
+                    "OwnerId": idownerInt,
+                    "Video": tutoUrl
+                };
+
+                
+                
                 const result = await collection.insertOne(datasetDocument);
                 console.log('Counter de data:', datasetDocument.DatasetId);
                 res.status(201).json(result);
