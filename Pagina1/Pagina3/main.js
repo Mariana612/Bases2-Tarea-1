@@ -21,11 +21,13 @@ async function mostraOcultarP(){
 
     var container3 = document.getElementsByClassName("barraBus")[0];
     var container4 = document.getElementsByClassName("contenedorDataSet")[0];
+    var container5 = document.getElementsByClassName("datasetClon")[0];
 
     container1.style.display = "flex";
     container2.style.display = "none";
     container3.style.display = "none";
     container4.style.display = "none";
+    container5.style.display = "none";
     limpiarMensajeria();
     TestUsr();
 }
@@ -46,30 +48,33 @@ function mostraOcultarSeeD(){
 
 function mostraOcultarR(){
     var container1 = document.getElementsByClassName("perfil")[0];
-
     var container2 = document.getElementsByClassName("dataset")[0];
+    var container5 = document.getElementsByClassName("datasetClon")[0];
 
     var container3 = document.getElementsByClassName("barraBus")[0];
     var container4 = document.getElementsByClassName("contenedorDataSet")[0];
 
     container1.style.display = "none";
-    container2.style.display = "flex";
+    container2.style.display = "flex"; 
     container3.style.display = "none";
     container4.style.display = "none";
+    container5.style.display = "none";
 }
 
 function mostraOcultarI(){
     var container1 = document.getElementsByClassName("perfil")[0];
-
     var container2 = document.getElementsByClassName("dataset")[0];
 
     var container3 = document.getElementsByClassName("barraBus")[0];
     var container4 = document.getElementsByClassName("contenedorDataSet")[0];
+    var container5 = document.getElementsByClassName("datasetClon")[0];
+    
 
     container1.style.display = "none";
     container2.style.display = "none";
     container3.style.display = "flex";
     container4.style.display = "flex";
+    container5.style.display = "none";
 }
 
 function mostraOcultarEditP(){
@@ -409,7 +414,7 @@ function verNuevosChats(){
     container7.style.display = "flex";
     container8.style.display = "none";
 
-    limpiarNuevosContactos();
+    //limpiarNuevosContactos();
     fetchAndAddAllUsers();
 } // permite que el voton de NUEVA CONVERSACION sirva
 
@@ -766,7 +771,7 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     cuadroDatsDS.appendChild(avatarDiv);
 
     var img = document.createElement('img');
-    img.id = 'fotoid';
+    img.id = 'fotoid' + idData.toString();
     img.src = rutaImagen;  // Añadir la ruta de la imagen
     img.alt = 'Imagen de perfil';
     img.className = 'fotoPer';
@@ -797,10 +802,10 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
         return infoDiv;
     }
 
-    createInfoIO('infoIO', 'Nombre:', 'username', nombreUsuario);
-    createInfoIO('infoIO', 'Descripción:', 'Descripcion', descripcion);
-    createInfoIO('infoIO', 'Fecha de inclusión:', 'fecha', fechaInclusion);
-    createInfoIO('infoIO', 'Archivo con los datos:', 'archiId', rutaArchivoDat);
+    createInfoIO('infoIO', 'Nombre:', 'username' + idData.toString(), nombreUsuario);
+    createInfoIO('infoIO', 'Descripción:', 'Descripcion' + idData.toString(), descripcion);
+    createInfoIO('infoIO', 'Fecha de inclusión:', 'fecha' + idData.toString(), fechaInclusion);
+    createInfoIO('infoIO', 'Archivo con los datos:', 'archiId' + idData.toString(), rutaArchivoDat);
 
     // Añadir video
     var videoContainer = document.createElement('div');
@@ -809,10 +814,12 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
 
     var video = document.createElement('video');
     video.controls = true;
+    video.id = 'videoT' + idData.toString();
     video.style.width = '100%';
     videoContainer.appendChild(video);
 
     var source = document.createElement('source');
+    source.id = 'videoS' + idData.toString();
     source.src = rutaVideo;  // Añadir la fuente del video
     source.type = 'video/mp4';
     video.appendChild(source);
@@ -824,7 +831,7 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     var descargaDiv = document.createElement('div');
     descargaDiv.className = 'cdrBotonDescarga';
     var descargaButton = document.createElement('button');
-    descargaButton.id = 'btnDescargar';
+    descargaButton.id = 'btnDescargar' + idData.toString();
     descargaButton.className = 'botonesDes';
     descargaButton.textContent = 'DESCARGAR';
 
@@ -832,6 +839,19 @@ function agregarDataSet(rutaImagen, nombreUsuario, descripcion, fechaInclusion, 
     descargaButton.onclick = function() { descargarDataSet(idData); };
 
     descargaDiv.appendChild(descargaButton);
+
+    // Crear y configurar el botón de clonar
+    var clonarButton = document.createElement('button');
+    clonarButton.id = 'btnClon' + idData.toString();
+    clonarButton.className = 'botonesDes';
+    clonarButton.textContent = 'CLONAR';
+
+    // Set up the onclick handler to call descargarDataSet
+    clonarButton.onclick = function() { clonarDataSet(idData); };
+
+    // Añadir el botón de clonar al mismo div
+    descargaDiv.appendChild(clonarButton);
+
     cuadroDatsDS.appendChild(descargaDiv);
 
     // Crear y llenar datasetC
@@ -1039,8 +1059,7 @@ function limpiarMensajesChat() {
 }
 
 function limpiarNuevosContactos(){
-    var contenedor = document.getElementById('idCdrChatsB');
-
+    var contenedor = document.getElementById('idCdrChatsBB');
     var divsParaEliminar = contenedor.querySelectorAll('.cdrContactosB');
 
     divsParaEliminar.forEach(function(div) {
@@ -1132,3 +1151,92 @@ function agregarComentarioDataSet(userName, comentario, idData){
     commentsContainer.appendChild(divComentarioHecho);
 
 } //agregarComentarioDataSet('userName', 'comentario', 1)
+
+
+agregarDataSet("imagenes/gato.jpg", "nombreUsuario", "descripcion", "31/5/2024", "archivos/gatoA.pdf", "video/duck-drums.mp4", 1);
+
+
+function clonarDataSet(idData){
+    var imagenData =document.getElementById('fotoid' + idData.toString());
+    var nombreData = document.getElementById('username' + idData.toString());
+    var descripcionData = document.getElementById('Descripcion' + idData.toString());
+    var archivoData = document.getElementById('archiId' + idData.toString());
+    var videoData = document.getElementById('videoS' + idData.toString());
+        
+    // Obtener el valor del campo de entrada
+    var imagenSrc = imagenData.src;
+    var nombreValue = nombreData.value;
+    var descripcionValue = descripcionData.value;
+    var archivoSrc = archivoData.value;
+    var videoSrc = videoData.src;
+    
+    // Manipulación de la interfaz
+    var container1 = document.getElementsByClassName("perfil")[0];
+    var container2 = document.getElementsByClassName("dataset")[0];
+    var container3 = document.getElementsByClassName("barraBus")[0];
+    var container4 = document.getElementsByClassName("contenedorDataSet")[0];
+    var container5 = document.getElementsByClassName("datasetClon")[0];
+
+    container1.style.display = "none";
+    container2.style.display = "none";
+    container3.style.display = "none";
+    container4.style.display = "none";
+    container5.style.display = "flex";
+
+
+    //Asiganción en la clonación 
+    imagenData = document.getElementById('idFotoC');
+    nombreData = document.getElementById('usernameC');
+    descripcionData = document.getElementById('DescripcionC');
+    archivoData = document.getElementById('archivosDatosC');
+    videoData = document.getElementById('videoTutoC');
+
+    imagenData.src = 'imagenes/' + imagenSrc.substring(imagenSrc.lastIndexOf('/') + 1);
+    nombreData.value = nombreValue;
+    descripcionData.value = descripcionValue;
+    archivoData.value = archivoSrc.split('/').pop();
+    videoData.value = videoSrc.substring(videoSrc.lastIndexOf('/') + 1);
+
+    var fechaActual = new Date();
+    var formattedDate = ('0' + fechaActual.getDate()).slice(-2) + '/' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '/' + fechaActual.getFullYear();
+    document.getElementById('fechaIncluC').textContent = formattedDate;
+}
+
+
+
+async function insertarDataSetClon() {
+    const username = document.getElementById("usernameC").value;
+    const descripcionOutput = document.getElementById("DescripcionC").value;
+    const avatarUserInput = document.getElementById("idFotoC").src; // Obtener el archivo de la foto/avatar
+    const archivoInput = document.getElementById("archivosDatosC").value; // Obtener el archivo de datos
+    const videoInput = document.getElementById("videoTutoC").value;
+    const idowner = sessionStorage.getItem('idUsuario');
+
+    const idownerString = idowner.toString(); // Convertir el número entero a cadena
+
+    // Crear objeto FormData para enviar los datos y archivos
+    const formData = new FormData();
+    formData.append('photoAvatar', avatarUserInput); // Agregar la foto/avatar
+    formData.append('archivosDatos', archivoInput); // Agregar el archivo de datos
+    formData.append('videoTuto', videoInput);
+
+    // Agregar los campos del requestBody al FormData
+    formData.append('nombre', username);
+    formData.append('descripcion', descripcionOutput);
+    formData.append('idowner', idownerString); // idwoner
+
+    try {
+        const response = await fetch('http://localhost:3002/dataset', {
+            method: 'POST',
+            body: formData 
+        });
+
+        if (response.ok) {
+            console.log('Datos insertados correctamente');
+        } else {
+            console.error('Error al insertar datos:', response.statusText);
+        }
+    } catch (err) {
+        console.error('Error de red:', err);
+    }
+}
